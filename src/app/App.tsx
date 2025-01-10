@@ -2,7 +2,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Outlet } from "react-router-dom";
 import { Header } from "@/widgets/Header";
 import * as S from "./App.style";
-import { Text } from "@/shared/ui/Text";
+import { BottomNavigation } from "@/widgets/BottomNavigation";
 
 function App() {
   return (
@@ -10,6 +10,7 @@ function App() {
       <Header />
       <Outlet />
       <ReactQueryDevtools initialIsOpen={true} />
+      <BottomNavigation />
     </S.Container>
   );
 }

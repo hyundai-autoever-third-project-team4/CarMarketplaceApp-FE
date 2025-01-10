@@ -4,6 +4,8 @@ export const Container = styled.div`
   width: 100%;
   max-width: 600px;
   min-width: 300px;
+  position: fixed; //위에 고정
+  top: 0px;
   height: 64px;
   background-color: white;
   display: flex;
