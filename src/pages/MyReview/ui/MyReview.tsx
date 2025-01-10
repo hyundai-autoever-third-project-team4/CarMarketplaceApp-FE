@@ -1,5 +1,3 @@
-function MyReview() {
+export function MyReview() {
   return <div>MyReview</div>;
 }
-
-export default MyReview;

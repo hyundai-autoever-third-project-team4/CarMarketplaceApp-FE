@@ -1,1 +1,1 @@
-export { default as My } from "./ui/My";
+export { My } from "./ui/My";

@@ -18,6 +18,7 @@ import { Payment } from "@/pages/Payment";
 import { Reservation } from "@/pages/Reservation";
 import { ReviewWrite } from "@/pages/ReviewWrite";
 import { Search } from "@/pages/Search";
+import { Chatting } from "@/pages/Chatting";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "/reservation",
         element: <Reservation />,
+      },
+      {
+        path: "/chatting",
+        element: <Chatting />,
       },
       {
         path: "/my",
@@ -91,10 +96,10 @@ const router = createBrowserRouter([
   },
 ]);
 
-export const RouteProvider = () => {
+export function RouteProvider() {
   return (
     <Suspense fallback={<Loading />}>
       <RouterProvider router={router} />
     </Suspense>
   );
-};
+}

@@ -1,1 +1,1 @@
-export { default as DriveCenterMap } from "./ui/DriveCenterMap";
+export { DriveCenterMap } from "./ui/DriveCenterMap";
