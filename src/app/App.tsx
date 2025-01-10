@@ -1,7 +1,13 @@
-import "./reset.css";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Outlet } from "react-router-dom";
 
 function App() {
-  return <div />;
+  return (
+    <>
+      <Outlet />
+      <ReactQueryDevtools initialIsOpen={true} />
+    </>
+  );
 }
 
 export default App;
