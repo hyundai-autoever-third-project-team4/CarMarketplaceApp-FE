@@ -1,5 +1,3 @@
-function Reservation() {
+export function Reservation() {
   return <div>Reservation</div>;
 }
-
-export default Reservation;

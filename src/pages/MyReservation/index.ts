@@ -1,1 +1,1 @@
-export { default as MyReservation } from "./ui/MyReservation";
+export { MyReservation } from "./ui/MyReservation";

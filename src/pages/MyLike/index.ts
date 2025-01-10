@@ -1,1 +1,1 @@
-export { default as MyLike } from "./ui/MyLike";
+export { MyLike } from "./ui/MyLike";

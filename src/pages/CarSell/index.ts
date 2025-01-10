@@ -1,1 +1,1 @@
-export { default as CarSell } from "./ui/CarSell";
+export { CarSell } from "./ui/CarSell";

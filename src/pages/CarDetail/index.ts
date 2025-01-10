@@ -1,1 +1,1 @@
-export { default as CarDetail } from "./ui/CarDetail";
+export { CarDetail } from "./ui/CarDetail";

@@ -1,1 +1,1 @@
-export { default as ReviewWrite } from "./ui/ReviewWrite";
+export { ReviewWrite } from "./ui/ReviewWrite";

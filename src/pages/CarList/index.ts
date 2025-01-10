@@ -1,1 +1,1 @@
-export { default as CarList } from "./ui/CarList";
+export { CarList } from "./ui/CarList";
