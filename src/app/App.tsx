@@ -1,12 +1,13 @@
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Outlet } from "react-router-dom";
+import * as S from "./App.style";
 
 function App() {
   return (
-    <>
+    <S.Container>
       <Outlet />
       <ReactQueryDevtools initialIsOpen={true} />
-    </>
+    </S.Container>
   );
 }
 
