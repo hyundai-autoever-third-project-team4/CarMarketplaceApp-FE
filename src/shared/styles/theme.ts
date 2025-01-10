@@ -6,8 +6,9 @@ const theme = {
     primary4: "#8c5642",
     gray: "#BFB6AE",
     lightGray: "#f5f5f5",
-    blue: "#0000B8",
     black: "#111010",
+    red: "#C30202",
+    blue: "#0000B8",
   },
   fontSizes: {
     sub2: "12px",
