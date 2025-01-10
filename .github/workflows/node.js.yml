@@ -46,5 +46,5 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
-          source: "./build/*" # build 폴더 안의 모든 파일을 가리킵니다.
+          source: "./dist/*" # build 폴더 안의 모든 파일을 가리킵니다.
           target: "/home/ubuntu/nginx-vol/" # 이 경로는 EC2 서버의 배포 경로입니다.
