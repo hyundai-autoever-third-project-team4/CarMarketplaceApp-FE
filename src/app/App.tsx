@@ -7,14 +7,20 @@ import { CarCard } from "@/shared/ui/CarCard";
 import { Text } from "@/shared/ui/Text";
 import { Button } from "@/shared/ui/Button";
 import { RadioButton } from "@/shared/ui/RadioButton";
+import { RatingChart } from "@/shared/ui/RatingChart";
+import { useState } from "react";
 
 function App() {
+  const [value, setRaiting] = useState<number>(3);
+
+  console.log(value);
   const warning = () => {
     alert("ㅂㅈㄷㅇ");
   };
   return (
     <S.Container>
       <Header />
+      <RatingChart rate={value} setRating={setRaiting} />
       <RadioButton isChecked={true} text="승용" />
       <RadioButton isChecked={false} text="승용" />
       <Button text="차량 추천 받기" size="small" buttonClick={warning} />
