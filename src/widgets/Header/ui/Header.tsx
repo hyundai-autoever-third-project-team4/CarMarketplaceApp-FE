@@ -2,10 +2,15 @@ import * as S from "./Header.style";
 import chajava from "../../../shared/assets/chajava.svg";
 import search from "../../../shared/assets/search.svg";
 import chat from "../../../shared/assets/chat.svg";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function Header() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  if (location.pathname == "/search") {
+    return;
+  }
 
   const handleLogoClick = () => {
     navigate("/");
