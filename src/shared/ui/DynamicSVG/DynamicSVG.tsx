@@ -6,6 +6,7 @@ interface DynamicSVGProps {
   width: number;
   height: number;
   alt?: string;
+  onClick?: React.MouseEventHandler<HTMLImageElement>;
 }
 
 const DynamicSVG = ({
@@ -14,6 +15,7 @@ const DynamicSVG = ({
   width = 24,
   height = 24,
   alt = "icon",
+  onClick,
   ...props
 }: DynamicSVGProps) => {
   const [svgContent, setSvgContent] = useState("");
@@ -56,7 +58,14 @@ const DynamicSVG = ({
   }, [svgUrl, color]);
 
   return (
-    <img src={svgContent} alt={alt} width={width} height={height} {...props} />
+    <img
+      src={svgContent}
+      alt={alt}
+      width={width}
+      height={height}
+      onClick={onClick}
+      {...props}
+    />
   );
 };
 
