@@ -1,5 +1,13 @@
 import { useState, useEffect } from "react";
 
+interface DynamicSVGProps {
+  svgUrl: string;
+  color: string;
+  width: number;
+  height: number;
+  alt?: string;
+}
+
 const DynamicSVG = ({
   svgUrl,
   color,
@@ -7,13 +15,7 @@ const DynamicSVG = ({
   height = 24,
   alt = "icon",
   ...props
-}: {
-  svgUrl: string;
-  color: string;
-  width: number;
-  height: number;
-  alt?: string;
-}) => {
+}: DynamicSVGProps) => {
   const [svgContent, setSvgContent] = useState("");
 
   const toBase64 = (str: string) => {
