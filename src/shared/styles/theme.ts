@@ -10,6 +10,7 @@ const theme = {
     black: "#111010",
     red: "#C30202",
     blue: "#0000B8",
+    white: "#ffffff",
   },
   fontSizes: {
     sub2: "12px",
