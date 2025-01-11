@@ -1,4 +1,4 @@
-import { CarListCardProps } from "@/entities/CarListCard/model/CarListCardProps";
+import { CarListCardProps } from "@/entities/CarListCard/model/type";
 import * as S from "./CarListCard.style";
 import { Text } from "@/shared/ui/Text";
 import likeImg from "@/shared/assets/heart.svg";

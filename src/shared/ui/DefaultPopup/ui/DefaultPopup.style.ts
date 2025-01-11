@@ -64,7 +64,6 @@ export const Confirm = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  /* border-left: 1px solid ${({ theme }) => theme.colors.lightGray}; */
 
   &::before {
     content: "";

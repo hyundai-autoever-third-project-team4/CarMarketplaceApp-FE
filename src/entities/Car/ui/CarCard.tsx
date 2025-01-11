@@ -1,17 +1,9 @@
 import * as S from "./CarCard.style";
-import { Text } from "../../Text";
-
-interface CarCardProps {
-  carImg: string;
-  name: string;
-  registrationDate: string;
-  mileage: number;
-  licensePlate: string;
-  price: number;
-}
+import { Text } from "@shared/ui/Text";
+import { CarCardProps } from "../model/propType";
 
 export function CarCard({
-  carImg,
+  mainImage,
   name,
   registrationDate,
   mileage,
@@ -20,7 +12,7 @@ export function CarCard({
 }: CarCardProps) {
   return (
     <S.Container>
-      <S.CarImg src={carImg} />
+      <S.CarImg src={mainImage} />
       <S.TextArea>
         <Text fontType="sub1" fontWeight="bold">
           {name}
