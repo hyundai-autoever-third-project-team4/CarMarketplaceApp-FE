@@ -30,7 +30,7 @@ function App() {
         mileage={48537}
         licensePlate="303누7499"
         price={2390}
-      />
+      /> */}
       <Outlet />
       <ReactQueryDevtools initialIsOpen={true} />
       <BottomNavigation />
