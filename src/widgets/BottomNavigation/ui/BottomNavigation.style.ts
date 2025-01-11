@@ -29,9 +29,7 @@ export const MenuBox = styled.div`
   align-items: center;
 `;
 
-export const MenuImg = styled.img`
-  width: 24px;
-  height: 24px;
+export const MenuImg = styled.div`
   margin-bottom: 4px;
   cursor: pointer;
 `;
