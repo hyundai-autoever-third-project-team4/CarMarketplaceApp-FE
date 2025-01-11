@@ -34,6 +34,8 @@ const StyledP = styled.p<StyledProps>`
   font-weight: ${({ $fontWeight }) =>
     $fontWeight && `${theme.fontWeight[$fontWeight]}`};
   color: ${({ $fontColor }) => $fontColor && theme.colors[$fontColor]};
+
+  font-family: "Noto Sans KR", sans-serif;
 `;
 
 export default StyledP;

@@ -29,5 +29,6 @@ export const StyledButton = styled.button<StyledButtonProps>`
   background-color: ${theme.colors.primary4};
   color: white;
   border: none;
+  cursor: pointer;
   ${({ $size }) => buttonTypeStyles[$size]}
 `;

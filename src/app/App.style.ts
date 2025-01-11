@@ -8,4 +8,5 @@ export const Container = styled.div`
   height: 100vh;
   background-color: skyblue;
   margin: 0 auto;
+  font-family: "Noto Sans KR", sans-serif;
 `;

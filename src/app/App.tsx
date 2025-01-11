@@ -19,7 +19,6 @@ function App() {
         <Button text="로그인" size="big" buttonClick={warning} />
       </div>
       <Button text="검색하기" size="full" buttonClick={warning} />
-
       <Text fontType="title">asddsad</Text>
       <CarCard
         carImg="/src/shared/assets/default.png"
