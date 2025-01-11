@@ -3,6 +3,7 @@ import {
   ThemeFontWeight,
   ThemeColor,
 } from "@/shared/styles/theme.type";
+import { ReactNode } from "react";
 
 export interface TextProps {
   // 폰트 타입에 따라 설정하기
@@ -12,5 +13,5 @@ export interface TextProps {
   fontSize?: number;
   fontColor?: ThemeColor;
   fontWeight?: ThemeFontWeight;
-  children: string;
+  children: ReactNode;
 }
