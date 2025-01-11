@@ -14,7 +14,7 @@ function App() {
   return (
     <S.Container>
       <Header />
-      <Button text="차량 추천 받기" size="small" buttonClick={warning} />
+      {/* <Button text="차량 추천 받기" size="small" buttonClick={warning} />
       <div style={{ margin: "16px 0", width: "100%" }}>
         <Button text="로그인" size="big" buttonClick={warning} />
       </div>
@@ -27,7 +27,7 @@ function App() {
         mileage={48537}
         licensePlate="303누7499"
         price={2390}
-      />
+      /> */}
       <Outlet />
       <ReactQueryDevtools initialIsOpen={true} />
       <BottomNavigation />

@@ -4,8 +4,7 @@ export const Container = styled.div`
   width: 100%;
   max-width: 600px;
   min-width: 300px;
-  padding-top: 64px;
-  height: 100vh;
+  padding: 64px 0px;
   background-color: skyblue;
   margin: 0 auto;
   font-family: "Noto Sans KR", sans-serif;
