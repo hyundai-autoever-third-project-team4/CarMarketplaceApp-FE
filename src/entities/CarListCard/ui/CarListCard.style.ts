@@ -10,8 +10,9 @@ export const Container = styled.div`
 `;
 
 export const CarImg = styled.img`
-  height: 254px;
-  width: 380px;
+  height: auto; /* 자동으로 높이를 조정 */
+  aspect-ratio: 380 / 254; /* 비율을 380:254로 설정 */
+  width: 100%;
   margin-bottom: 12px;
 `;
 

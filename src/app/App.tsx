@@ -45,6 +45,7 @@ function App() {
       >
         sdad
       </DefaultModal>
+
       <Outlet />
       <ReactQueryDevtools initialIsOpen={true} />
       <BottomNavigation />
