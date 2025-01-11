@@ -3,24 +3,25 @@ import { Outlet } from "react-router-dom";
 import { Header } from "@/widgets/Header";
 import * as S from "./App.style";
 import { BottomNavigation } from "@/widgets/BottomNavigation";
-import { CarCard } from "@/shared/ui/CarCard";
-import { Text } from "@/shared/ui/Text";
+import { DefaultModal } from "@/shared/ui/DefaultModal";
+import { useReducer } from "react";
+// import { CarCard } from "@/shared/ui/CarCard";
+// import { Text } from "@/shared/ui/Text";
 import { Button } from "@/shared/ui/Button";
-import { RadioButton } from "@/shared/ui/RadioButton";
-import { RatingChart } from "@/shared/ui/RatingChart";
-import { useState } from "react";
+// import { RadioButton } from "@/shared/ui/RadioButton";
+// import { RatingChart } from "@/shared/ui/RatingChart";
+// import { useState } from "react";
 
 function App() {
-  const [value, setRaiting] = useState<number>(3);
+  const [modal, handleModal] = useReducer((prev) => !prev, false);
+  // const [value, setRaiting] = useState<number>(3);
 
-  console.log(value);
-  const warning = () => {
-    alert("ㅂㅈㄷㅇ");
-  };
   return (
     <S.Container>
       <Header />
-      <RatingChart rate={value} setRating={setRaiting} />
+      <Button text="모달 열기" size="small" buttonClick={handleModal} />
+      {/* 아래는 사용 방법 예시임. */}
+      {/* <RatingChart rate={value} setRating={setRaiting} />
       <RadioButton isChecked={true} text="승용" />
       <RadioButton isChecked={false} text="승용" />
       <Button text="차량 추천 받기" size="small" buttonClick={warning} />
@@ -37,6 +38,13 @@ function App() {
         licensePlate="303누7499"
         price={2390}
       /> */}
+      <DefaultModal
+        open={modal}
+        handleClose={handleModal}
+        title="차량 리뷰 조회"
+      >
+        sdad
+      </DefaultModal>
       <Outlet />
       <ReactQueryDevtools initialIsOpen={true} />
       <BottomNavigation />
