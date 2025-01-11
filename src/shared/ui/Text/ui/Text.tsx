@@ -10,10 +10,10 @@ function Text({
 }: TextProps) {
   return (
     <StyledP
-      fontColor={fontColor}
-      fontType={fontType}
-      fontSize={fontSize}
-      fontWeight={fontWeight}
+      $fontColor={fontColor}
+      $fontType={fontType}
+      $fontSize={fontSize}
+      $fontWeight={fontWeight}
     >
       {children}
     </StyledP>

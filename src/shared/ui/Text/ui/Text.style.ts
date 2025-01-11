@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 import { TextProps } from "../model/Text.type";
 import theme from "@/shared/styles/theme";
+import { StyleProps } from "@/shared/utils/types/utilityType";
 
-type StyledProps = Pick<
-  TextProps,
-  "fontColor" | "fontType" | "fontWeight" | "fontSize"
+type StyledProps = StyleProps<
+  Pick<TextProps, "fontColor" | "fontType" | "fontWeight" | "fontSize">
 >;
 
 const fontTypeStyles = {
@@ -26,14 +26,14 @@ const fontTypeStyles = {
   `,
 };
 
-const StyledP = styled.div<StyledProps>`
-  ${({ fontType }) => fontType && fontTypeStyles[fontType]}
+const StyledP = styled.p<StyledProps>`
+  ${({ $fontType }) => $fontType && fontTypeStyles[$fontType]}
 
   // 여기 아래로는 커스텀임.
-  font-size: ${({ fontSize }) => fontSize && `${fontSize}px`}; ///
-  font-weight: ${({ fontWeight }) =>
-    fontWeight && `${theme.fontWeight[fontWeight]}`};
-  color: ${({ fontColor }) => fontColor && theme.colors[fontColor]};
+  font-size: ${({ $fontSize }) => $fontSize && `${$fontSize}px`}; ///
+  font-weight: ${({ $fontWeight }) =>
+    $fontWeight && `${theme.fontWeight[$fontWeight]}`};
+  color: ${({ $fontColor }) => $fontColor && theme.colors[$fontColor]};
 `;
 
 export default StyledP;
