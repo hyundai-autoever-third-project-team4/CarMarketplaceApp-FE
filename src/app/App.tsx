@@ -6,6 +6,7 @@ import { BottomNavigation } from "@/widgets/BottomNavigation";
 import { CarCard } from "@/shared/ui/CarCard";
 import { Text } from "@/shared/ui/Text";
 import { Button } from "@/shared/ui/Button";
+import { RadioButton } from "@/shared/ui/RadioButton";
 
 function App() {
   const warning = () => {
@@ -14,6 +15,8 @@ function App() {
   return (
     <S.Container>
       <Header />
+      <RadioButton isChecked={true} text="승용" />
+      <RadioButton isChecked={false} text="승용" />
       <Button text="차량 추천 받기" size="small" buttonClick={warning} />
       <div style={{ margin: "16px 0", width: "100%" }}>
         <Button text="로그인" size="big" buttonClick={warning} />
