@@ -7,7 +7,14 @@ import { DefaultModal } from "@/shared/ui/DefaultModal";
 import { useReducer } from "react";
 // import { CarCard } from "@/shared/ui/CarCard";
 // import { Text } from "@/shared/ui/Text";
+import { DefaultModal } from "@/shared/ui/DefaultModal";
+import { useReducer } from "react";
+// import { CarCard } from "@/shared/ui/CarCard";
+// import { Text } from "@/shared/ui/Text";
 import { Button } from "@/shared/ui/Button";
+// import { RadioButton } from "@/shared/ui/RadioButton";
+// import { RatingChart } from "@/shared/ui/RatingChart";
+// import { useState } from "react";
 // import { RadioButton } from "@/shared/ui/RadioButton";
 // import { RatingChart } from "@/shared/ui/RatingChart";
 // import { useState } from "react";
@@ -15,10 +22,15 @@ import { Button } from "@/shared/ui/Button";
 function App() {
   const [modal, handleModal] = useReducer((prev) => !prev, false);
   // const [value, setRaiting] = useState<number>(3);
+  const [modal, handleModal] = useReducer((prev) => !prev, false);
+  // const [value, setRaiting] = useState<number>(3);
 
   return (
     <S.Container>
       <Header />
+      <Button text="모달 열기" size="small" buttonClick={handleModal} />
+      {/* 아래는 사용 방법 예시임. */}
+      {/* <RatingChart rate={value} setRating={setRaiting} />
       <Button text="모달 열기" size="small" buttonClick={handleModal} />
       {/* 아래는 사용 방법 예시임. */}
       {/* <RatingChart rate={value} setRating={setRaiting} />
@@ -45,6 +57,14 @@ function App() {
       >
         sdad
       </DefaultModal>
+      <DefaultModal
+        open={modal}
+        handleClose={handleModal}
+        title="차량 리뷰 조회"
+      >
+        sdad
+      </DefaultModal>
+
       <Outlet />
       <ReactQueryDevtools initialIsOpen={true} />
       <BottomNavigation />
