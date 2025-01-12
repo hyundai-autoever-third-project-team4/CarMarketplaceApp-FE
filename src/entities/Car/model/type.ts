@@ -37,3 +37,5 @@ export interface CarExtraOption {
   name: string;
   price: number;
 }
+
+export type PopularCar = Pick<Car, "id" | "mainImage" | "name" | "like">;
