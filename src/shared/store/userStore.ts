@@ -1,17 +1,23 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import { User } from "./userType";
+import { User, UserInit } from "./userType";
 
 const StorageKey = "storage-key";
 
-const userInit = {
+type UserState = {
+  user: User | UserInit; // 상태의 타입
+  setUser: (newUser: User) => void; // 사용자 설정 함수
+  logOut: () => void; // 로그아웃 함수
+};
+
+const userInit: UserInit = {
   id: null,
   email: null,
   name: null,
   profileImage: null,
 };
 
-const useUserStore = create(
+const useUserStore = create<UserState>()(
   devtools(
     persist(
       (set) => ({

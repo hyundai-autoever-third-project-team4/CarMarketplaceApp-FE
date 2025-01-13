@@ -1,2 +1,3 @@
 declare module "*css";
-declare module "*css/pagination";
+declare module "swiper/css/pagination";
+declare module "swiper/css/navigation";

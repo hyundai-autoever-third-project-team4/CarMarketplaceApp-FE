@@ -1,7 +1,5 @@
-export { getPopularCars } from "./api/api";
+export type { Car, CarOption, CarExtraOption, PopularCar } from "./type";
 
-export type { Car, CarOption, CarExtraOption, PopularCar } from "./model/type";
-export type { CarCardProps, PopularCarCardProps } from "./model/propType";
-
-export { CarCard } from "./ui/CarCard";
-export { PopularCarCard } from "./ui/PopularCarCard";
+export { CarCard, type CarCardProps, getPopularCars } from "./CarCard";
+export { PopularCarCard, type PopularCarCardProps } from "./PopularCarCard";
+export { CarListCard, type CarListCardProps } from "./CarListCard";

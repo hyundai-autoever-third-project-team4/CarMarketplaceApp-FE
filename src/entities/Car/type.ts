@@ -13,7 +13,7 @@ export interface Car {
   modelYear: number; // 연식
   name: string; // 차량 이름
   price: number; // 가격
-  registrationDate: Date; // 차량 등록일
+  registrationDate: string; // 차량 등록일
   marketplaceRegistrationDate: Date; // 마켓플레이스 등록일
   seatingCapacity: number; // 좌석 수
   transmission: string; // 변속기 종류

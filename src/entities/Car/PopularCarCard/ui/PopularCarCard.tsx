@@ -1,8 +1,8 @@
 import DynamicSVG from "@/shared/ui/DynamicSVG/DynamicSVG";
-import { PopularCarCardProps } from "../model/propType";
+import { PopularCarCardProps } from "../model/type";
 import * as S from "./PopularCarCard.style";
 import { Text } from "@/shared/ui/Text";
-import likeImg from "@/shared/assets/heart.svg";
+import likeImg from "@/shared/assets/filled_heart.svg";
 import theme from "@/shared/styles/theme";
 
 export function PopularCarCard({

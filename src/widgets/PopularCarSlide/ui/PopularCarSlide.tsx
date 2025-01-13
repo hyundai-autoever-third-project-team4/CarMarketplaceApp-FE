@@ -1,8 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { PopularCarCard, PopularCar } from "@/entities/Car";
 import { useQuery } from "@tanstack/react-query";
-import { getPopularCars } from "@/entities/Car";
+import { getPopularCars, PopularCarCard, PopularCar } from "@/entities/Car";
 import * as S from "./PopularCarSlide.style";
 
 export function PopularCarSlide() {

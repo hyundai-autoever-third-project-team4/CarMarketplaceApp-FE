@@ -1,6 +1,6 @@
 import * as S from "./CarCard.style";
 import { Text } from "@shared/ui/Text";
-import { CarCardProps } from "../model/propType";
+import { CarCardProps } from "./../model/type";
 
 export function CarCard({
   mainImage,

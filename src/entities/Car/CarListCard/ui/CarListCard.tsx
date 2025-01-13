@@ -1,10 +1,10 @@
-import { CarListCardProps } from "@/entities/CarListCard/model/type";
+import { CarListCardProps } from "../model/type";
 import * as S from "./CarListCard.style";
 import { Text } from "@/shared/ui/Text";
 import likeImg from "@/shared/assets/heart.svg";
 
 export function CarListCard({
-  carImg,
+  mainImage,
   name,
   registrationDate,
   mileage,
@@ -13,7 +13,7 @@ export function CarListCard({
 }: CarListCardProps) {
   return (
     <S.Container>
-      <S.CarImg src={carImg} />
+      <S.CarImg src={mainImage} />
       <Text fontType="subTitle">{name}</Text>
       <S.MiddleWrap>
         <Text fontType="sub1" fontColor="darkGray">
