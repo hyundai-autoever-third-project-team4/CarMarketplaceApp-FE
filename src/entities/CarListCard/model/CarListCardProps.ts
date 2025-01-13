@@ -1,4 +1,5 @@
 export interface CarListCardProps {
+  id: number;
   carImg: string;
   name: string;
   registrationDate: string;

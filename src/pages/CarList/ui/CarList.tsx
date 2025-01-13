@@ -1,4 +1,4 @@
-import { CarListComponent } from "@/widgets/CarListComponent/ui/CarListComponent";
+import { CarListComponent } from "@/widgets/CarListComponent";
 
 export function CarList() {
   return (

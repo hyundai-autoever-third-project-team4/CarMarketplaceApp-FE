@@ -25,6 +25,10 @@
     // 증분 컴파일
     "incremental": true,
 
+    //스와이퍼 css import 관련 옵션
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
     /* Alias */
     "baseUrl": ".",
     "paths": {

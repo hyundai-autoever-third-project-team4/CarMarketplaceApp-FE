@@ -2,8 +2,10 @@ import { CarListCardProps } from "@/entities/CarListCard/model/CarListCardProps"
 import * as S from "./CarListCard.style";
 import { Text } from "@/shared/ui/Text";
 import likeImg from "@/shared/assets/heart.svg";
+import { useNavigate } from "react-router-dom";
 
 export function CarListCard({
+  id,
   carImg,
   name,
   registrationDate,
@@ -11,8 +13,12 @@ export function CarListCard({
   like,
   price,
 }: CarListCardProps) {
+  const navigate = useNavigate();
+  const handleCardClick = () => {
+    navigate(`/carDetail/${id}`);
+  };
   return (
-    <S.Container>
+    <S.Container onClick={handleCardClick}>
       <S.CarImg src={carImg} />
       <Text fontType="subTitle">{name}</Text>
       <S.MiddleWrap>

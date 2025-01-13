@@ -7,6 +7,7 @@ export function CarListComponent() {
       {mockData.map((car, index) => (
         <CarListCard
           key={index}
+          id={car.id}
           carImg={car.carImg}
           name={car.name}
           registrationDate={car.registrationDate}
@@ -21,6 +22,7 @@ export function CarListComponent() {
 
 const mockData = [
   {
+    id: 1,
     carImg:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsENlxBQiX6W3FofBYLzSIGjfdeztBlMv2Ag&s", // 실제 이미지 URL로 변경
     name: "2023 GV70 가솔린 2.5 터보 AWD 스탠다드 디자인",
@@ -30,6 +32,7 @@ const mockData = [
     price: 5700,
   },
   {
+    id: 2,
     carImg:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsENlxBQiX6W3FofBYLzSIGjfdeztBlMv2Ag&s", // 실제 이미지 URL로 변경
     name: "2023 현대 소나타",
@@ -39,6 +42,7 @@ const mockData = [
     price: 3024,
   },
   {
+    id: 3,
     carImg:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsENlxBQiX6W3FofBYLzSIGjfdeztBlMv2Ag&s", // 실제 이미지 URL로 변경
     name: "2023 기아 K5",
