@@ -1,13 +1,18 @@
 import { RadioButtonProps } from "../model/RadioButton.type";
-import { StyleRadioButton } from "./RadioButton.style";
-import { Text } from "../../Text";
+import * as S from "./RadioButton.style";
 
 export function RadioButton({ text, isChecked, onClick }: RadioButtonProps) {
   return (
-    <StyleRadioButton $isChecked={isChecked} onClick={onClick}>
-      <Text fontType="sub1" fontColor={isChecked ? "white" : "black"}>
+    <S.StyledRadioButtonWrapper>
+      <S.StyledRadioButton
+        type="checkbox"
+        checked={isChecked}
+        onChange={onClick}
+        id={text}
+      />
+      <S.StyledRadioLabel htmlFor={text} $isChecked={isChecked}>
         {text}
-      </Text>
-    </StyleRadioButton>
+      </S.StyledRadioLabel>
+    </S.StyledRadioButtonWrapper>
   );
 }

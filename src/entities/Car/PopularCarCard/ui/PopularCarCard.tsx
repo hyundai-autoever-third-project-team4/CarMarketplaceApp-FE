@@ -6,6 +6,7 @@ import likeImg from "@/shared/assets/filled_heart.svg";
 import theme from "@/shared/styles/theme";
 
 export function PopularCarCard({
+  id,
   mainImage,
   like,
   name,
