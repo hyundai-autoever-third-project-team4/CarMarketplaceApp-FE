@@ -24,10 +24,19 @@ const buttonTypeStyles = {
     text-align: center;
     line-height: 48px;
   `,
+  login: css`
+    width: calc(100%);
+    margin: 0 16px;
+    height: 35px;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 35px;
+  `,
 };
 export const StyledButton = styled.button<StyledButtonProps>`
   background-color: ${theme.colors.primary4};
   color: white;
   border: none;
+  cursor: pointer;
   ${({ $size }) => buttonTypeStyles[$size]}
 `;

@@ -1,3 +1,9 @@
+import { CarListComponent } from "@/widgets/CarListComponent";
+
 export function CarList() {
-  return <div>CarList</div>;
+  return (
+    <>
+      <CarListComponent />
+    </>
+  );
 }

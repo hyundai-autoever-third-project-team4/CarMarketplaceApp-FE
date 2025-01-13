@@ -13,6 +13,7 @@ export const Container = styled.div`
   justify-content: space-between;
   padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); /* 드롭 섀도우 */
+  z-index: 10;
 `;
 
 export const LogoImg = styled.img`

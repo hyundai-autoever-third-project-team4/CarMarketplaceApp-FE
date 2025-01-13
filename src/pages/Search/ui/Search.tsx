@@ -1,3 +1,9 @@
+import { SearchHeader } from "@/widgets/SearchHeader";
+
 export function Search() {
-  return <div>Search</div>;
+  return (
+    <>
+      <SearchHeader />
+    </>
+  );
 }

@@ -4,3 +4,10 @@ export interface User {
   name: string;
   profileImage: string;
 }
+
+export interface UserInit {
+  id: null;
+  email: null;
+  name: null;
+  profileImage: null;
+}

@@ -13,6 +13,7 @@ export const Container = styled.div`
   justify-content: space-between;
   padding: 10px;
   border-top: 1px solid #dbdbdb;
+  z-index: 10;
 `;
 
 export const MenuWrap = styled.div`

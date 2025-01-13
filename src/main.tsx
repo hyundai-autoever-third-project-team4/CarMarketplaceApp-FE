@@ -4,6 +4,8 @@ import { ThemeProvider } from "styled-components";
 import { RouteProvider } from "./app/router/index.tsx";
 import theme from "./shared/styles/theme.ts";
 import "./reset.css";
+import "swiper/css";
+import "swiper/css/pagination";
 
 const queryClient = new QueryClient();
 

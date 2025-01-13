@@ -32,7 +32,6 @@ export function BottomNavigation() {
   const handleMyPageClick = () => {
     navigate("/my");
   };
-
   return (
     <S.Container>
       <S.MenuWrap>
