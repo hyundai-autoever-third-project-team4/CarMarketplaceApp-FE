@@ -1,0 +1,18 @@
+export const CAR_OPTIONS = {
+  NAVIGATION: "navigation",
+  HIPASS: "hipass",
+  HEATED_STEERING: "heated_steering",
+  HEATED_SEAT: "heated_seat",
+  VENTILATED_SEAT: "ventilated_seat",
+  POWER_SEAT: "power_seat",
+  LEATHER_SEAT: "leather_seat",
+  POWER_TRUNK: "power_trunk",
+  SUNROOF: "sunroof",
+  HUD: "hud",
+  SURROUND_VIEW: "surround_view",
+  REAR_CAMERA: "rear_camera",
+  BLIND_SPOT: "blind_spot",
+  LANE_DEPARTURE: "lane_departure",
+  SMART_CRUISE: "smart_cruise",
+  FRONT_PARKING: "front_parking",
+} as const;
