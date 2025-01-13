@@ -5,6 +5,7 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  margin-bottom: 64px;
 `;
 
 export const Divider = styled.div`
@@ -17,25 +18,32 @@ export const TextLeftMargin = styled.div`
   margin-bottom: 16px;
 `;
 
+export const BottomArea = styled.div`
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: 64px;
+  z-index: 5;
+`;
+
 export const LikeArea = styled.div`
   width: 54px;
-  height: 46px;
-  border: 1px solid ${theme.colors.primary2};
+  height: 48px;
+  border: 2px solid ${theme.colors.primary2};
+  box-sizing: border-box;
   background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
+export const ButtonArea = styled.div`
+  width: 100%;
+`;
+
 export const LikeImg = styled.img`
   width: 25px;
   height: 25px;
-`;
-
-export const BottomArea = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  position: fixed;
-  bottom: 64px;
 `;
