@@ -14,6 +14,7 @@ export const Container = styled.div`
   justify-content: space-between;
   padding: 10px;
   box-shadow: 0 2px 4px rgb(140, 85, 53); /* 드롭 섀도우 */
+  z-index: 10;
 `;
 
 export const BackImg = styled.img`

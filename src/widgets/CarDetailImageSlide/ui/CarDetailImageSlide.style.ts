@@ -4,7 +4,8 @@ import { Swiper } from "swiper/react";
 
 export const StyledSwiper = styled(Swiper)`
   width: 100%;
-  height: 400px; /* 슬라이드 높이 설정 */
+  height: 274px; /* 슬라이드 높이 설정 */
+  margin-bottom: 8px;
 
   .swiper-button-next,
   .swiper-button-prev {
@@ -35,5 +36,23 @@ export const StyledSwiper = styled(Swiper)`
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  .swiper-pagination {
+    background-color: rgba(0, 0, 0, 0.4); /* 회색 배경 및 알파값 설정 */
+    border-radius: 4px; /* 네모난 모서리 설정 */
+    width: 60px; /* 고정 너비 설정 */
+    height: 20px; /* 고정 높이 설정 */
+    position: absolute; /* 절대 위치 설정 */
+    left: 50%; /* 왼쪽 50%로 이동 */
+    transform: translateX(-50%); /* 수평 중앙 정렬 */
+    bottom: 10px; /* 페이지네이션 위치 조정 */
+    line-height: 20px;
+    color: white;
+    font-weight: lighter;
+  }
+
+  .swiper-pagination span {
+    color: white; /* 페이지 번호 색상 흰색으로 설정 */
   }
 `;
