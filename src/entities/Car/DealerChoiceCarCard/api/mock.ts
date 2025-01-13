@@ -1,6 +1,9 @@
 import { DealerChoiceCar } from "../model/type";
 
-const DEALER_CHOICE_CARS: DealerChoiceCar[] = [
+type Nullable = DealerChoiceCar | null;
+type DealerChoice = [DealerChoiceCar, Nullable, Nullable];
+
+const DEALER_CHOICE_CARS: DealerChoice = [
   {
     id: "2",
     mainImage:

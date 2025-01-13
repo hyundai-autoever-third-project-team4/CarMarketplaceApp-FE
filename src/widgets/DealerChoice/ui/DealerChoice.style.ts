@@ -86,7 +86,7 @@ export const Dot = styled.div<{ delay: string }>`
 `;
 
 export const MainCar = styled.div`
-  width: 60%;
+  width: 100%;
   margin: 16px auto;
 `;
 
@@ -94,11 +94,27 @@ export const SideCar = styled.div`
   width: calc(50% - 8px);
   display: flex;
   gap: 8px;
+  height: 100%;
+  align-self: stretch;
   flex-direction: column;
 `;
 
 export const SideCars = styled.div`
   width: 100%;
   display: flex;
+  gap: 16px;
+  align-items: stretch;
+  height: 100%;
+`;
+
+export const Null = styled.div<{ $carType: "less" | "more" }>`
+  height: 220px;
+  width: 100%;
+  background-color: ${({ $carType }) =>
+    $carType === "less" ? "#cfcfed" : "#f0cece"};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   gap: 16px;
 `;
