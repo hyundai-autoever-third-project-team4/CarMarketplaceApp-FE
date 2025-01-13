@@ -1,3 +1,10 @@
+import { CarDetailImageSlide } from "@/widgets/CarDetailImageSlide";
+
 export function CarDetail() {
-  return <div>CarDetail</div>;
+  return (
+    <>
+      CarDetail
+      <CarDetailImageSlide />
+    </>
+  );
 }
