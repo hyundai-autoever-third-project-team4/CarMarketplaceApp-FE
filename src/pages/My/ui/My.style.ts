@@ -8,7 +8,7 @@ export const Container = styled.div`
 
 export const NotLogin = styled.div`
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 128px);
   display: flex;
   align-items: center;
   justify-content: center;

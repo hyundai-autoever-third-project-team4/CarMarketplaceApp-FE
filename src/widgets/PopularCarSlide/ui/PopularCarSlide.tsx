@@ -39,6 +39,7 @@ export function PopularCarSlide() {
             return (
               <SwiperSlide key={car.id}>
                 <PopularCarCard
+                  id={car.id}
                   mainImage={car.mainImage}
                   name={car.name}
                   like={car.like}

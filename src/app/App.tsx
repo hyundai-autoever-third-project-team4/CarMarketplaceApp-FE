@@ -6,12 +6,15 @@ import { BottomNavigation } from "@/widgets/BottomNavigation";
 
 function App() {
   return (
-    <S.Container>
-      <Header />
-      <Outlet />
+    <>
+      <S.Container>
+        <Header />
+        <Outlet />
+
+        <BottomNavigation />
+      </S.Container>
       <ReactQueryDevtools initialIsOpen={true} />
-      <BottomNavigation />
-    </S.Container>
+    </>
   );
 }
 

@@ -2,14 +2,14 @@ import theme from "@/shared/styles/theme";
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: calc(100% - 64px);
+  width: calc(100% - 32px);
   margin: 0 auto;
 `;
 
 export const FlexBox = styled.div`
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   margin-bottom: 16px;
 `;
 

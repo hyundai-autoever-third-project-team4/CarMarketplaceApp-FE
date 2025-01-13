@@ -1,4 +1,4 @@
-import { PopularCar } from "../../type";
+import { PopularCar } from "../model/type";
 
 const POPULAR_CARS: PopularCar[] = [
   {

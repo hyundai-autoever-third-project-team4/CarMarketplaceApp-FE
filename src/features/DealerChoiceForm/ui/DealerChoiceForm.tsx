@@ -3,15 +3,11 @@ import { Text } from "@/shared/ui/Text";
 import { RadioButton } from "@/shared/ui/RadioButton";
 import { useForm } from "react-hook-form";
 import { Button } from "@/shared/ui/Button";
-
-interface FormValues {
-  budget: number | null;
-  carTypes: string[];
-}
+import { FormValues, FormProps } from "../model/type";
 
 const CAR_TYPE: string[] = ["승용", "승합", "SUV", "EV"];
 
-export function DealerChoiceForm() {
+export function DealerChoiceForm({ onClick }: FormProps) {
   const { handleSubmit, watch, setValue, register } = useForm<FormValues>({
     defaultValues: {
       budget: null,
@@ -20,7 +16,7 @@ export function DealerChoiceForm() {
   });
 
   const onSubmit = (data: FormValues) => {
-    console.log(data);
+    onClick(data);
   };
 
   const handleRadioButtonClick = (carType: string) => {
