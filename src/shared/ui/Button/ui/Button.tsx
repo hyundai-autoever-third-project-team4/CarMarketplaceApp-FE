@@ -3,11 +3,9 @@ import * as S from "./Button.style";
 import { Text } from "../../Text";
 
 export function Button({ text, size, buttonClick }: ButtonProps) {
-  const handleClick = () => {
-    buttonClick();
-  };
   return (
-    <S.StyledButton $size={size} onClick={handleClick}>
+    // handleClick 이 넘어오지 않았을 때 가드 코드
+    <S.StyledButton $size={size} onClick={buttonClick || (() => {})}>
       <Text fontColor="white" fontType={size === "small" ? "sub1" : "subTitle"}>
         {text}
       </Text>

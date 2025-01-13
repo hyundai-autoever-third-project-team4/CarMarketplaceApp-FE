@@ -1,4 +1,4 @@
-import { CarListCard } from "@/entities/CarListCard";
+import { CarListCard } from "@/entities/Car/CarListCard";
 import * as S from "./CarListComponent.style";
 
 export function CarListComponent() {
@@ -7,6 +7,7 @@ export function CarListComponent() {
       {mockData.map((car, index) => (
         <CarListCard
           key={index}
+          mainImage={car.mainImage}
           id={car.id}
           carImg={car.carImg}
           name={car.name}
@@ -22,6 +23,7 @@ export function CarListComponent() {
 
 const mockData = [
   {
+    mainImage:
     id: 1,
     carImg:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsENlxBQiX6W3FofBYLzSIGjfdeztBlMv2Ag&s", // 실제 이미지 URL로 변경
@@ -32,6 +34,7 @@ const mockData = [
     price: 5700,
   },
   {
+    mainImage:
     id: 2,
     carImg:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsENlxBQiX6W3FofBYLzSIGjfdeztBlMv2Ag&s", // 실제 이미지 URL로 변경
@@ -42,6 +45,7 @@ const mockData = [
     price: 3024,
   },
   {
+    mainImage:
     id: 3,
     carImg:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsENlxBQiX6W3FofBYLzSIGjfdeztBlMv2Ag&s", // 실제 이미지 URL로 변경

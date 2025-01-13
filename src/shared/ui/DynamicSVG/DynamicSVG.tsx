@@ -1,19 +1,23 @@
 import { useState, useEffect } from "react";
 
+interface DynamicSVGProps {
+  svgUrl: string;
+  color: string;
+  width: number;
+  height: number;
+  alt?: string;
+  onClick?: React.MouseEventHandler<HTMLImageElement>;
+}
+
 const DynamicSVG = ({
   svgUrl,
   color,
   width = 24,
   height = 24,
   alt = "icon",
+  onClick,
   ...props
-}: {
-  svgUrl: string;
-  color: string;
-  width: number;
-  height: number;
-  alt?: string;
-}) => {
+}: DynamicSVGProps) => {
   const [svgContent, setSvgContent] = useState("");
 
   const toBase64 = (str: string) => {
@@ -54,7 +58,14 @@ const DynamicSVG = ({
   }, [svgUrl, color]);
 
   return (
-    <img src={svgContent} alt={alt} width={width} height={height} {...props} />
+    <img
+      src={svgContent}
+      alt={alt}
+      width={width}
+      height={height}
+      onClick={onClick}
+      {...props}
+    />
   );
 };
 
