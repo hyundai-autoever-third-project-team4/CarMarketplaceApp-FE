@@ -14,7 +14,6 @@ export function DealerChoice() {
   const [isFirst, setIsFirst] = useState<boolean>(true);
   const {
     data: dealerChoiceCars,
-    isLoading,
     isFetching,
     isError,
     refetch,
@@ -71,7 +70,9 @@ export function DealerChoice() {
             <S.SideCars>
               <S.SideCar>
                 <Text fontColor="blue" fontWeight="bold" fontType="sub2">
-                  320만원 더 저렴한 옵션!
+                  {`${
+                    dealerChoiceCars[0].price - dealerChoiceCars[1].price
+                  }만원 더 저렴한 옵션!`}
                 </Text>
                 <DealerChoiceCarCard
                   id={dealerChoiceCars[1].id}
@@ -85,7 +86,9 @@ export function DealerChoice() {
               </S.SideCar>
               <S.SideCar>
                 <Text fontColor="red" fontWeight="bold" fontType="sub2">
-                  250만원만 더 보태면...!
+                  {`${
+                    dealerChoiceCars[2].price - dealerChoiceCars[0].price
+                  }만원만 더 보태면...!`}
                 </Text>
                 <DealerChoiceCarCard
                   id={dealerChoiceCars[2].id}

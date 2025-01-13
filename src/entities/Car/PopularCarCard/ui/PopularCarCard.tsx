@@ -4,6 +4,7 @@ import * as S from "./PopularCarCard.style";
 import { Text } from "@/shared/ui/Text";
 import likeImg from "@/shared/assets/filled_heart.svg";
 import theme from "@/shared/styles/theme";
+import { useNavigate } from "react-router-dom";
 
 export function PopularCarCard({
   id,
@@ -12,8 +13,13 @@ export function PopularCarCard({
   name,
   index,
 }: PopularCarCardProps) {
+  const navigate = useNavigate();
+
+  const moveToDetail = () => {
+    navigate(`/carDetail/${id}`);
+  };
   return (
-    <S.Container>
+    <S.Container onClick={moveToDetail}>
       <S.BackGroundImage src={mainImage} alt="자동차" />
       <S.Wrapper>
         <S.TopArea>
