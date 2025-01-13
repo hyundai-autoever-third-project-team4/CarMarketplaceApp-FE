@@ -16,6 +16,7 @@ export function CarDetailImageSlide() {
         navigation={true}
         modules={[Pagination, Navigation]}
         className="mySwiper"
+        loop={true}
       >
         <SwiperSlide>Slide 1</SwiperSlide>
         <SwiperSlide>Slide 2</SwiperSlide>
