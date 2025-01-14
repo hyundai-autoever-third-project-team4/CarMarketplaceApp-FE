@@ -1,7 +1,7 @@
 import { ReservationCarListCardProps } from "@/entities/Reservation/types";
 import * as S from "./ReservationCarListCard.style";
 import { Text } from "@/shared/ui/Text";
-import LocationImg from "@/shared/assets/location_icon.svg";
+import LocationImg from "@/shared/assets/location.svg";
 import TimeImg from "@/shared/assets/clock.svg";
 
 export function ReservationCarListCard({
@@ -13,17 +13,21 @@ export function ReservationCarListCard({
 }: ReservationCarListCardProps) {
   return (
     <S.Container>
-      <S.CarImg src={reservation_car_img} />
+      <S.CarImg src={reservation_car_img || ""} />
       <S.TextArea>
-        <Text fontType="sub1" fontWeight="bold">
+        <Text fontType="sub2" fontWeight="regular">
           {marketplace_car_name}
         </Text>
-        <Text fontSize={12} fontColor="darkGray" fontWeight="bold">
-          {marketplace_name}
-        </Text>
-        <Text fontType="sub1" fontWeight="bold">
-          {reservation_date + reservation_time}
-        </Text>
+        <S.TextWrap>
+          <S.IconImg src={LocationImg} />
+          <Text fontType="sub2">{marketplace_name}</Text>
+        </S.TextWrap>
+        <S.TextWrap>
+          <S.IconImg src={TimeImg} />
+          <Text fontType="sub2">
+            {reservation_date + " " + reservation_time}
+          </Text>
+        </S.TextWrap>
       </S.TextArea>
     </S.Container>
   );
