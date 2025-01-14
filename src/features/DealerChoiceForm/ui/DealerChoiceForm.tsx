@@ -4,8 +4,8 @@ import { RadioButton } from "@/shared/ui/RadioButton";
 import { useForm } from "react-hook-form";
 import { Button } from "@/shared/ui/Button";
 import { FormValues, FormProps } from "../model/type";
-
-const CAR_TYPE: string[] = ["승용", "승합", "SUV", "EV"];
+import { CAR_TYPES } from "../model/model";
+import { CarType } from "../model/type";
 
 export function DealerChoiceForm({ onClick }: FormProps) {
   const { handleSubmit, watch, setValue, register } = useForm<FormValues>({
@@ -19,13 +19,13 @@ export function DealerChoiceForm({ onClick }: FormProps) {
     onClick(data);
   };
 
-  const handleRadioButtonClick = (carType: string) => {
-    const value: string[] = watch("carTypes");
+  const handleRadioButtonClick = (carType: CarType) => {
+    const value: CarType[] = watch("carTypes");
     const isChecked: boolean = value?.includes(carType);
     if (isChecked)
       setValue(
         "carTypes",
-        value.filter((item: string) => item !== carType)
+        value.filter((item: CarType) => item !== carType)
       );
     else setValue("carTypes", [...(value || []), carType]);
   };
@@ -50,7 +50,7 @@ export function DealerChoiceForm({ onClick }: FormProps) {
         </S.FlexBox>
         <S.FlexBox>
           <Text fontType="subTitle">차종</Text>
-          {CAR_TYPE.map((carType) => (
+          {CAR_TYPES.map((carType) => (
             <RadioButton
               key={carType}
               text={carType}
