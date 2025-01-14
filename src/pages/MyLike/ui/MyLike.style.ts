@@ -15,3 +15,22 @@ export const MarginBottom = styled.div`
   margin: 24px 0;
   border-bottom: 2px solid ${theme.colors.lightGray};
 `;
+
+export const NoCarContainer = styled.div`
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const NoCarImg = styled.img`
+  width: 78px;
+  height: 78px;
+`;
+
+export const NoCarSubText = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 18px;
+`;
