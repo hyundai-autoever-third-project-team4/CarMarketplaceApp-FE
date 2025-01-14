@@ -3,20 +3,22 @@ import { ButtonProps } from "../model/Button.type";
 import theme from "@/shared/styles/theme";
 import { StyleProps } from "@/shared/utils/types/utilityType";
 
-type StyledButtonProps = StyleProps<Pick<ButtonProps, "size">>;
-
+type StyledButtonProps = StyleProps<Pick<ButtonProps, "size">> & {
+  $disable?: boolean;
+};
 const buttonTypeStyles = {
   small: css`
     padding: 4px 8px;
     border-radius: 4px;
   `,
   big: css`
-    width: calc(100% - 32px);
-    margin: 0 16px;
+    width: 100%;
+    padding: 6px 0;
     height: 35px;
     border-radius: 4px;
-    text-align: center;
-    line-height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   `,
   full: css`
     height: 48px;
@@ -34,9 +36,10 @@ const buttonTypeStyles = {
   `,
 };
 export const StyledButton = styled.button<StyledButtonProps>`
-  background-color: ${theme.colors.primary4};
-  color: white;
+  background-color: ${({ $disable }) =>
+    $disable ? theme.colors.lightGray : theme.colors.primary4};
+  color: ${({ $disable }) => ($disable ? theme.colors.gray : "white")};
   border: none;
-  cursor: pointer;
+  cursor: ${({ $disable }) => ($disable ? "not-allowed" : "pointer")};
   ${({ $size }) => buttonTypeStyles[$size]}
 `;

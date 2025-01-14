@@ -10,3 +10,10 @@ export type CarCardProps = Pick<
   | "licensePlate"
   | "price"
 >;
+
+type StatusType = "Pending sale" | "Sale approved" | "Available for purchase";
+
+export type SellCarCardProps = Pick<
+  Car,
+  "id" | "name" | "registrationDate" | "mileage" | "licensePlate"
+> & { price: number | null; state: StatusType; mainImage: string | null };
