@@ -3,17 +3,20 @@ import backImg from "../../../shared/assets/back_arrow.svg";
 import search from "../../../shared/assets/search.svg";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { SearchFormValue } from "@/features/SearchForm";
+import { UseFormWatch } from "react-hook-form";
 
-export function SearchHeader() {
+interface SearchHeaderProps {
+  handleSearchClick: (data: SearchFormValue) => void;
+  watch: UseFormWatch<SearchFormValue>;
+}
+
+export function SearchHeader({ handleSearchClick, watch }: SearchHeaderProps) {
   const navigate = useNavigate();
   const [isFocused, setIsFocused] = useState(false); // focus 상태 관리
 
   const handleBackClick = () => {
     navigate(-1);
-  };
-
-  const handleSearchClick = () => {
-    navigate("/search");
   };
 
   return (
@@ -26,7 +29,11 @@ export function SearchHeader() {
           onBlur={() => setIsFocused(false)} // blur 시 상태 변경
         />
       </S.LeftWrap>
-      <S.SearchImg src={search} alt="Search" onClick={handleSearchClick} />
+      <S.SearchImg
+        src={search}
+        alt="Search"
+        onClick={() => handleSearchClick(watch())}
+      />
     </S.Container>
   );
 }
