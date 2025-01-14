@@ -61,28 +61,26 @@ const router = createBrowserRouter([
       {
         path: "/my",
         element: <My />,
-        children: [
-          {
-            path: "like",
-            element: <MyLike />,
-          },
-          {
-            path: "sell",
-            element: <MySell />,
-          },
-          {
-            path: "payment",
-            element: <MyPayment />,
-          },
-          {
-            path: "reservation",
-            element: <MyReservation />,
-          },
-          {
-            path: "review",
-            element: <MyReview />,
-          },
-        ],
+      },
+      {
+        path: "my/like",
+        element: <MyLike />,
+      },
+      {
+        path: "my/sell",
+        element: <MySell />,
+      },
+      {
+        path: "my/payment",
+        element: <MyPayment />,
+      },
+      {
+        path: "my/reservation",
+        element: <MyReservation />,
+      },
+      {
+        path: "my/review",
+        element: <MyReview />,
       },
       {
         path: "/search",
