@@ -10,6 +10,7 @@ export function SellCarCard({
   licensePlate,
   price,
   state,
+  onClick,
 }: SellCarCardProps) {
   return (
     <S.Container>
@@ -29,7 +30,11 @@ export function SellCarCard({
       {state === "Pending sale" ? (
         <Button text={"검수 대기 중"} size={"big"} disable={true} />
       ) : state === "Sale approved" ? (
-        <Button text={"검수 완료 - 측정가를 확인해보세요!"} size={"big"} />
+        <Button
+          text={"검수 완료 - 측정가를 확인해보세요!"}
+          size={"big"}
+          buttonClick={onClick}
+        />
       ) : null}
     </S.Container>
   );
