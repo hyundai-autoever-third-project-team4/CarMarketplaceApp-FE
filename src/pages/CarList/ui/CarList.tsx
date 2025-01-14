@@ -1,8 +1,8 @@
 import { CarListComponent } from "@/widgets/CarListComponent";
-import { useCarListCars } from "../model/useCarListCars";
+//import { useCarListCars } from "../model/useCarListCars";
 
 export function CarList() {
-  const { state } = useCarListCars();
+  //const { state } = useCarListCars();
 
   return (
     <>

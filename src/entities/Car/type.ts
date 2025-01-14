@@ -31,7 +31,6 @@ export interface Car {
 export interface CarOption {
   optionId: string;
   isPresent: boolean;
-  name: string;
 }
 
 export interface CarExtraOption {

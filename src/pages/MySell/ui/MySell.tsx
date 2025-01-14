@@ -70,10 +70,10 @@ export function MySell() {
                   registrationDate={car.registrationDate}
                   mileage={car.mileage}
                   licensePlate={car.licensePlate}
-                  price={null}
                   state={car.state}
                   id={car.id}
                   mainImage={car.mainImage}
+                  price={null}
                 />
               ) : (
                 <CarCard
