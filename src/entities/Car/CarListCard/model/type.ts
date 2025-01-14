@@ -9,4 +9,5 @@ export type CarListCardProps = Pick<
   | "mileage"
   | "price"
   | "id"
+  | "isLike"
 >;

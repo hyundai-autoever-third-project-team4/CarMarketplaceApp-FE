@@ -7,6 +7,7 @@ import { useCallback } from "react";
 import Logo from "@/shared/assets/chajava.svg";
 import { useDealerChoiceCars } from "../model/useDealerChoiceCars";
 import noCar from "@shared/assets/no_car.svg";
+import { CustomLoading } from "@/shared/ui/CustomLoading";
 
 export function DealerChoice() {
   const {
@@ -124,18 +125,14 @@ export function DealerChoice() {
             </S.SideCars>
           </S.DealerChoiceData>
         ) : (
-          <S.LoadingContainer>
-            <Text fontType="sub2">
-              차자바가 고객님의 차량을 찾고 있습니다.
-              <br /> 잠시만 기다려주세요.
-            </Text>
-            <S.LoadingImg src={Logo} />
-            <S.LoadingDots>
-              <S.Dot delay="0s" />
-              <S.Dot delay="0.2s" />
-              <S.Dot delay="0.4s" />
-            </S.LoadingDots>
-          </S.LoadingContainer>
+          <CustomLoading
+            text={
+              <>
+                차자바가 고객님의 차량을 찾고 있습니다.
+                <br /> 잠시만 기다려주세요.
+              </>
+            }
+          />
         )}
       </S.DealerChoiceContainer>
     </>

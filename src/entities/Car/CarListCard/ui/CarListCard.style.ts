@@ -5,15 +5,15 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 16px;
-  gap: 4px;
+  margin-bottom: 8px;
+  gap: 0px;
 `;
 
 export const CarImg = styled.img`
   height: auto; /* 자동으로 높이를 조정 */
   aspect-ratio: 380 / 254; /* 비율을 380:254로 설정 */
   width: 100%;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 `;
 
 export const MiddleWrap = styled.div`
@@ -29,6 +29,6 @@ export const LikeWrap = styled.div`
 `;
 
 export const LikeImg = styled.img`
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
 `;
