@@ -9,11 +9,12 @@ export function CarCard({
   mileage,
   licensePlate,
   price,
+  onClick,
 }: CarCardProps) {
   return (
     <S.Container>
-      <S.CarImg src={mainImage} />
-      <S.TextArea>
+      <S.CarImg src={mainImage} onClick={onClick} />
+      <S.TextArea onClick={onClick}>
         <Text fontType="sub1" fontWeight="bold">
           {name}
         </Text>
@@ -24,7 +25,7 @@ export function CarCard({
           {licensePlate}
         </Text>
         <Text fontType="sub1" fontWeight="bold">
-          {`${price} 만원`}
+          {`${price}만원`}
         </Text>
       </S.TextArea>
     </S.Container>
