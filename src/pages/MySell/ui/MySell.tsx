@@ -15,12 +15,14 @@ export function MySell() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isRejectPopupOpen, setIsRejectPopupOpen] = useState(false);
   const [carPrice, setCarPrice] = useState(0);
+  const [carImg, setCarImg] = useState("");
 
   const handleCarCardClick = (id: string) => {
     navigate(`/carDetail/${id}`);
   };
 
-  const handleModalOpen = (price: number) => {
+  const handleModalOpen = (price: number, img?: string) => {
+    setCarImg(img ? img : "");
     setCarPrice(price);
     setIsModalOpen(true);
   };
@@ -58,7 +60,12 @@ export function MySell() {
             <div key={car.id}>
               {car.state === "Pending sale" || car.state === "Sale approved" ? (
                 <SellCarCard
-                  onClick={() => handleModalOpen(car.price ? car.price : 0)}
+                  onClick={() =>
+                    handleModalOpen(
+                      car.price ? car.price : 0,
+                      car.mainImage ? car.mainImage : ""
+                    )
+                  }
                   name={car.name}
                   registrationDate={car.registrationDate}
                   mileage={car.mileage}
@@ -103,7 +110,7 @@ export function MySell() {
         title={"측정 결과"}
         children={
           <>
-            <S.CarImg />
+            <S.CarImg src={carImg} />
             <S.TextArea>
               <Text fontType="sub1">측정 결과 귀하의 차량의 금액은</Text>
               <Text fontType="title">{carPrice}만원 </Text>
@@ -127,12 +134,26 @@ export function MySell() {
       <DefaultPopup
         open={isPopupOpen}
         handleClose={() => handlePopupClose()}
-        content={"판매 등록이 완료 되었습니다."}
+        content={
+          <>
+            <div style={{ marginBottom: "16px" }}>
+              판매 신청이 완료 되었습니다.
+            </div>
+            <div>차량 인계를 위해 곧 연락 드리도록 하겠습니다.</div>
+          </>
+        }
       ></DefaultPopup>
       <DefaultPopup
         open={isRejectPopupOpen}
         handleClose={() => handleRejectPopupClose()}
-        content={"판매 등록을 거부하셨습니다."}
+        content={
+          <>
+            <div style={{ marginBottom: "16px" }}>
+              판매 등록을 거부하셨습니다.
+            </div>
+            <div>차자바를 이용해주셔서 감사합니다.</div>
+          </>
+        }
       ></DefaultPopup>
     </>
   );
