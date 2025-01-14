@@ -8,7 +8,6 @@ export function SellCarCard({
   registrationDate,
   mileage,
   licensePlate,
-  price,
   state,
   onClick,
 }: SellCarCardProps) {
