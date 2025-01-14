@@ -2,6 +2,7 @@ import { Text } from "@/shared/ui/Text";
 import * as S from "./MyLike.style";
 import { CarCard } from "@/entities/Car";
 import { useNavigate } from "react-router-dom";
+import NoCarIcon from "@/shared/assets/no_car.svg";
 
 const mockData = [
   {
@@ -68,19 +69,34 @@ export function MyLike() {
       <S.Title>
         <Text fontType="title">찜한 차량</Text>
       </S.Title>
-      {mockData.map((car) => (
-        <div key={car.carId} onClick={() => handleCarClick(car.carId)}>
-          <CarCard
-            name={car.name}
-            mainImage={car.mainImage}
-            registrationDate={car.registrationDate}
-            mileage={car.mileage}
-            licensePlate={car.licensePlate}
-            price={car.price}
-          />
-          <S.MarginBottom />
-        </div>
-      ))}
+      {mockData ? (
+        mockData.map((car) => (
+          <div key={car.carId} onClick={() => handleCarClick(car.carId)}>
+            <CarCard
+              name={car.name}
+              mainImage={car.mainImage}
+              registrationDate={car.registrationDate}
+              mileage={car.mileage}
+              licensePlate={car.licensePlate}
+              price={car.price}
+            />
+            <S.MarginBottom />
+          </div>
+        ))
+      ) : (
+        <S.NoCarContainer>
+          <S.NoCarImg src={NoCarIcon} />
+          <Text fontType="subTitle">찜한 차량이 없습니다.</Text>
+          <S.NoCarSubText>
+            <Text fontType="sub1" fontColor="primary">
+              구매하고 싶으신 차량에 ♡아이콘을 클릭해서
+            </Text>
+            <Text fontType="sub1" fontColor="primary">
+              찜한 차량이 등록되었을 때 푸쉬알림을 받아보세요!
+            </Text>
+          </S.NoCarSubText>
+        </S.NoCarContainer>
+      )}
     </S.Container>
   );
 }
