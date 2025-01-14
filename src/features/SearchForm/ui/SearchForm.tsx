@@ -1,11 +1,15 @@
 import { Text } from "@/shared/ui/Text";
 import * as S from "./SearchForm.style";
-import { useForm } from "react-hook-form";
+import {
+  UseFormHandleSubmit,
+  UseFormSetValue,
+  UseFormWatch,
+} from "react-hook-form";
 import {
   CAR_TYPES,
   MODELS,
   PRICES,
-  MILEAGES,
+  //   MILEAGES,
   MODEL_YEARS,
   FUELS,
   COLORS,
@@ -27,7 +31,7 @@ import { Slider } from "@mui/joy";
 import { useState } from "react";
 import { ColorCheck } from "@/shared/ui/ColorCheck";
 
-const DEFAULT_VALUE: SearchFormValue = {
+export const DEFAULT_VALUE: SearchFormValue = {
   carTypes: [],
   models: [],
   prices: [],
@@ -43,21 +47,22 @@ const DEFAULT_VALUE: SearchFormValue = {
 } as const;
 
 interface SearchFormProps {
-  moveToCarList: (data: SearchFormValue) => void;
+  handleSubmit: UseFormHandleSubmit<SearchFormValue>;
+  watch: UseFormWatch<SearchFormValue>;
+  setValue: UseFormSetValue<SearchFormValue>;
+  onSubmit: (data: SearchFormValue) => void;
 }
 
-export function SearchForm({ moveToCarList }: SearchFormProps) {
-  const { handleSubmit, watch, setValue } = useForm<SearchFormValue>({
-    defaultValues: DEFAULT_VALUE,
-  });
+export function SearchForm({
+  handleSubmit,
+  watch,
+  setValue,
+  onSubmit,
+}: SearchFormProps) {
   const [range, setRange] = useState<Mileage[]>([
     DEFAULT_VALUE.minMileage,
     DEFAULT_VALUE.maxMileage,
   ]);
-
-  const onSubmit = (data: SearchFormValue) => {
-    moveToCarList(data);
-  };
 
   const carTypesClick = (carType: CarType) => {
     const value: CarType[] = watch("carTypes");
@@ -216,7 +221,11 @@ export function SearchForm({ moveToCarList }: SearchFormProps) {
             min={DEFAULT_VALUE.minMileage}
             step={10000}
             marks
-            onChange={(_: any, newValue: Mileage[]) => handleChange(newValue)}
+            onChange={(_: any, value: number[] | number) => {
+              if (Array.isArray(value)) {
+                handleChange(value as Mileage[]);
+              }
+            }}
             sx={{ backGroundColor: "#fff" }}
           />
           <S.MileageStatus>
