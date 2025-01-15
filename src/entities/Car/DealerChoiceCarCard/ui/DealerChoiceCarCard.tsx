@@ -45,7 +45,7 @@ export function DealerChoiceCarCard({
       <S.TextBox>
         <Text fontType="sub1">{name}</Text>
         <Text fontSize={12} fontColor="darkGray">
-          {`${registrationDate} / ${mileage}km`}
+          {`${registrationDate} | ${mileage}km`}
         </Text>
         <Text fontType="sub1" fontWeight="bold">{`${price} 만원`}</Text>
       </S.TextBox>

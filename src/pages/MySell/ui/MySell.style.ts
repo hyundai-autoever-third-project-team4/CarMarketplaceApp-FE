@@ -34,3 +34,41 @@ export const NoDataSubText = styled.div`
   align-items: center;
   margin-top: 18px;
 `;
+
+export const CarImg = styled.img`
+  height: auto; /* 자동으로 높이를 조정 */
+  aspect-ratio: 380 / 243; /* 비율을 380:254로 설정 */
+  width: 100%;
+  margin-bottom: 12px;
+`;
+
+export const TextArea = styled.div`
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  width: 100%;
+  gap: 4px;
+  margin-bottom: 20px;
+`;
+
+export const ButtonArea = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 20px;
+`;
+
+export const RejectButton = styled.button`
+  padding: 6px;
+  border: none;
+  border-radius: 4px;
+  background-color: ${theme.colors.lightGray};
+  width: 100%;
+`;
+
+export const ApproveButton = styled.button`
+  padding: 6px;
+  border: none;
+  border-radius: 4px;
+  background-color: ${theme.colors.blue};
+  width: 100%;
+`;
