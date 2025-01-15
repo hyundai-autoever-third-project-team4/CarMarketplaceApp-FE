@@ -13,6 +13,7 @@ export const ModalContainer = styled.div<ModalContainerProps>`
   background-color: white;
   z-index: 11;
   top: 0px;
+  left: 0px;
 
   visibility: ${({ $open }) => ($open ? "visible" : "hidden")};
   opacity: ${({ $open }) => ($open ? 1 : 0)};
