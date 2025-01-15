@@ -112,9 +112,9 @@ export function MySell() {
           <>
             <S.CarImg src={carImg} />
             <S.TextArea>
-              <Text fontType="sub1">측정 결과 귀하의 차량의 금액은</Text>
-              <Text fontType="title">{carPrice}만원 </Text>
-              <Text fontType="sub1">입니다.</Text>
+              <Text fontType="sub2">측정 결과 귀하의 차량의 금액은</Text>
+              <Text fontType="subTitle">{carPrice}만원</Text>
+              <Text fontType="sub2">입니다.</Text>
             </S.TextArea>
             <S.ButtonArea>
               <S.RejectButton onClick={handleRejectPopupOpen}>
@@ -136,10 +136,9 @@ export function MySell() {
         handleClose={() => handlePopupClose()}
         content={
           <>
-            <div style={{ marginBottom: "16px" }}>
-              판매 신청이 완료 되었습니다.
-            </div>
-            <div>차량 인계를 위해 곧 연락 드리도록 하겠습니다.</div>
+            판매 신청이 완료 되었습니다.
+            <br /> <br />
+            차량 인계를 위해 곧 연락 드리도록 하겠습니다.
           </>
         }
       ></DefaultPopup>
@@ -148,10 +147,9 @@ export function MySell() {
         handleClose={() => handleRejectPopupClose()}
         content={
           <>
-            <div style={{ marginBottom: "16px" }}>
-              판매 등록을 거부하셨습니다.
-            </div>
-            <div>차자바를 이용해주셔서 감사합니다.</div>
+            판매 등록을 거부하셨습니다.
+            <br /> <br />
+            차자바를 이용해주셔서 감사합니다.
           </>
         }
       ></DefaultPopup>
