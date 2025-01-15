@@ -2,6 +2,7 @@ import { CarListCardProps } from "../model/type";
 import * as S from "./CarListCard.style";
 import { Text } from "@/shared/ui/Text";
 import likeImg from "@/shared/assets/heart.svg";
+import fillLikeImg from "@/shared/assets/filled_heart.svg";
 import { useNavigate } from "react-router-dom";
 
 export function CarListCard({
@@ -12,6 +13,7 @@ export function CarListCard({
   like,
   price,
   id,
+  isLike,
 }: CarListCardProps) {
   const navigate = useNavigate();
 
@@ -26,12 +28,12 @@ export function CarListCard({
       <S.MiddleWrap>
         <Text fontType="sub1" fontColor="darkGray">
           {registrationDate +
-            " " +
+            " | " +
             String(mileage).replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
             "km"}
         </Text>
         <S.LikeWrap>
-          <S.LikeImg src={likeImg} />
+          <S.LikeImg src={isLike ? fillLikeImg : likeImg} />
           <Text fontType="sub1" fontColor="primary">
             {String(like)}
           </Text>

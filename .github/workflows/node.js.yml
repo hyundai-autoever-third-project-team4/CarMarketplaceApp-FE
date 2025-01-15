@@ -30,6 +30,9 @@ jobs:
           cd ./src
           pnpm install
           pnpm run build
+        env:
+          VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
+          REACT_APP_NAVERMAP_KEY: ${{ secrets.VITE_NAVERMAP_KEY }}
 
       - name: Clean target directory
         uses: appleboy/ssh-action@v0.1.8

@@ -32,8 +32,8 @@ import { useState } from "react";
 import { ColorCheck } from "@/shared/ui/ColorCheck";
 
 export const DEFAULT_VALUE: SearchFormValue = {
-  carTypes: [],
-  models: [],
+  carType: [],
+  model: [],
   prices: [],
   minPrice: 0,
   maxPrice: 0,
@@ -41,9 +41,9 @@ export const DEFAULT_VALUE: SearchFormValue = {
   maxMileage: 120000,
   minModelYear: 2018,
   maxModelYear: 2025,
-  fuels: [],
-  colors: [],
-  carOptions: [],
+  fuelType: [],
+  colorType: [],
+  optionIds: [],
 } as const;
 
 interface SearchFormProps {
@@ -64,26 +64,26 @@ export function SearchForm({
     DEFAULT_VALUE.maxMileage,
   ]);
 
-  const carTypesClick = (carType: CarType) => {
-    const value: CarType[] = watch("carTypes");
+  const carTypeClick = (carType: CarType) => {
+    const value: CarType[] = watch("carType");
     const isChecked: boolean = value?.includes(carType);
     if (isChecked)
       setValue(
-        "carTypes",
+        "carType",
         value.filter((item: CarType) => item !== carType)
       );
-    else setValue("carTypes", [...(value || []), carType]);
+    else setValue("carType", [...(value || []), carType]);
   };
 
-  const modelsClick = (model: Model) => {
-    const value: Model[] = watch("models");
+  const modelClick = (model: Model) => {
+    const value: Model[] = watch("model");
     const isChecked: boolean = value?.includes(model);
     if (isChecked)
       setValue(
-        "models",
+        "model",
         value.filter((item: Model) => item !== model)
       );
-    else setValue("models", [...(value || []), model]);
+    else setValue("model", [...(value || []), model]);
   };
 
   const pricesClick = (price: Price) => {
@@ -125,37 +125,37 @@ export function SearchForm({
     else setValue("maxModelYear", Number(event.target.value) as ModelYear);
   };
 
-  const fuelsClick = (fuel: Fuel) => {
-    const value: Fuel[] = watch("fuels");
+  const fuelTypeClick = (fuel: Fuel) => {
+    const value: Fuel[] = watch("fuelType");
     const isChecked: boolean = value?.includes(fuel);
     if (isChecked)
       setValue(
-        "fuels",
+        "fuelType",
         value.filter((item: Fuel) => item !== fuel)
       );
-    else setValue("fuels", [...(value || []), fuel]);
+    else setValue("fuelType", [...(value || []), fuel]);
   };
 
-  const colorsClick = (color: Color) => {
-    const value: Color[] = watch("colors");
+  const colorTypeClick = (color: Color) => {
+    const value: Color[] = watch("colorType");
     const isChecked: boolean = value?.includes(color);
     if (isChecked)
       setValue(
-        "colors",
+        "colorType",
         value.filter((item: Color) => item !== color)
       );
-    else setValue("colors", [...(value || []), color]);
+    else setValue("colorType", [...(value || []), color]);
   };
 
-  const carOptionsClick = (index: number) => {
-    const value: number[] = watch("carOptions");
+  const optionIdsClick = (index: number) => {
+    const value: number[] = watch("optionIds");
     const isChecked: boolean = value?.includes(index);
     if (isChecked)
       setValue(
-        "carOptions",
+        "optionIds",
         value.filter((item: number) => item !== index)
       );
-    else setValue("carOptions", [...(value || []), index]);
+    else setValue("optionIds", [...(value || []), index]);
   };
 
   return (
@@ -171,8 +171,8 @@ export function SearchForm({
                 <RadioButton
                   key={carType}
                   text={carType}
-                  isChecked={watch("carTypes")?.includes(carType)}
-                  onClick={() => carTypesClick(carType)}
+                  isChecked={watch("carType")?.includes(carType)}
+                  onClick={() => carTypeClick(carType)}
                 />
               );
             })}
@@ -186,8 +186,8 @@ export function SearchForm({
                 <RadioButton
                   key={model}
                   text={model}
-                  isChecked={watch("models")?.includes(model)}
-                  onClick={() => modelsClick(model)}
+                  isChecked={watch("model")?.includes(model)}
+                  onClick={() => modelClick(model)}
                 />
               );
             })}
@@ -263,7 +263,7 @@ export function SearchForm({
           </S.ModelYearWrapper>
 
           <S.TitleArea>
-            <Text fontType="subTitle">연식</Text>
+            <Text fontType="subTitle">연료</Text>
           </S.TitleArea>
           <S.RadioButtonWrap>
             {FUELS.map((fuel) => {
@@ -271,8 +271,8 @@ export function SearchForm({
                 <RadioButton
                   key={fuel}
                   text={fuel}
-                  isChecked={watch("fuels")?.includes(fuel)}
-                  onClick={() => fuelsClick(fuel)}
+                  isChecked={watch("fuelType")?.includes(fuel)}
+                  onClick={() => fuelTypeClick(fuel)}
                 />
               );
             })}
@@ -288,8 +288,8 @@ export function SearchForm({
                   key={color}
                   index={index}
                   color={color}
-                  isChecked={watch("colors")?.includes(color)}
-                  onClick={() => colorsClick(color)}
+                  isChecked={watch("colorType")?.includes(color)}
+                  onClick={() => colorTypeClick(color)}
                 />
               );
             })}
@@ -304,8 +304,8 @@ export function SearchForm({
                 <RadioButton
                   key={carOption}
                   text={carOption}
-                  isChecked={watch("carOptions")?.includes(index)}
-                  onClick={() => carOptionsClick(index)}
+                  isChecked={watch("optionIds")?.includes(index)}
+                  onClick={() => optionIdsClick(index)}
                 />
               );
             })}

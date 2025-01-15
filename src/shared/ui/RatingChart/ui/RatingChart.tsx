@@ -4,12 +4,17 @@ import theme from "@/shared/styles/theme";
 import DynamicSVG from "../../DynamicSVG/DynamicSVG";
 import { RatingChartProps } from "../model/RatingChart.type";
 
-export function RatingChart({ rate, readOnly, setRating }: RatingChartProps) {
+export function RatingChart({
+  rate,
+  readOnly,
+  setRating,
+  starSize,
+}: RatingChartProps) {
   return (
     <Rating
       name="RatingChart"
       onChange={(_, value) => {
-        setRating(Number(value));
+        setRating ? setRating(Number(value)) : "";
       }}
       value={rate}
       precision={readOnly ? 0.1 : 0.5}
@@ -17,16 +22,16 @@ export function RatingChart({ rate, readOnly, setRating }: RatingChartProps) {
       icon={
         <DynamicSVG
           svgUrl={starIcon}
-          width={40}
-          height={40}
+          width={starSize ? starSize : 40}
+          height={starSize ? starSize : 40}
           color={theme.colors.primary4}
         />
       }
       emptyIcon={
         <DynamicSVG
           svgUrl={starIcon}
-          width={40}
-          height={40}
+          width={starSize ? starSize : 40}
+          height={starSize ? starSize : 40}
           color={theme.colors.lightGray}
         />
       }

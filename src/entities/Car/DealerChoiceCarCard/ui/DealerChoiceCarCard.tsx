@@ -14,15 +14,19 @@ export function DealerChoiceCarCard({
   registrationDate,
   price,
   cardType,
+  onClick,
 }: DealerChoiceCarCardProps) {
   const navigate = useNavigate();
 
   const moveToDetail = () => {
-    if (cardType === "main") navigate(`/carDetail/${id}`);
+    navigate(`/carDetail/${id}`);
   };
 
   return (
-    <S.Container $cardType={cardType} onClick={moveToDetail}>
+    <S.Container
+      $cardType={cardType}
+      onClick={cardType === "main" ? moveToDetail : onClick}
+    >
       <S.CarImg src={mainImage} />
       {cardType === "main" && (
         <>
