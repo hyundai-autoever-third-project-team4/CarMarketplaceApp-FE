@@ -30,21 +30,8 @@ import { Button } from "@/shared/ui/Button";
 import { Slider } from "@mui/joy";
 import { useState } from "react";
 import { ColorCheck } from "@/shared/ui/ColorCheck";
-
-export const DEFAULT_VALUE: SearchFormValue = {
-  carType: [],
-  model: [],
-  prices: [],
-  minPrice: 0,
-  maxPrice: 0,
-  minMileage: 0,
-  maxMileage: 120000,
-  minModelYear: 2018,
-  maxModelYear: 2025,
-  fuelType: [],
-  colorType: [],
-  optionIds: [],
-} as const;
+import { useSearchFormStore } from "../model/searchFormStore";
+import { DEFAULT_VALUE } from "../model/model";
 
 interface SearchFormProps {
   handleSubmit: UseFormHandleSubmit<SearchFormValue>;
@@ -59,9 +46,10 @@ export function SearchForm({
   setValue,
   onSubmit,
 }: SearchFormProps) {
+  const { searchForm } = useSearchFormStore();
   const [range, setRange] = useState<Mileage[]>([
-    DEFAULT_VALUE.minMileage,
-    DEFAULT_VALUE.maxMileage,
+    searchForm.minMileage,
+    searchForm.maxMileage,
   ]);
 
   const carTypeClick = (carType: CarType) => {
@@ -304,8 +292,8 @@ export function SearchForm({
                 <RadioButton
                   key={carOption}
                   text={carOption}
-                  isChecked={watch("optionIds")?.includes(index)}
-                  onClick={() => optionIdsClick(index)}
+                  isChecked={watch("optionIds")?.includes(index + 1)}
+                  onClick={() => optionIdsClick(index + 1)}
                 />
               );
             })}

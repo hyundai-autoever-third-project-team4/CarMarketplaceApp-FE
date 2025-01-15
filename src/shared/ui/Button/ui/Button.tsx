@@ -6,6 +6,7 @@ export function Button({ text, size, disable, buttonClick }: ButtonProps) {
   return (
     // handleClick 이 넘어오지 않았을 때 가드 코드
     <S.StyledButton
+      disabled={disable}
       $disable={disable}
       $size={size}
       onClick={buttonClick || (() => {})}

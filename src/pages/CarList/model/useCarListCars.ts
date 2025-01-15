@@ -1,6 +1,6 @@
 import { getCarListCars } from "@/entities/Car/CarListCard";
 import { useSearchFormStore } from "@/features/SearchForm";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 const CAR_LIST_QUERY_KEY = "carListCars";
 
@@ -8,28 +8,40 @@ export const useCarListCars = (sortOrder: string) => {
   const { searchForm } = useSearchFormStore();
 
   const params = {
-    carType: searchForm?.carType.join(","),
-    colorType: searchForm?.colorType.join(","),
-    fuelType: searchForm?.fuelType.join(","),
+    carTypes: searchForm?.carType.join(","),
+    colorTypes: searchForm?.colorType.join(","),
+    fuelTypes: searchForm?.fuelType.join(","),
     maxMileage: searchForm?.maxMileage,
     minMileage: searchForm?.minMileage,
-    maxPrice: searchForm?.maxPrice,
-    minPrice: searchForm?.minPrice,
+    maxPrice:
+      searchForm?.maxPrice === 8000
+        ? 10000 * 10000
+        : searchForm?.maxPrice * 10000,
+    minPrice: searchForm?.minPrice * 10000,
     minModelYear: searchForm?.minModelYear,
     maxModelYear: searchForm?.maxModelYear,
-    model: searchForm?.model.join(","),
+    models: searchForm?.model.join(","),
     optionIds: searchForm?.optionIds.join(","),
     sortOrder: sortOrder,
+    // page: page,
   };
 
-  const {
-    data: carList,
+  const { data, isLoading, isError, fetchNextPage, hasNextPage } =
+    useInfiniteQuery({
+      queryKey: [CAR_LIST_QUERY_KEY, searchForm, sortOrder],
+      queryFn: ({ pageParam = 0 }) =>
+        getCarListCars({ ...params, page: pageParam }),
+      getNextPageParam: (lastPage, allPages) => {
+        return lastPage.length ? allPages.length : undefined;
+      },
+      initialPageParam: 0,
+    });
+
+  return {
+    carList: data?.pages.flat() || [],
     isLoading,
     isError,
-  } = useQuery({
-    queryKey: [CAR_LIST_QUERY_KEY, searchForm, sortOrder],
-    queryFn: () => getCarListCars(params),
-  });
-
-  return { carList, isLoading, isError };
+    fetchNextPage,
+    hasNextPage,
+  };
 };
