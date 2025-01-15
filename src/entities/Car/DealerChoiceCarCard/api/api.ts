@@ -10,7 +10,7 @@ export const getDealerChoiceCars = async (
   requestBody: any
 ): Promise<DealerChoice> => {
   const response: ResponseBody<Promise<DealerChoice>> =
-    await noAuthInstance.post(`/recommend`, requestBody);
+    await noAuthInstance.post(`/car/recommend`, requestBody);
 
   return response.data;
 };

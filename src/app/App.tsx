@@ -3,8 +3,11 @@ import { Outlet } from "react-router-dom";
 import { Header } from "@/widgets/Header";
 import * as S from "./App.style";
 import { BottomNavigation } from "@/widgets/BottomNavigation";
+import { useScrollToTop } from "@/shared/hooks/useScrollTop";
 
 function App() {
+  useScrollToTop();
+
   return (
     <>
       <S.Container>
