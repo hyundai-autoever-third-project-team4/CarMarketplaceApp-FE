@@ -88,6 +88,7 @@ export const Dot = styled.div<{ delay: string }>`
 export const MainCar = styled.div`
   width: 100%;
   margin: 16px auto;
+  margin-top: 40px;
 `;
 
 export const SideCar = styled.div`

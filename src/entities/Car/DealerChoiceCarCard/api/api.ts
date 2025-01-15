@@ -1,14 +1,16 @@
-import DEALER_CHOICE_CARS from "./mock";
 import { DealerChoiceCar } from "../model/type";
+import { noAuthInstance } from "@/shared/api/axiosInstance";
+import { ResponseBody } from "@/shared/api/type";
 
 type Nullable = DealerChoiceCar | null;
-type DealerChoice = [DealerChoiceCar, Nullable, Nullable];
+type DealerChoice = {
+  recommandResults: [DealerChoiceCar, Nullable, Nullable];
+};
+export const getDealerChoiceCars = async (
+  requestBody: any
+): Promise<DealerChoice> => {
+  const response: ResponseBody<Promise<DealerChoice>> =
+    await noAuthInstance.post(`/recommend`, requestBody);
 
-export const getDealerChoiceCars = async (): Promise<DealerChoice> => {
-  // 실제 API 호출 대신 Promise를 사용해 mock 데이터를 반환
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(DEALER_CHOICE_CARS);
-    }, 2000);
-  });
+  return response.data;
 };

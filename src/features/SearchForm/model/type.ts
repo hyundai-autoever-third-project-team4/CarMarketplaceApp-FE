@@ -19,8 +19,8 @@ export type Color = (typeof COLORS)[number];
 export type CarOption = (typeof CAR_OPTIONS)[number];
 
 export interface SearchFormValue {
-  carTypes: CarType[];
-  models: Model[];
+  carType: CarType[];
+  model: Model[];
   prices: Price[];
   minPrice: Price | 0;
   maxPrice: Price | 0;
@@ -28,7 +28,7 @@ export interface SearchFormValue {
   maxMileage: Mileage;
   minModelYear: ModelYear;
   maxModelYear: ModelYear;
-  fuels: Fuel[];
-  colors: Color[];
-  carOptions: number[];
+  fuelType: Fuel[];
+  colorType: Color[];
+  optionIds: number[];
 }

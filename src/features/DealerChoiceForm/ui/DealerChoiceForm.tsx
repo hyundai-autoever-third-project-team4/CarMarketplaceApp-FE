@@ -15,6 +15,10 @@ export function DealerChoiceForm({ onClick }: FormProps) {
     },
   });
 
+  const budget = watch("budget");
+  const carTypes = watch("carTypes");
+  const isButtonDisabled = !budget || carTypes.length === 0;
+
   const onSubmit = (data: FormValues) => {
     onClick(data);
   };
@@ -33,34 +37,40 @@ export function DealerChoiceForm({ onClick }: FormProps) {
   return (
     <S.Container>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <S.FlexBox>
-          <Text fontType="subTitle">예산</Text>
-          <S.StyledInput
-            type="number"
-            placeholder="3000"
-            min={0}
-            max={9999}
-            onInput={(e: any) => {
-              if (e.target.value < 0) e.target.value = 0;
-              if (e.target.value > 9999) e.target.value = 9999;
-            }}
-            {...register("budget")}
-          />
-          <Text fontType="sub2"> 만원</Text>
-        </S.FlexBox>
-        <S.FlexBox>
-          <Text fontType="subTitle">차종</Text>
-          {CAR_TYPES.map((carType) => (
-            <RadioButton
-              key={carType}
-              text={carType}
-              isChecked={watch("carTypes")?.includes(carType)}
-              onClick={() => handleRadioButtonClick(carType)}
+        <S.FormWrapper>
+          <S.FlexBox>
+            <Text fontType="subTitle">예산</Text>
+            <S.StyledInput
+              type="number"
+              placeholder="3000"
+              min={0}
+              max={9999}
+              onInput={(e: any) => {
+                if (e.target.value < 0) e.target.value = 0;
+                if (e.target.value > 9999) e.target.value = 9999;
+              }}
+              {...register("budget")}
             />
-          ))}
-        </S.FlexBox>
+            <Text fontType="sub2"> 만원</Text>
+          </S.FlexBox>
+          <S.FlexBox>
+            <Text fontType="subTitle">차종</Text>
+            {CAR_TYPES.map((carType) => (
+              <RadioButton
+                key={carType}
+                text={carType}
+                isChecked={watch("carTypes")?.includes(carType)}
+                onClick={() => handleRadioButtonClick(carType)}
+              />
+            ))}
+          </S.FlexBox>
+        </S.FormWrapper>
         <S.CenterBox>
-          <Button text="차량 추천 받기" size="small" />
+          <Button
+            text="차량 추천 받기"
+            size="small"
+            disable={isButtonDisabled}
+          />
         </S.CenterBox>
       </form>
     </S.Container>
