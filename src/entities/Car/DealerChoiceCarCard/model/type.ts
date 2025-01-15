@@ -9,4 +9,5 @@ export type DealerChoiceCar = Pick<
 
 export type DealerChoiceCarCardProps = DealerChoiceCar & {
   cardType: CardType;
+  onClick?: () => void;
 };

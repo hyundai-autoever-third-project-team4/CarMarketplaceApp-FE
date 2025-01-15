@@ -138,18 +138,18 @@ export const TextBox = styled.div`
 `;
 
 export const Picking1 = styled.img`
-  width: 27px;
-  height: 42px;
+  width: 54px;
+  height: 84px;
   position: absolute;
-  top: -32px;
-  left: calc(45% - 13.5px);
+  top: -62px;
+  left: calc(42% - 27px);
   z-index: 1;
 `;
 export const Picking2 = styled.img`
-  width: 41px;
-  height: 55px;
+  width: 82px;
+  height: 110px;
   position: absolute;
-  top: -32px;
-  left: calc(45% + 13.5px);
+  top: -62px;
+  left: calc(42% + 27px);
   z-index: 3;
 `;

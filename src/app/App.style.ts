@@ -9,4 +9,5 @@ export const Container = styled.div`
   min-height: 100vh;
   margin: 0 auto;
   font-family: "Noto Sans KR", sans-serif;
+  position: relative;
 `;

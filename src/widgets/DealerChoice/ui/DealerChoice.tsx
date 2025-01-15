@@ -4,7 +4,6 @@ import { Text } from "@/shared/ui/Text";
 import * as S from "./DealerChoice.style";
 import { FormValues } from "@/features/DealerChoiceForm";
 import { useCallback } from "react";
-import Logo from "@/shared/assets/chajava.svg";
 import { useDealerChoiceCars } from "../model/useDealerChoiceCars";
 import noCar from "@shared/assets/no_car.svg";
 import { CustomLoading } from "@/shared/ui/CustomLoading";
@@ -17,15 +16,19 @@ export function DealerChoice() {
     refetch,
     isFirst,
     setIsFirst,
+    setDealerForm,
+    setSelectedCar,
+    dealerForm,
   } = useDealerChoiceCars();
 
   const handleSubmit = useCallback((data: FormValues) => {
-    console.log(data);
+    setDealerForm(data);
+    setSelectedCar("null");
     if (isFirst) setIsFirst(false);
     refetch();
   }, []);
 
-  if (isError && !dealerChoiceCars) {
+  if (!isFirst && isError && !dealerChoiceCars) {
     return <S.Container>에러</S.Container>;
   }
 
@@ -34,8 +37,6 @@ export function DealerChoice() {
       <S.Container>
         <Text fontType="sub2" fontColor="darkGray">
           고객님의 예산과 원하는 차종을 입력해보세요.
-          <br />
-          차자바에서 원하시는 차량을 찾아드립니다.
         </Text>
         <DealerChoiceForm onClick={handleSubmit} />
       </S.Container>
@@ -52,19 +53,25 @@ export function DealerChoice() {
             <S.MainCar>
               <div
                 style={{
-                  width: "60%",
+                  width: "100%",
                   margin: "0 auto",
                 }}
               >
-                <DealerChoiceCarCard
-                  id={dealerChoiceCars[0].id}
-                  registrationDate={dealerChoiceCars[0].registrationDate}
-                  price={dealerChoiceCars[0].price}
-                  name={dealerChoiceCars[0].name}
-                  mileage={dealerChoiceCars[0].mileage}
-                  mainImage={dealerChoiceCars[0].mainImage}
-                  cardType="main"
-                />
+                {!(dealerChoiceCars && dealerChoiceCars[0] === null) ? (
+                  <DealerChoiceCarCard
+                    id={dealerChoiceCars[0].id}
+                    registrationDate={dealerChoiceCars[0].registrationDate}
+                    price={dealerChoiceCars[0].price}
+                    name={dealerChoiceCars[0].name}
+                    mileage={dealerChoiceCars[0].mileage}
+                    mainImage={dealerChoiceCars[0].mainImage}
+                    cardType="main"
+                  />
+                ) : (
+                  <div style={{ marginBottom: "40px" }}>
+                    예산보다 싼 차량이 없습니다.
+                  </div>
+                )}
               </div>
               <Text fontType="sub2">
                 🔽 아래에서 다른 차량도 확인해보세요! 🔽
@@ -93,6 +100,11 @@ export function DealerChoice() {
                     name={dealerChoiceCars[1].name}
                     mileage={dealerChoiceCars[1].mileage}
                     mainImage={dealerChoiceCars[1].mainImage}
+                    onClick={() => {
+                      if (dealerChoiceCars[1]) {
+                        setSelectedCar(dealerChoiceCars[1].id);
+                      }
+                    }}
                     cardType="less"
                   />
                 )}
@@ -102,7 +114,10 @@ export function DealerChoice() {
                   {dealerChoiceCars[2] === null
                     ? `더 비싼 차량이 없습니다.`
                     : `${
-                        dealerChoiceCars[2].price - dealerChoiceCars[0].price
+                        dealerChoiceCars[0] !== null
+                          ? dealerChoiceCars[2].price -
+                            dealerChoiceCars[0].price
+                          : dealerChoiceCars[2].price - dealerForm.budget!
                       }만원만 더 보태면...!`}
                 </Text>
                 {dealerChoiceCars[2] === null ? (
@@ -119,6 +134,11 @@ export function DealerChoice() {
                     mileage={dealerChoiceCars[2].mileage}
                     mainImage={dealerChoiceCars[2].mainImage}
                     cardType="more"
+                    onClick={() => {
+                      if (dealerChoiceCars[2]) {
+                        setSelectedCar(dealerChoiceCars[2].id);
+                      }
+                    }}
                   />
                 )}
               </S.SideCar>

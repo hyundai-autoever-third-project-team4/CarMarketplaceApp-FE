@@ -263,7 +263,7 @@ export function SearchForm({
           </S.ModelYearWrapper>
 
           <S.TitleArea>
-            <Text fontType="subTitle">연식</Text>
+            <Text fontType="subTitle">연료</Text>
           </S.TitleArea>
           <S.RadioButtonWrap>
             {FUELS.map((fuel) => {
