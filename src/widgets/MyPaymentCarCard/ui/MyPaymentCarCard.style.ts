@@ -27,3 +27,12 @@ export const StatusBox = styled.div<StatusBoxProps>`
   font-size: 8px;
   font-weight: 400;
 `;
+
+export const PopupContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 12;
+`;
