@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import { DEFAULT_VALUE } from "../ui/SearchForm";
+import { DEFAULT_VALUE } from "./model";
 import { SearchFormValue } from "./type";
 
 const StorageKey = "storage-key";
@@ -24,7 +24,7 @@ export const useSearchFormStore = create<SearchFormState>()(
       }
     ),
     {
-      name: "UserStore", // devtools 옵션 (선택)
+      name: "searchFormStore", // devtools 옵션 (선택)
     }
   )
 );

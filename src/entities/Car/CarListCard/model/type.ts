@@ -5,7 +5,7 @@ export type CarListCardProps = Pick<
   | "mainImage"
   | "name"
   | "like"
-  | "registrationDate"
+  | "marketplaceRegistrationDate"
   | "mileage"
   | "price"
   | "id"

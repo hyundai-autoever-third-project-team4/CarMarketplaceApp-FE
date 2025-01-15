@@ -7,6 +7,7 @@ import { Button } from "@/shared/ui/Button";
 import { useCallback, useMemo, useState } from "react";
 import { useNavermaps } from "react-naver-maps";
 import { useCurrentDriveCenter } from "../model/useCurrentDriveCenter";
+import { useNavigate } from "react-router-dom";
 
 export function DriveCenterMap() {
   const {
@@ -19,6 +20,7 @@ export function DriveCenterMap() {
   const navermaps = useNavermaps();
   const [map, setMap] = useState<any>(null);
   const [selectedCenter, setSelectedCenter] = useState<number>(deafultId);
+  const navigate = useNavigate();
 
   const centerClick = useCallback(
     (id: number, lat: number, long: number) => {
@@ -28,6 +30,15 @@ export function DriveCenterMap() {
     },
     [map]
   );
+
+  const moveToReservation = () => {
+    navigate("/reservation", {
+      state: {
+        id: selectedCenter,
+        type: "driveCenterMap",
+      },
+    });
+  };
 
   const selectedCenterName = useMemo(() => {
     return DRIVE_CENTERS.filter((center) => center.id === selectedCenter)[0]
@@ -77,7 +88,7 @@ export function DriveCenterMap() {
           width: "100%",
         }}
       >
-        <Button size="full" text="시승 예약" />
+        <Button size="full" text="시승 예약" buttonClick={moveToReservation} />
       </div>
     </>
   );
