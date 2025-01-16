@@ -3,11 +3,9 @@ import * as S from "./CarSell.style";
 import { Button } from "@/shared/ui/Button";
 import { useEffect, useState } from "react";
 import { FindCarInfoCard, handleFindCarInfo } from "@/widgets/FindCarInfoCard";
-import { findCarMockData } from "@/widgets/FindCarInfoCard/api/MockData";
 import { DefaultPopup } from "@/shared/ui/DefaultPopup";
 import { CarInfoResponse } from "@/widgets/FindCarInfoCard/api/api";
 import { useQuery } from "@tanstack/react-query";
-import { Skeleton } from "@mui/joy";
 import { CustomLoading } from "@/shared/ui/CustomLoading";
 
 export function CarSell() {

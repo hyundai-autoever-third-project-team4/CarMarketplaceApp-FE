@@ -6,6 +6,6 @@ export const getPopularCars = async (): Promise<PopularCar[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(POPULAR_CARS);
-    }, 200); // 500ms 딜레이 추가
+    }, 20); // 500ms 딜레이 추가
   });
 };

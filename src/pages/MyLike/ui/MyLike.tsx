@@ -6,6 +6,7 @@ import NoCarIcon from "@/shared/assets/no_car.svg";
 
 const mockData = [
   {
+    id: "1",
     carId: 1,
     name: "2022 투싼(NX4) 가솔린 1.6 터보 2WD 모던",
     mainImage:
@@ -16,6 +17,7 @@ const mockData = [
     price: 20000000,
   },
   {
+    id: "2",
     carId: 2,
     name: "2022 딩동(DD4) 가솔린 1.6 터보 122WD 모던",
     mainImage:
@@ -26,6 +28,7 @@ const mockData = [
     price: 22000000,
   },
   {
+    id: "3",
     carId: 3,
     name: "2019 쌍용 티볼리",
     mainImage:
@@ -36,6 +39,7 @@ const mockData = [
     price: 18000000,
   },
   {
+    id: "4",
     carId: 4,
     name: "2022 테슬라 모델 3",
     mainImage:
@@ -46,6 +50,7 @@ const mockData = [
     price: 50000000,
   },
   {
+    id: "5",
     carId: 5,
     name: "2021 BMW 3시리즈",
     mainImage:
@@ -73,6 +78,7 @@ export function MyLike() {
         mockData.map((car) => (
           <div key={car.carId} onClick={() => handleCarClick(car.carId)}>
             <CarCard
+              id={car.id}
               name={car.name}
               mainImage={car.mainImage}
               registrationDate={car.registrationDate}

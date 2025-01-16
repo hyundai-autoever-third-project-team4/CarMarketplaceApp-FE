@@ -5,7 +5,7 @@ const POPULAR_CARS: PopularCar[] = [
     id: "1",
     mainImage:
       "https://certified-static.hyundai.com/contents/goods/shootConts/tobepic/02/exterior/GJK240927009126/PRD602_233.JPG/dims/crop/2304x1536+600+770/resize/380x253/optimize",
-    name: "2023 GV70 가솔린 2.5 터보 AWD 스탠다드 디자인",
+    name: "2023 GV70 가솔린 2.5 터보 AWD 스탠다드",
     like: 377,
   },
   {
