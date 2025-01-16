@@ -23,6 +23,7 @@ export const TextContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-align: right;
   padding-bottom: 4px;
   border-bottom: 1px solid ${theme.colors.primary};
   margin-bottom: 10px;

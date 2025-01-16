@@ -25,9 +25,11 @@ export function FindCarInfoCard({
         <Text fontType="sub2" fontColor="darkGray">
           모델명
         </Text>
-        <Text fontType="sub2" fontWeight="regular">
-          {carName}
-        </Text>
+        <div style={{ width: "88%" }}>
+          <Text fontType="sub2" fontWeight="regular">
+            {carName}
+          </Text>
+        </div>
       </S.TextContainer>
       <S.TextContainer>
         <Text fontType="sub2" fontColor="darkGray">
@@ -42,7 +44,7 @@ export function FindCarInfoCard({
           연식
         </Text>
         <Text fontType="sub2" fontWeight="regular">
-          {modelYear}
+          {`${modelYear}년`}
         </Text>
       </S.TextContainer>
       <S.TextContainer>
