@@ -62,7 +62,7 @@ export function CarList() {
           })}
         </S.StyledSelect>
       </S.Header>
-      {isError ? (
+      {isError || carList.length === 0 ? (
         <S.LoadingContainer>
           해당 조건이 부합하는 차량이 없습니다.
         </S.LoadingContainer>
@@ -78,8 +78,8 @@ export function CarList() {
           <div
             style={{
               width: "100%",
-              height: "300px",
-              display: "flex",
+              height: hasNextPage ? "300px" : "0",
+              display: hasNextPage ? "flex" : "none",
               alignItems: "center",
               justifyContent: "center",
             }}

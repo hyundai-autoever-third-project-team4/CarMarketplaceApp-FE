@@ -9,7 +9,8 @@ export type CarCardProps = Pick<
   | "mileage"
   | "licensePlate"
   | "price"
-> & { onClick?: () => void };
+  | "id"
+> & { onClick?: () => void; state?: string };
 
 type StatusType = "Pending sale" | "Sale approved" | "Available for purchase";
 

@@ -7,6 +7,7 @@ export type StatusType =
 // MyPaymentCar 타입을 위한 정의
 export type MyPaymentCar = Pick<
   Car,
+  | "id"
   | "mainImage"
   | "name"
   | "registrationDate"

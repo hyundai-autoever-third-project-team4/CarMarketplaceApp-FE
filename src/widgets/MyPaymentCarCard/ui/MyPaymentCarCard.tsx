@@ -8,6 +8,7 @@ import { WriteReview } from "@/features/WriteReview";
 import { DefaultPopup } from "@/shared/ui/DefaultPopup";
 
 export function MyPaymentCarCard({
+  id,
   mainImage,
   name,
   registrationDate,
@@ -39,19 +40,15 @@ export function MyPaymentCarCard({
 
   return (
     <S.Container>
-      {state === "Not available for purchase" ? (
-        <S.StatusBox $isComplete={true}>구매 완료</S.StatusBox>
-      ) : (
-        <S.StatusBox $isComplete={false}>구매 대기</S.StatusBox>
-      )}
-
       <CarCard
+        id={id}
         mainImage={mainImage}
         name={name}
         registrationDate={registrationDate}
         mileage={mileage}
         licensePlate={licensePlate}
         price={price}
+        state={state}
       />
       {!isReviewed && state === "Not available for purchase" && (
         <>
