@@ -1,6 +1,5 @@
 import { Text } from "@/shared/ui/Text";
 import * as S from "./My.style";
-import useUserStore from "@/shared/store/userStore";
 import { Button } from "@/shared/ui/Button";
 import { NearReserveBox } from "@/widgets/NearReserveBox";
 import LikeImg from "@/shared/assets/heart.svg";
@@ -9,12 +8,9 @@ import BuyImg from "@/shared/assets/car.svg";
 import ReservationImg from "@/shared/assets/reservation_list_icon.svg";
 import ReviewImg from "@/shared/assets/review_list_icon.svg";
 import { useNavigate } from "react-router-dom";
-import { useLoginHandler } from "@/shared/api/login";
 
 export function My() {
-  const { user } = useUserStore();
   const navigate = useNavigate();
-  const { handleLogin } = useLoginHandler();
 
   const handleLoginClick = () => {
     const keycloakAuthUrl =
@@ -55,7 +51,7 @@ export function My() {
   return (
     <>
       {/* 일단 !==로 설정 해두고 로그인 된 페이지 제작 중 */}
-      {localStorage.getItem("userId") === null ? (
+      {localStorage.getItem("userId") !== null ? (
         <S.Container>
           <S.NotLogin>
             <S.LoginArea>

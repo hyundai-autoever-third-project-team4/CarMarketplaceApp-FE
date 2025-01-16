@@ -1,7 +1,6 @@
 import { Rating } from "@mui/material";
 import starIcon from "../../../assets/star.svg";
-import theme from "@/shared/styles/theme";
-import DynamicSVG from "../../DynamicSVG/DynamicSVG";
+import blankStarIcon from "@shared/assets/blankStar.svg";
 import { RatingChartProps } from "../model/RatingChart.type";
 
 export function RatingChart({
@@ -20,19 +19,17 @@ export function RatingChart({
       precision={readOnly ? 0.1 : 0.5}
       readOnly={readOnly}
       icon={
-        <DynamicSVG
-          svgUrl={starIcon}
+        <img
+          src={starIcon}
           width={starSize ? starSize : 40}
           height={starSize ? starSize : 40}
-          color={theme.colors.primary4}
         />
       }
       emptyIcon={
-        <DynamicSVG
-          svgUrl={starIcon}
+        <img
+          src={blankStarIcon}
           width={starSize ? starSize : 40}
           height={starSize ? starSize : 40}
-          color={theme.colors.lightGray}
         />
       }
     />

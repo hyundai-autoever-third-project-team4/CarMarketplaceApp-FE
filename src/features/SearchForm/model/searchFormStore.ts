@@ -1,9 +1,7 @@
 import { create } from "zustand";
-import { devtools, persist } from "zustand/middleware";
+import { devtools } from "zustand/middleware";
 import { DEFAULT_VALUE } from "./model";
 import { SearchFormValue } from "./type";
-
-const StorageKey = "storage-key";
 
 type SearchFormState = {
   searchForm: SearchFormValue;

@@ -9,6 +9,27 @@ interface WriteReviewProps {
   handleSubmit: () => void;
 }
 
+declare global {
+  interface Window {
+    Android?: {
+      openCamera: () => void;
+      openGallery: () => void;
+    };
+  }
+}
+
+const handleUploadClick = () => {
+  if (window.Android) {
+    if (confirm("갤러리를 열겠습니까? (취소하면 카메라를 엽니다.)")) {
+      window.Android.openGallery(); // Android JavaScript 인터페이스 호출
+    } else {
+      window.Android.openCamera(); // Android JavaScript 인터페이스 호출
+    }
+  } else {
+    alert("Android WebView에서만 작동하는 기능입니다.");
+  }
+};
+
 export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const [starRate, setStarRate] = useState(5);
   const [review, setReview] = useState("");
@@ -37,9 +58,9 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     });
   };
 
-  const handleUploadClick = () => {
-    fileInputRef.current?.click();
-  };
+  // const handleUploadClick = () => {
+  //   fileInputRef.current?.click();
+  // };
 
   const handleRemoveImage = (index: number) => {
     setImages((prev) => prev.filter((_, i) => i !== index));
