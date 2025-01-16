@@ -16,6 +16,7 @@ export function MyPayment() {
           mockPayCarData.map((car) => (
             <div key={car.id}>
               <MyPaymentCarCard
+                id={car.id}
                 name={car.name}
                 registrationDate={car.registrationDate}
                 mileage={car.mileage}

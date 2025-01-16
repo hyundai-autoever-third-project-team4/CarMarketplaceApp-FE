@@ -15,7 +15,7 @@ export function CarListComponent({ carList }: CarListComponentProps) {
           mainImage={car.mainImage}
           id={car.id}
           name={car.name}
-          registrationDate={car.registrationDate}
+          marketplaceRegistrationDate={car.marketplaceRegistrationDate}
           mileage={car.mileage}
           like={car.like}
           price={car.price}

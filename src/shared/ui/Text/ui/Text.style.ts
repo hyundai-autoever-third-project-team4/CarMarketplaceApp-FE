@@ -15,12 +15,12 @@ const fontTypeStyles = {
   subTitle: css`
     font-size: ${theme.fontSizes.subTitle};
     font-weight: ${theme.fontWeight.medium};
-    line-height: 26px;
+    line-height: 23px;
   `,
   sub1: css`
     font-size: ${theme.fontSizes.sub1};
     font-weight: ${theme.fontWeight.regular};
-    line-height: 23px;
+    line-height: 21px;
   `,
   sub2: css`
     font-size: ${theme.fontSizes.sub2};

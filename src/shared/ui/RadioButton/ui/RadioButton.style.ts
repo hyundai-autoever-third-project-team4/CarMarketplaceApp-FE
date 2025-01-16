@@ -20,7 +20,7 @@ export const StyledRadioLabel = styled.label<StyledLabelProps>`
   display: inline-block;
   font-size: ${theme.fontSizes.sub1};
   font-weight: ${theme.fontWeight.regular};
-
+  transition: 0.2s;
   ${({ $isChecked, theme }) =>
     $isChecked
       ? css`

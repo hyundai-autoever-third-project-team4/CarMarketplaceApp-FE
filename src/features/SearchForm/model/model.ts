@@ -1,3 +1,5 @@
+import { SearchFormValue } from "./type";
+
 export const CAR_TYPES = ["승용", "승합", "SUV", "EV"] as const;
 
 export const MODELS = [
@@ -8,7 +10,7 @@ export const MODELS = [
   "싼타페",
   "코나",
   "투싼",
-  "펠리세이드",
+  "팰리세이드",
   "스타리아",
   "아이오닉",
   "캐스퍼",
@@ -74,3 +76,18 @@ export const CAR_OPTIONS = [
   "스마트 크루즈 컨트롤",
   "전방 주차거리 경고",
 ] as const;
+
+export const DEFAULT_VALUE: SearchFormValue = {
+  carType: [],
+  model: [],
+  prices: [],
+  minPrice: 1000,
+  maxPrice: 8000,
+  minMileage: 0,
+  maxMileage: 120000,
+  minModelYear: 2018,
+  maxModelYear: 2025,
+  fuelType: [],
+  colorType: [],
+  optionIds: [],
+} as const;

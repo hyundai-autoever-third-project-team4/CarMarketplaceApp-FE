@@ -1,8 +1,6 @@
 import { Text } from "@/shared/ui/Text";
 import * as S from "./My.style";
-import useUserStore from "@/shared/store/userStore";
 import { Button } from "@/shared/ui/Button";
-import { useCallback } from "react";
 import { NearReserveBox } from "@/widgets/NearReserveBox";
 import LikeImg from "@/shared/assets/heart.svg";
 import SellImg from "@/shared/assets/sell_icon.svg";
@@ -12,13 +10,19 @@ import ReviewImg from "@/shared/assets/review_list_icon.svg";
 import { useNavigate } from "react-router-dom";
 
 export function My() {
-  const { user } = useUserStore();
   const navigate = useNavigate();
 
-  const handleLogin = useCallback(() => {
-    // 로그인 로직
-  }, []);
+  const handleLoginClick = () => {
+    const keycloakAuthUrl =
+      "https://keycloakmalak.site/realms/key-cloak-malak-realm/protocol/openid-connect/auth" +
+      "?response_type=code" +
+      "&client_id=key-cloak-malak" +
+      "&redirect_uri=http://localhost:5173" +
+      "&scope=profile email openid";
 
+    window.location.href = keycloakAuthUrl;
+    // handleLogin();
+  };
   const handleClickLike = () => {
     // 찜한 차량 페이지로 이동
     navigate("like");
@@ -47,12 +51,16 @@ export function My() {
   return (
     <>
       {/* 일단 !==로 설정 해두고 로그인 된 페이지 제작 중 */}
-      {user.id !== null ? (
+      {localStorage.getItem("userId") !== null ? (
         <S.Container>
           <S.NotLogin>
             <S.LoginArea>
               <Text fontType="subTitle">로그인 후 이용 가능합니다.</Text>
-              <Button size="login" text="로그인" buttonClick={handleLogin} />
+              <Button
+                size="login"
+                text="로그인"
+                buttonClick={handleLoginClick}
+              />
             </S.LoginArea>
           </S.NotLogin>
         </S.Container>

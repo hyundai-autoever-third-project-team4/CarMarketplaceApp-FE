@@ -77,6 +77,7 @@ export function MySell() {
                 />
               ) : (
                 <CarCard
+                  id={car.id}
                   onClick={() => handleCarCardClick(car.id)}
                   name={car.name}
                   registrationDate={car.registrationDate}

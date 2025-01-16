@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export function CarListCard({
   mainImage,
   name,
-  registrationDate,
+  marketplaceRegistrationDate,
   mileage,
   like,
   price,
@@ -27,7 +27,7 @@ export function CarListCard({
       <Text fontType="subTitle">{name}</Text>
       <S.MiddleWrap>
         <Text fontType="sub1" fontColor="darkGray">
-          {registrationDate +
+          {marketplaceRegistrationDate +
             " | " +
             String(mileage).replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
             "km"}
@@ -39,7 +39,7 @@ export function CarListCard({
           </Text>
         </S.LikeWrap>
       </S.MiddleWrap>
-      <Text fontType="subTitle">{String(price) + "만원"}</Text>
+      <Text fontType="subTitle">{String(price / 10000) + "만원"}</Text>
     </S.Container>
   );
 }

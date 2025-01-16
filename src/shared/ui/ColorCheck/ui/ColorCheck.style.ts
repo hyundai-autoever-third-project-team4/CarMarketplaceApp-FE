@@ -22,6 +22,7 @@ export const ColorImg = styled.img<ColorImg>`
   height: 60px;
   opacity: ${({ $isChecked }) => ($isChecked ? "1" : "0.2")};
   margin-bottom: 8px;
+  transition: 0.2s;
 `;
 
 // 전체 컨테이너 스타일
