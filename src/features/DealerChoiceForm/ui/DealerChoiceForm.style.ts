@@ -17,6 +17,7 @@ export const FlexBox = styled.div`
   align-items: center;
   gap: 8px;
   margin-bottom: 16px;
+  flex-wrap: wrap;
 `;
 
 export const CenterBox = styled.div`
