@@ -62,18 +62,19 @@ export function CarList() {
           })}
         </S.StyledSelect>
       </S.Header>
-      {isError || carList.length === 0 ? (
-        <S.LoadingContainer>
-          해당 조건이 부합하는 차량이 없습니다.
-        </S.LoadingContainer>
-      ) : isLoading && carList.length === 0 ? ( // 초기 로딩 상태
+      {isLoading && carList.length === 0 ? (
+        // 초기 로딩 상태
         <S.LoadingContainer>
           <CustomLoading text="차량 목록을 불러오는 중입니다..." />
+        </S.LoadingContainer>
+      ) : isError || (carList.length === 0 && !isLoading) ? (
+        // 빈 결과 상태
+        <S.LoadingContainer>
+          해당 조건이 부합하는 차량이 없습니다.
         </S.LoadingContainer>
       ) : (
         <>
           <CarListComponent carList={carList} />
-
           <div ref={observerRef} />
           <div
             style={{
