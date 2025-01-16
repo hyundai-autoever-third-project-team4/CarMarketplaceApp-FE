@@ -1,10 +1,14 @@
 import { Text } from "@/shared/ui/Text";
 import * as S from "./CarSell.style";
 import { Button } from "@/shared/ui/Button";
-import { useState } from "react";
-import { FindCarInfoCard } from "@/widgets/FindCarInfoCard";
+import { useEffect, useState } from "react";
+import { FindCarInfoCard, handleFindCarInfo } from "@/widgets/FindCarInfoCard";
 import { findCarMockData } from "@/widgets/FindCarInfoCard/api/MockData";
 import { DefaultPopup } from "@/shared/ui/DefaultPopup";
+import { CarInfoResponse } from "@/widgets/FindCarInfoCard/api/api";
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "@mui/joy";
+import { CustomLoading } from "@/shared/ui/CustomLoading";
 
 export function CarSell() {
   const [findCar, setFindCar] = useState(false);
@@ -13,9 +17,39 @@ export function CarSell() {
   const [licensePlate, setLicensePlate] = useState("");
   const [ownerName, setOwnerName] = useState("");
 
+  const {
+    data: carInfo,
+    isFetching,
+    isError,
+    refetch,
+  } = useQuery<CarInfoResponse>({
+    queryKey: ["findCarInfo"],
+    queryFn: async () => {
+      return await handleFindCarInfo(licensePlate, ownerName);
+    },
+    enabled: findCar,
+    retry: 1,
+    gcTime: 0,
+  });
+  console.log(carInfo, isFetching, isError);
   const handleFindCarTrue = () => {
-    setFindCar(true);
+    if (!licensePlate || !ownerName) {
+      alert("차량 번호판과 소유자 이름을 입력해 주세요.");
+      return; // 함수 종료
+    }
+    setFindCar(true); // findCar 상태 업데이트
+    refetch();
   };
+
+  // 오류 처리
+  useEffect(() => {
+    if (isError) {
+      alert("일치하는 차량이 없습니다.");
+      setFindCar(false); // 오류 발생 시 findCar 상태를 false로 설정
+      setLicensePlate("");
+      setOwnerName("");
+    }
+  }, [isError]); // isError가 변경될 때마다 실행
 
   const handleSellPopupOpen = () => {
     setIsSellPopupOpen(true);
@@ -55,6 +89,7 @@ export function CarSell() {
           placeholder="123가1234"
           value={licensePlate} // 상태를 value로 설정
           onChange={(e) => setLicensePlate(e.target.value)} // 입력 값 변경 시 상태 업데이트
+          disabled={findCar}
         />
       </S.TextWrap>
       <S.TextWrap>
@@ -70,6 +105,7 @@ export function CarSell() {
           placeholder="차자바"
           value={ownerName}
           onChange={(e) => setOwnerName(e.target.value)}
+          disabled={findCar}
         />
       </S.TextWrap>
       {!findCar && (
@@ -81,18 +117,18 @@ export function CarSell() {
           />
         </S.ButtonWrap>
       )}
-      {findCar && (
+      {findCar && !isFetching && carInfo && (
         <>
           <S.TitleWrap>
             <Text fontType="title">차량 정보 확인</Text>
           </S.TitleWrap>
           <FindCarInfoCard
-            mainImage={findCarMockData.mainImage}
-            licensePlate={findCarMockData.licensePlate}
-            carName={findCarMockData.carName}
-            registrationDate={findCarMockData.registrationDate}
-            modelYear={findCarMockData.modelYear}
-            mileage={findCarMockData.mileage}
+            mainImage={carInfo ? carInfo.mainImage : ""}
+            licensePlate={carInfo.carDetails.licensePlate}
+            carName={carInfo.carDetails.name}
+            registrationDate={carInfo.carDetails.registrationDate}
+            modelYear={carInfo.carDetails.modelYear}
+            mileage={String(carInfo.carDetails.mileage) + "km"}
           />
           <S.SellButtonWrap>
             <Button
@@ -103,6 +139,7 @@ export function CarSell() {
           </S.SellButtonWrap>
         </>
       )}
+      {isFetching && <CustomLoading text={"차량을 찾는 중 입니다..."} />}
       <DefaultPopup
         open={isSellPopupOpen}
         isLoginPopup={true}
