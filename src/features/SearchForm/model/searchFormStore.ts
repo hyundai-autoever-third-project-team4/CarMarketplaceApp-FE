@@ -12,17 +12,13 @@ type SearchFormState = {
 
 export const useSearchFormStore = create<SearchFormState>()(
   devtools(
-    persist(
-      (set) => ({
-        searchForm: DEFAULT_VALUE,
+    (set) => ({
+      searchForm: DEFAULT_VALUE,
 
-        setSearchForm: (newSearchForm: SearchFormValue) =>
-          set({ searchForm: newSearchForm }),
-      }),
-      {
-        name: StorageKey, // persist 옵션
-      }
-    ),
+      setSearchForm: (newSearchForm: SearchFormValue) =>
+        set({ searchForm: newSearchForm }),
+    }),
+
     {
       name: "searchFormStore", // devtools 옵션 (선택)
     }

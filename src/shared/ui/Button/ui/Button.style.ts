@@ -42,4 +42,5 @@ export const StyledButton = styled.button<StyledButtonProps>`
   border: none;
   cursor: ${({ $disable }) => ($disable ? "not-allowed" : "pointer")};
   ${({ $size }) => buttonTypeStyles[$size]}
+  box-shadow: 0px 0px 4px rgba(0,0,0,0.25);
 `;
