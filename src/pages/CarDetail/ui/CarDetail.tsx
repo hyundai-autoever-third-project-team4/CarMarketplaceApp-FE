@@ -37,7 +37,12 @@ export function CarDetail() {
             mainImg={carDetailInfo.mainImage}
           />
           <S.Container>
-            <CarDetailTopInfo />
+            <CarDetailTopInfo
+              name={""}
+              registrationDate={""}
+              mileage={0}
+              testDriveCenterName={""}
+            />
             <CarDetailCircleInfo />
             <S.Divider />
             <S.TextLeftMargin>
