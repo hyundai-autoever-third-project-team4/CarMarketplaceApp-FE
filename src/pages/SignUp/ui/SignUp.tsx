@@ -41,6 +41,9 @@ export function SignUp() {
       //console.log("Server Response:", data);
       //alert(`Access Token: ${data.access_token}`);
       setLoginData(data);
+      localStorage.setItem("access_token", data.access_token);
+      localStorage.setItem("refresh_token", data.refresh_token);
+      localStorage.setItem("userId", data.userId);
       console.log(data.name && data.phone && data.address);
       if (data.name && data.phone && data.address) {
         navigate("/");
