@@ -8,7 +8,7 @@ export function SellCarCard({
   registrationDate,
   mileage,
   licensePlate,
-  state,
+  status,
   onClick,
 }: SellCarCardProps) {
   return (
@@ -20,15 +20,16 @@ export function SellCarCard({
         <Text fontType="sub2" fontColor="darkGray">
           {registrationDate +
             " | " +
-            String(mileage).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            String(mileage).replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
+            "km"}
         </Text>
         <Text fontType="sub2" fontColor="darkGray">
           {licensePlate}
         </Text>
       </S.TextWrap>
-      {state === "Pending sale" ? (
+      {status === "PENDING_SALE" ? (
         <Button text={"검수 대기 중"} size={"big"} disable={true} />
-      ) : state === "Sale approved" ? (
+      ) : status === "SALE_APPROVED" ? (
         <Button
           text={"검수 완료 - 측정가를 확인해보세요!"}
           size={"big"}

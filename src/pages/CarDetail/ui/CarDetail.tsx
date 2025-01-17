@@ -11,7 +11,7 @@ import { CarDetailOptionInfo } from "@/widgets/CarDetailOptionInfo";
 import { CarDetailReviewSlide } from "@/widgets/CarDetailReviewSlide";
 import { useQuery } from "@tanstack/react-query";
 import { CarDetailInfo, handleCarDetailInfo } from "@/pages/CarDetail/api/api";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CustomLoading } from "@/shared/ui/CustomLoading";
 import { authInstance } from "@/shared/api/axiosInstance";
 import { DefaultPopup } from "@/shared/ui/DefaultPopup";
@@ -19,6 +19,7 @@ import { useState } from "react";
 
 export function CarDetail() {
   const { carId } = useParams();
+  const navigate = useNavigate();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const {
@@ -49,6 +50,13 @@ export function CarDetail() {
       }
     }
   };
+
+  const handlePayClick = () => {
+    navigate(
+      `/tosspayment?price=${carDetailInfo?.price}&name=${carDetailInfo?.carDetails.name}&id=${carDetailInfo?.id}`
+    );
+  };
+
   return (
     <>
       {isFetching || isError || !carDetailInfo ? (
@@ -113,6 +121,7 @@ export function CarDetail() {
               </S.LikeArea>
               <S.ButtonArea>
                 <Button
+                  buttonClick={handlePayClick}
                   disable={carDetailInfo.status !== "AVAILABLE_FOR_PURCHASE"}
                   text="구매하기"
                   size="full"

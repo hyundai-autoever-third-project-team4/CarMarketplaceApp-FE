@@ -24,7 +24,7 @@ export const handleLikedCar = async () => {
     );
     return response.data;
   } catch (error) {
-    console.error("Car detail fetch failed:", error);
+    console.error("Car like fetch failed:", error);
     throw error;
   }
 };
