@@ -13,23 +13,28 @@ declare global {
   interface Window {
     Android?: {
       openCameraAndGallery: () => void;
+      receiveImage: (base64Image: string) => void;
     };
   }
 }
-
-const handleUploadClick = () => {
-  if (window.Android) {
-    window.Android.openCameraAndGallery(); // Android JavaScript 인터페이스 호출
-  } else {
-    alert("Android WebView에서만 작동하는 기능입니다.");
-  }
-};
 
 export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const [starRate, setStarRate] = useState(5);
   const [review, setReview] = useState("");
   const [images, setImages] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  if (window.Android && !window.Android.receiveImage) {
+    window.Android.receiveImage = (base64Image: string) => {
+      setImages((prev) => {
+        if (prev.length >= 5) {
+          alert("이미지는 최대 5장까지 업로드 가능합니다.");
+          return prev;
+        }
+        return [...prev, base64Image];
+      });
+    };
+  }
 
   const handleStarRate = (num: number) => {
     setStarRate(num);
@@ -53,23 +58,29 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     });
   };
 
-  // const handleUploadClick = () => {
-  //   fileInputRef.current?.click();
-  // };
+  const handleUploadClick = () => {
+    if (window.Android) {
+      window.Android.openCameraAndGallery(); // Android JavaScript 인터페이스 호출
+    } else {
+      fileInputRef.current?.click();
+    }
+  };
 
   const handleRemoveImage = (index: number) => {
     setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmitAction = (e: React.FormEvent) => {
-    handleSubmit;
-    setImages([]);
     e.preventDefault();
     console.log({
       starRate,
       review,
       images,
     });
+
+    setImages([]); // 이미지 초기화
+    setReview(""); // 리뷰 초기화
+    handleSubmit();
   };
 
   const renderImageGrid = () => {
