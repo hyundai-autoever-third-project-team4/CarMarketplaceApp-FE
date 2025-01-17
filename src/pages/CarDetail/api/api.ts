@@ -1,4 +1,4 @@
-import { authInstance, noAuthInstance } from "@/shared/api/axiosInstance";
+import { authInstance } from "@/shared/api/axiosInstance";
 import { ResponseBody } from "@/shared/api/type";
 import { CarImage } from "@/widgets/CarDetailImageSlide/ui/CarDetailImageSlide";
 

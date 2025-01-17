@@ -7,6 +7,7 @@ import { DefaultPopup } from "@/shared/ui/DefaultPopup";
 import { CarInfoResponse } from "@/widgets/FindCarInfoCard/api/api";
 import { useQuery } from "@tanstack/react-query";
 import { CustomLoading } from "@/shared/ui/CustomLoading";
+import { authInstance } from "@/shared/api/axiosInstance";
 
 export function CarSell() {
   const [findCar, setFindCar] = useState(false);
@@ -57,12 +58,25 @@ export function CarSell() {
     setIsSellPopupOpen(false);
   };
 
-  const handleSellAction = () => {
-    setFindCar(false);
-    setIsSellPopupOpen(false);
-    setIsCompletePopupOpen(true);
-    setLicensePlate("");
-    setOwnerName("");
+  const handleSellAction = async () => {
+    try {
+      // POST 요청으로 직접 객체 리터럴을 사용하여 요청 본문 전달
+      const response = await authInstance.post(`/car/register`, {
+        licensePlate, // 상태에서 가져온 licensePlate
+        ownerName, // 상태에서 가져온 ownerName
+      });
+      // 요청이 성공적으로 완료되었을 때만 다음 작업 수행
+      if (response.status === 200) {
+        setFindCar(false);
+        setIsSellPopupOpen(false);
+        setIsCompletePopupOpen(true);
+        setLicensePlate(""); // 상태 초기화
+        setOwnerName(""); // 상태 초기화
+      }
+    } catch (error) {
+      console.error("Car put failed:", error);
+      throw error;
+    }
   };
 
   const handleCompletePopupClose = () => {
