@@ -6,7 +6,21 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-export function CarDetailImageSlide() {
+export interface CarImage {
+  id: number;
+  marketplaceCarId: string;
+  imageUrl: string;
+}
+
+export interface CarDetailImageSlideProps {
+  carImages: CarImage[];
+  mainImg: string;
+}
+
+export function CarDetailImageSlide({
+  carImages,
+  mainImg,
+}: CarDetailImageSlideProps) {
   return (
     <>
       <S.StyledSwiper
@@ -18,15 +32,14 @@ export function CarDetailImageSlide() {
         className="mySwiper"
         loop={true}
       >
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
+        <SwiperSlide>
+          <img src={mainImg} alt={"main image"} />
+        </SwiperSlide>
+        {carImages.map((carImage) => (
+          <SwiperSlide key={carImage.id}>
+            <img src={carImage.imageUrl} alt={`Car image ${carImage.id}`} />
+          </SwiperSlide>
+        ))}
       </S.StyledSwiper>
     </>
   );

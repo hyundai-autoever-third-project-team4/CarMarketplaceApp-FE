@@ -41,7 +41,8 @@ export function My() {
   return (
     <>
       {/* 일단 !==로 설정 해두고 로그인 된 페이지 제작 중 */}
-      {localStorage.getItem("userId") !== null ? (
+
+      {localStorage.getItem("access_token") !== null ? (
         <S.Container>
           <S.NotLogin>
             <S.LoginArea>
