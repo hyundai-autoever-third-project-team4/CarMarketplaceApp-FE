@@ -19,6 +19,7 @@ import { Reservation } from "@/pages/Reservation";
 import { ReviewWrite } from "@/pages/ReviewWrite";
 import { Search } from "@/pages/Search";
 import { Chatting } from "@/pages/Chatting";
+import { SignUp } from "@/pages/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/signup",
+        element: <SignUp />,
       },
       {
         path: "/carList",

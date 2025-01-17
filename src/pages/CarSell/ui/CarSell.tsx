@@ -29,7 +29,7 @@ export function CarSell() {
     retry: 1,
     gcTime: 0,
   });
-  console.log(carInfo, isFetching, isError);
+
   const handleFindCarTrue = () => {
     if (!licensePlate || !ownerName) {
       alert("차량 번호판과 소유자 이름을 입력해 주세요.");
