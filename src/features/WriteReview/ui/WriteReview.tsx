@@ -30,10 +30,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
     window.receiveImage = (base64Image: string) => {
       alert("이미지 수신됨");
-      console.log(
-        "receiveImage called with base64 string length:",
-        base64Image.length
-      );
+      console.log("base64", base64Image.substring(0, 100));
 
       try {
         alert("이미지 수신됨");
