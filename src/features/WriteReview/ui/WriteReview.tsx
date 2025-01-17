@@ -11,9 +11,9 @@ interface WriteReviewProps {
 
 declare global {
   interface Window {
+    receiveImage?: (base64Image: string) => void;
     Android?: {
       openCameraAndGallery: () => void;
-      receiveImage: (base64Image: string) => void;
     };
   }
 }
@@ -27,11 +27,12 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
   useEffect(() => {
     // Android receiveImage 함수 등록
-    if (window.Android && !window.Android.receiveImage) {
-      window.Android.receiveImage = (base64Image: string) => {
+    if (window.Android && !window.receiveImage) {
+      window.receiveImage = (base64Image: string) => {
         console.log("나 실행됐어", base64Image);
         setSibal("나 실행됐어 + base64Image");
         alert(sibal);
+
         setImages((prev) => {
           if (prev.length >= 5) {
             alert("이미지는 최대 5장까지 업로드 가능합니다.");
@@ -131,9 +132,9 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
   return (
     <S.Container>
-      {sibal}
       <form onSubmit={handleSubmitAction}>
         <RatingChart rate={starRate} setRating={handleStarRate} />
+        {sibal}
         <S.TextWrap>
           <Text fontType="sub2">사진은 최대 5장까지 가능합니다.</Text>
         </S.TextWrap>
