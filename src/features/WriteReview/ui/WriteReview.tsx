@@ -23,12 +23,14 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const [review, setReview] = useState("");
   const [images, setImages] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [base64, setBase64] = useState<string>("");
 
   useEffect(() => {
     // 전역 스코프에 함수 등록
     console.log("Registering receiveImage function");
 
     window.receiveImage = (base64Image: string) => {
+      setBase64(base64Image);
       setImages((prevImages) => {
         console.log("Previous images:", prevImages);
         if (prevImages.length >= 5) {
@@ -141,6 +143,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   return (
     <S.Container>
       <form onSubmit={handleSubmitAction}>
+        <img src={base64} />
         <RatingChart rate={starRate} setRating={handleStarRate} />
         <S.TextWrap>
           <Text fontType="sub2">사진은 최대 5장까지 가능합니다.</Text>
