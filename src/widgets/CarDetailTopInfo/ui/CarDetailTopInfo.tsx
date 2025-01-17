@@ -3,8 +3,10 @@ import * as S from "./CarDetailTopInfo.style";
 import ReservationImg from "@/shared/assets/location.svg";
 import { Button } from "@/shared/ui/Button";
 
-interface CarTopInfoProps {
+export interface CarTopInfoProps {
   name: string;
+  registrationDate: string;
+  mileage: number;
 }
 
 export function CarDetailTopInfo() {
