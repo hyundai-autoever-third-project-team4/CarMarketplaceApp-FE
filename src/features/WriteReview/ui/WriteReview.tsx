@@ -48,6 +48,10 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     };
   }, []);
 
+  useEffect(() => {
+    console.log(images);
+  }, [images]);
+
   const handleStarRate = (num: number) => {
     setStarRate(num);
   };
@@ -98,7 +102,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const renderImageGrid = () => {
     const items = [];
     //const totalSlots = Math.min(images.length + 1, 5);
-    console.log(images);
+
     // Add existing images
     for (let i = 0; i < images.length; i++) {
       items.push(
