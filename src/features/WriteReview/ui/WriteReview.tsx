@@ -22,17 +22,13 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const [starRate, setStarRate] = useState(5);
   const [review, setReview] = useState("");
   const [images, setImages] = useState<string[]>([]);
-  const [string, setString] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     // Android receiveImage 함수 등록
     if (!window.receiveImage) {
       window.receiveImage = (base64Image: string) => {
-        console.log("Received image:", base64Image.substring(0, 100)); // 긴 문자열이므로 앞부분만 출력
-        alert(base64Image.substring(0, 100));
         alert("이미지 수신됨");
-        setString(base64Image);
         setImages((prev) => {
           if (prev.length >= 5) {
             alert("이미지는 최대 5장까지 업로드 가능합니다.");
@@ -134,7 +130,6 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     <S.Container>
       <form onSubmit={handleSubmitAction}>
         <RatingChart rate={starRate} setRating={handleStarRate} />
-        {string}
         <S.TextWrap>
           <Text fontType="sub2">사진은 최대 5장까지 가능합니다.</Text>
         </S.TextWrap>
