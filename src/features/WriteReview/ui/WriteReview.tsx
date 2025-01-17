@@ -1,6 +1,6 @@
 import { RatingChart } from "@/shared/ui/RatingChart";
 import * as S from "./WriteReview.style";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/shared/ui/Button";
 import PlusIcon from "@/shared/assets/Plus.svg";
 import { Text } from "@/shared/ui/Text";
@@ -24,17 +24,21 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const [images, setImages] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  if (window.Android && !window.Android.receiveImage) {
-    window.Android.receiveImage = (base64Image: string) => {
-      setImages((prev) => {
-        if (prev.length >= 5) {
-          alert("이미지는 최대 5장까지 업로드 가능합니다.");
-          return prev;
-        }
-        return [...prev, base64Image];
-      });
-    };
-  }
+  useEffect(() => {
+    // Android receiveImage 함수 등록
+    if (window.Android && !window.Android.receiveImage) {
+      window.Android.receiveImage = (base64Image: string) => {
+        console.log("나 실행됐어", base64Image);
+        setImages((prev) => {
+          if (prev.length >= 5) {
+            alert("이미지는 최대 5장까지 업로드 가능합니다.");
+            return prev;
+          }
+          return [...prev, base64Image];
+        });
+      };
+    }
+  }, []);
 
   const handleStarRate = (num: number) => {
     setStarRate(num);
