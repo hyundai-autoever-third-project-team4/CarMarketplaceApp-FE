@@ -29,6 +29,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     console.log("Registering receiveImage function");
 
     window.receiveImage = (base64Image: string) => {
+      alert("이미지 수신됨");
       console.log(
         "receiveImage called with base64 string length:",
         base64Image.length
@@ -53,18 +54,6 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
       console.log("Cleaning up receiveImage function");
       window.receiveImage = undefined;
     };
-  }, []);
-
-  // 함수가 등록되었는지 확인하는 함수 추가
-  useEffect(() => {
-    const checkFunction = () => {
-      console.log("Checking receiveImage function:", !!window.receiveImage);
-    };
-
-    // 주기적으로 함수 존재 여부 체크 (디버깅용)
-    const interval = setInterval(checkFunction, 1000);
-
-    return () => clearInterval(interval);
   }, []);
 
   const handleStarRate = (num: number) => {
