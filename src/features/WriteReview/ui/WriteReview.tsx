@@ -26,8 +26,9 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
   useEffect(() => {
     // Android receiveImage 함수 등록
-    if (window.Android && !window.receiveImage) {
+    if (!window.receiveImage) {
       window.receiveImage = (base64Image: string) => {
+        alert("문장이 너무 길어.");
         alert(base64Image);
 
         setImages((prev) => {
