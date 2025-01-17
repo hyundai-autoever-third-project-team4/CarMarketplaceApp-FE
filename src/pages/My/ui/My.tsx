@@ -8,21 +8,11 @@ import BuyImg from "@/shared/assets/car.svg";
 import ReservationImg from "@/shared/assets/reservation_list_icon.svg";
 import ReviewImg from "@/shared/assets/review_list_icon.svg";
 import { useNavigate } from "react-router-dom";
+import { handleLoginClick } from "@/shared/api/login";
 
 export function My() {
   const navigate = useNavigate();
 
-  const handleLoginClick = () => {
-    const keycloakAuthUrl =
-      "https://keycloakmalak.site/realms/key-cloak-malak-realm/protocol/openid-connect/auth" +
-      "?response_type=code" +
-      "&client_id=key-cloak-malak" +
-      "&redirect_uri=http://localhost:5173" +
-      "&scope=profile email openid";
-
-    window.location.href = keycloakAuthUrl;
-    // handleLogin();
-  };
   const handleClickLike = () => {
     // 찜한 차량 페이지로 이동
     navigate("like");
@@ -51,7 +41,7 @@ export function My() {
   return (
     <>
       {/* 일단 !==로 설정 해두고 로그인 된 페이지 제작 중 */}
-      {localStorage.getItem("userId") !== null ? (
+      {localStorage.getItem("userId") === null ? (
         <S.Container>
           <S.NotLogin>
             <S.LoginArea>
@@ -68,7 +58,7 @@ export function My() {
         <S.LoginedContainer>
           <S.MyPageTopSection>
             <S.TextWrap>
-              <Text fontType="title">오정환</Text>
+              <Text fontType="title">{localStorage.getItem("name")}</Text>
               <Text fontType="title" fontColor="gray">
                 고객님
               </Text>

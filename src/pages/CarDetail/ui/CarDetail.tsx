@@ -9,8 +9,24 @@ import LikeImg from "@/shared/assets/heart.svg";
 import { CarDetailOptionInfo } from "@/widgets/CarDetailOptionInfo";
 import { mockCarOptions } from "@/widgets/CarDetailOptionInfo/model/mockData";
 import { CarDetailReviewSlide } from "@/widgets/CarDetailReviewSlide";
+import { useQuery } from "@tanstack/react-query";
+import { CarDetailInfo, handleCarDetailInfo } from "@/pages/CarDetail/api/api";
+import { useParams } from "react-router-dom";
 
 export function CarDetail() {
+  const { carId } = useParams();
+  const {
+    data: carDetailInfo,
+    // isFetching,
+    // isError,
+    // refetch,
+  } = useQuery<CarDetailInfo>({
+    queryKey: ["carDetailInfo"],
+    queryFn: async () => {
+      return await handleCarDetailInfo(carId!);
+    },
+  });
+  console.log(carDetailInfo, carId);
   return (
     <>
       <CarDetailImageSlide />
