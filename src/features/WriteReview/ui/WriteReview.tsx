@@ -34,7 +34,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
         base64Image.substring(0, 10)
       );
       // if (images.length <= 5) {
-      const newArr = [...images, base64Image];
+      const newArr = [...images, base64Image.substring(0, 10)];
       setImages(newArr);
       // } else {
       //   alert("이미지를 더 추가할 수 없습니다.");
