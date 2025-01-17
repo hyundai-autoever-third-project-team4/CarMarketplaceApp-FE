@@ -10,11 +10,11 @@ import { CustomLoading } from "@/shared/ui/CustomLoading";
 export function MyLike() {
   const navigate = useNavigate();
   const {
-    data: carLike,
+    data: myCarLike,
     isFetching,
     isError,
   } = useQuery<LikedCars>({
-    queryKey: ["carLike"],
+    queryKey: ["myCarLike"],
     queryFn: () => handleLikedCar(),
   });
 
@@ -22,19 +22,17 @@ export function MyLike() {
     navigate(`/carDetail/${carId}`);
   };
 
-  console.log(carLike);
-
   return (
     <>
-      {isFetching || isError || !carLike ? (
+      {isFetching || isError || !myCarLike ? (
         <CustomLoading text={"로딩 중입니다..."} middle={true} />
       ) : (
         <S.Container>
           <S.Title>
             <Text fontType="title">찜한 차량</Text>
           </S.Title>
-          {carLike?.cars.length !== 0 ? (
-            carLike.cars.map((car) => (
+          {myCarLike?.cars.length !== 0 ? (
+            myCarLike.cars.map((car) => (
               <div key={car.carId} onClick={() => handleCarClick(car.carId)}>
                 <CarCard
                   id={String(car.id)}

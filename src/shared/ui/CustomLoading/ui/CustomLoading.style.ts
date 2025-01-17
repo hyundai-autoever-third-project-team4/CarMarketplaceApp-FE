@@ -47,11 +47,11 @@ export const LoadingDots = styled.div`
   width: 80px;
 `;
 
-export const Dot = styled.div<{ delay: string }>`
+export const Dot = styled.div<{ $delay: string }>`
   width: 16px;
   height: 16px;
   border-radius: 50%;
   background-color: ${theme.colors.gray};
   animation: ${DotLoading} 2s ease-in-out infinite;
-  animation-delay: ${(props) => props.delay}; /* 각 점에 다른 delay 적용 */
+  animation-delay: ${(props) => props.$delay}; /* 각 점에 다른 delay 적용 */
 `;
