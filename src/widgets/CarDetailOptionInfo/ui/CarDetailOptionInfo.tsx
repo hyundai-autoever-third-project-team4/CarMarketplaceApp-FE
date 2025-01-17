@@ -12,7 +12,7 @@ export function CarDetailOptionInfo({ carOptions }: CarDetailOptionInfoProps) {
   return (
     <S.Container>
       {carOptions.map((option) => {
-        const optionInfo = OPTION_INFO[option.optionId as OptionId];
+        const optionInfo = OPTION_INFO[String(option.optionId) as OptionId];
         return (
           <S.OptionWrap key={option.optionId} $isPresent={option.isPresent}>
             <S.OptionImg src={optionInfo.imageUrl} alt={optionInfo.text} />
