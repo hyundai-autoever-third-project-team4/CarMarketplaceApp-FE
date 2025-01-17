@@ -55,6 +55,10 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     console.log("image update", images);
   }, [images]);
 
+  useEffect(() => {
+    console.log("Base64 updated:", base64);
+  }, [base64]);
+
   const handleStarRate = (num: number) => {
     setStarRate(num);
   };
@@ -145,10 +149,10 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     <S.Container>
       <form onSubmit={handleSubmitAction}>
         <img
-          src={base64}
+          src={base64 || ""}
           width={100}
           height={100}
-          alt="아직 이미지가 없습니다."
+          alt={base64 ? "이미지가 로드되었습니다." : "아직 이미지가 없습니다."}
           style={{ backgroundColor: theme.colors.lightGray }}
         />
         <RatingChart rate={starRate} setRating={handleStarRate} />
