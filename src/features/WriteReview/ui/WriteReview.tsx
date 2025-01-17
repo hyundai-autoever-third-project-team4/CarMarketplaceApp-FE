@@ -33,12 +33,17 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
         "receiveImage called with base64 string:",
         base64Image.substring(0, 10)
       );
-      // if (images.length <= 5) {
-      const newArr = [...images, base64Image.substring(0, 10)];
-      setImages(newArr);
-      // } else {
-      //   alert("이미지를 더 추가할 수 없습니다.");
-      // }
+
+      setImages((prevImages) => {
+        console.log("Previous images:", prevImages);
+        if (prevImages.length >= 5) {
+          alert("이미지는 최대 5장까지 업로드 가능합니다.");
+          return prevImages;
+        }
+        const updatedImages = [...prevImages, base64Image];
+        console.log("Updated images:", updatedImages);
+        return updatedImages;
+      });
     };
 
     // cleanup
@@ -49,7 +54,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   }, []);
 
   useEffect(() => {
-    console.log(images);
+    console.log("image update", images);
   }, [images]);
 
   const handleStarRate = (num: number) => {
