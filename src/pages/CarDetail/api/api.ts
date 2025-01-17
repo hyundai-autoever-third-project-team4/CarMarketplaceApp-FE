@@ -1,4 +1,4 @@
-import { noAuthInstance } from "@/shared/api/axiosInstance";
+import { authInstance, noAuthInstance } from "@/shared/api/axiosInstance";
 import { ResponseBody } from "@/shared/api/type";
 import { CarImage } from "@/widgets/CarDetailImageSlide/ui/CarDetailImageSlide";
 
@@ -6,6 +6,7 @@ export interface CarDetailInfo {
   id: string;
   carDetails: CarDetails;
   testDriveCenterName: string;
+  islike: boolean;
   price: number;
   marketplaceRegistrationDate: string; // ISO 8601 형식의 날짜
   status: string;
@@ -62,11 +63,15 @@ export interface ReviewResponse {
 }
 
 // GET 요청을 보내는 함수
-export const handleCarDetailInfo = async (carId: string) => {
+export const handleCarDetailInfo = async (
+  carId: string,
+  setIsLiked: (isLiked: boolean) => void
+) => {
   try {
-    const response: ResponseBody<CarDetailInfo> = await noAuthInstance.get(
+    const response: ResponseBody<CarDetailInfo> = await authInstance.get(
       `/cars/${carId}/detail`
     );
+    setIsLiked(response.data.islike);
     return response.data;
   } catch (error) {
     console.error("Car detail fetch failed:", error);

@@ -1,18 +1,38 @@
 import { Text } from "@/shared/ui/Text";
 import * as S from "./CarDetailInfoBox.style";
 
-const carDetails = [
-  { label: "최초등록일", value: "2021.07.15" },
-  { label: "주행거리", value: "16,510km" },
-  { label: "연료", value: "하이브리드" },
-  { label: "배기량", value: "2,356cc" },
-  { label: "차종", value: "승용" },
-  { label: "구동방식", value: "2WD" },
-  { label: "차량번호", value: "168구 9541" },
-  { label: "연식", value: "2021" },
-];
+interface CarDetailInfoBoxProps {
+  registrationDate: string;
+  mileage: number;
+  fuelType: string;
+  engineCapacity: number;
+  vehicleType: string;
+  driveType: string;
+  licensePlate: string;
+  modelYear: number;
+}
 
-export function CarDetailInfoBox() {
+export function CarDetailInfoBox({
+  registrationDate,
+  mileage,
+  fuelType,
+  engineCapacity,
+  vehicleType,
+  driveType,
+  licensePlate,
+  modelYear,
+}: CarDetailInfoBoxProps) {
+  const carDetails = [
+    { label: "최초등록일", value: registrationDate },
+    { label: "주행거리", value: `${mileage.toLocaleString()}km` }, // 천 단위로 포맷
+    { label: "연료", value: fuelType },
+    { label: "배기량", value: `${engineCapacity}cc` },
+    { label: "차종", value: vehicleType },
+    { label: "구동방식", value: driveType },
+    { label: "차량번호", value: licensePlate },
+    { label: "연식", value: `${modelYear}` },
+  ];
+
   return (
     <S.Container>
       <S.ContainerBackground>

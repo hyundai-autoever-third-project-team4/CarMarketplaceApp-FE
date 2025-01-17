@@ -1,16 +1,49 @@
 import { Text } from "@/shared/ui/Text";
 import * as S from "./CarDetailCircleInfo.style";
 
-export function CarDetailCircleInfo() {
+interface CarDetailCircleInfoProps {
+  fuelType: string;
+  engineCapacity: number;
+  registrationDate: string;
+  marketplaceRegistrationDate: string;
+}
+
+export function CarDetailCircleInfo({
+  fuelType,
+  engineCapacity,
+  registrationDate,
+  marketplaceRegistrationDate,
+}: CarDetailCircleInfoProps) {
+  const calculateDuration = (
+    startDateString: string,
+    endDateString: string
+  ) => {
+    const startDate = new Date(startDateString);
+    const endDate = new Date(endDateString);
+
+    let years = endDate.getFullYear() - startDate.getFullYear();
+    let months = endDate.getMonth() - startDate.getMonth();
+
+    // 월이 음수인 경우 조정
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    return { years, months };
+  };
+
   return (
     <S.Container>
       <S.InfoWrap>
         <S.InfoCircle>
           <Text fontSize={10} fontWeight="regular">
-            3년
+            {calculateDuration(registrationDate, marketplaceRegistrationDate)
+              .years + "년"}
           </Text>
           <Text fontSize={10} fontWeight="regular">
-            4개월
+            {calculateDuration(registrationDate, marketplaceRegistrationDate)
+              .months + "개월"}
           </Text>
         </S.InfoCircle>
         <Text fontSize={10} fontWeight="regular">
@@ -20,7 +53,7 @@ export function CarDetailCircleInfo() {
       <S.InfoWrap>
         <S.InfoCircle>
           <Text fontSize={10} fontWeight="regular">
-            가솔린
+            {fuelType}
           </Text>
         </S.InfoCircle>
         <Text fontSize={10} fontWeight="regular">
@@ -30,7 +63,7 @@ export function CarDetailCircleInfo() {
       <S.InfoWrap>
         <S.InfoCircle>
           <Text fontSize={10} fontWeight="regular">
-            2335cc
+            {engineCapacity}cc
           </Text>
         </S.InfoCircle>
         <Text fontSize={10} fontWeight="regular">
@@ -40,7 +73,7 @@ export function CarDetailCircleInfo() {
       <S.InfoWrap>
         <S.InfoCircle>
           <Text fontSize={10} fontWeight="regular">
-            1건
+            0건
           </Text>
         </S.InfoCircle>
         <Text fontSize={10} fontWeight="regular">
