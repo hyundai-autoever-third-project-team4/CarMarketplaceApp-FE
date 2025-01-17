@@ -29,11 +29,8 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     console.log("Registering receiveImage function");
 
     window.receiveImage = (base64Image: string) => {
-      alert("이미지 수신됨");
-      console.log("base64", base64Image.substring(0, 100));
-
+      console.log(images);
       try {
-        alert("이미지 수신됨");
         setImages((prev) => {
           if (prev.length >= 5) {
             alert("이미지는 최대 5장까지 업로드 가능합니다.");
@@ -106,6 +103,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
     // Add existing images
     for (let i = 0; i < images.length; i++) {
+      console.log(images[i]);
       items.push(
         <S.ImageItem key={i} onClick={() => handleRemoveImage(i)}>
           <img src={images[i]} alt={`Uploaded image ${i + 1}`} />
