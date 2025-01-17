@@ -32,7 +32,7 @@ export function CarCard({
         </div>
         <S.TextArea onClick={onClick}>
           <Text fontSize={12} fontColor="darkGray" fontWeight="bold">
-            {`${registrationDate} / ${mileage}km`}
+            {`${registrationDate} | ${mileage}km`}
           </Text>
           <Text fontSize={12} fontColor="darkGray" fontWeight="bold">
             {licensePlate}

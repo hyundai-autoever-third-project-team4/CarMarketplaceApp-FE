@@ -6,6 +6,7 @@ import { Text } from "@/shared/ui/Text";
 import { CarDetailInfoBox } from "@/widgets/CarDetailInfoBox";
 import { Button } from "@/shared/ui/Button";
 import LikeImg from "@/shared/assets/heart.svg";
+import LikedImg from "@/shared/assets/filled_heart.svg";
 import { CarDetailOptionInfo } from "@/widgets/CarDetailOptionInfo";
 import { CarDetailReviewSlide } from "@/widgets/CarDetailReviewSlide";
 import { useQuery } from "@tanstack/react-query";
@@ -19,14 +20,15 @@ import { useState } from "react";
 export function CarDetail() {
   const { carId } = useParams();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
   const {
     data: carDetailInfo,
-    isLoading,
+    isFetching,
     isError,
     // refetch,
   } = useQuery<CarDetailInfo>({
     queryKey: ["carDetailInfo"],
-    queryFn: () => handleCarDetailInfo(carId!),
+    queryFn: () => handleCarDetailInfo(carId!, setIsLiked),
     staleTime: 0,
   });
 
@@ -40,17 +42,17 @@ export function CarDetail() {
     } else {
       try {
         await authInstance.post(`/like/${carId}`);
+        setIsLiked((prev) => !prev);
       } catch (error) {
         console.error("Like click failed:", error);
         throw error;
       }
     }
   };
-
   return (
     <>
-      {isLoading || isError || !carDetailInfo ? (
-        <CustomLoading text={"로딩 중입니다..."} />
+      {isFetching || isError || !carDetailInfo ? (
+        <CustomLoading middle={true} text={"로딩 중입니다..."} />
       ) : (
         <>
           <CarDetailImageSlide
@@ -103,7 +105,11 @@ export function CarDetail() {
             <CarDetailReviewSlide />
             <S.BottomArea>
               <S.LikeArea onClick={handleHeartClick}>
-                <S.LikeImg src={LikeImg} />
+                {isLiked ? (
+                  <S.LikeImg src={LikedImg} />
+                ) : (
+                  <S.LikeImg src={LikeImg} />
+                )}
               </S.LikeArea>
               <S.ButtonArea>
                 <Button

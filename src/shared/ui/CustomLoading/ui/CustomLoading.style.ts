@@ -25,11 +25,14 @@ const DotLoading = keyframes`
   }
 `;
 
-export const LoadingContainer = styled.div`
+export const LoadingContainer = styled.div<{ $middle?: boolean }>`
+  // $middle 프로퍼티 추가
   display: flex;
   align-items: center;
   gap: 8px;
   flex-direction: column;
+  margin-top: ${({ $middle }) =>
+    $middle ? "100px" : "0"}; // 조건부 margin-top
 `;
 
 export const LoadingImg = styled.img`
