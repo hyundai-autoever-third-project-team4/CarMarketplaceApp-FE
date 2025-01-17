@@ -29,14 +29,22 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     console.log("Registering receiveImage function");
 
     window.receiveImage = (base64Image: string) => {
-      console.log(images);
+      alert("이미지 수신됨");
+      console.log(
+        "receiveImage called with base64 string:",
+        base64Image.substring(0, 100)
+      );
+
       try {
         setImages((prev) => {
+          console.log("Previous images:", prev);
           if (prev.length >= 5) {
             alert("이미지는 최대 5장까지 업로드 가능합니다.");
             return prev;
           }
-          return [...prev, base64Image];
+          const updatedImages = [...prev, base64Image];
+          console.log("Updated images:", updatedImages);
+          return updatedImages;
         });
       } catch (error) {
         console.error("Error in receiveImage:", error);
