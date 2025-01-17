@@ -11,7 +11,7 @@ interface WriteReviewProps {
 
 declare global {
   interface Window {
-    receiveImage?: (base64Image: string) => void;
+    receiveImageChunk?: (chunk: string, index: number, total: number) => void;
     Android?: {
       openCameraAndGallery: () => void;
     };
@@ -25,21 +25,36 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // Android receiveImage 함수 등록
-    if (!window.receiveImage) {
-      window.receiveImage = (base64Image: string) => {
-        alert("문장이 너무 길어.");
-        alert(base64Image);
+    let receivedChunks: string[] = [];
+    let totalChunks = 0;
 
+    window.receiveImageChunk = (
+      chunk: string,
+      index: number,
+      total: number
+    ) => {
+      alert("나는 기본");
+      alert(chunk);
+      alert(index);
+      alert(total);
+      if (index === 0) {
+        receivedChunks = [];
+        totalChunks = total;
+      }
+
+      receivedChunks[index] = chunk;
+
+      if (receivedChunks.length === totalChunks) {
+        const fullBase64Image = receivedChunks.join("");
         setImages((prev) => {
           if (prev.length >= 5) {
             alert("이미지는 최대 5장까지 업로드 가능합니다.");
             return prev;
           }
-          return [...prev, base64Image];
+          return [...prev, fullBase64Image];
         });
-      };
-    }
+      }
+    };
   }, []);
 
   const handleStarRate = (num: number) => {
