@@ -29,11 +29,6 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     console.log("Registering receiveImage function");
 
     window.receiveImage = (base64Image: string) => {
-      console.log(
-        "receiveImage called with base64 string:",
-        base64Image.substring(0, 10)
-      );
-
       setImages((prevImages) => {
         console.log("Previous images:", prevImages);
         if (prevImages.length >= 5) {
