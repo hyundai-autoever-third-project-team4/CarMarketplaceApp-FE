@@ -3,7 +3,7 @@ export const handleLoginClick = () => {
     "https://keycloakmalak.site/realms/key-cloak-malak-realm/protocol/openid-connect/auth" +
     "?response_type=code" +
     "&client_id=key-cloak-malak" +
-    "&redirect_uri=http://localhost:5173/signup" +
+    "&redirect_uri=https://chajava.store/signup" +
     "&scope=profile email openid";
 
   window.location.href = keycloakAuthUrl;
