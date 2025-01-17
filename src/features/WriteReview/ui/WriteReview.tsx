@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/shared/ui/Button";
 import PlusIcon from "@/shared/assets/Plus.svg";
 import { Text } from "@/shared/ui/Text";
+import theme from "@/shared/styles/theme";
 
 interface WriteReviewProps {
   handleSubmit: () => void;
@@ -143,7 +144,13 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   return (
     <S.Container>
       <form onSubmit={handleSubmitAction}>
-        <img src={base64} />
+        <img
+          src={base64}
+          width={100}
+          height={100}
+          alt="아직 이미지가 없습니다."
+          style={{ backgroundColor: theme.colors.lightGray }}
+        />
         <RatingChart rate={starRate} setRating={handleStarRate} />
         <S.TextWrap>
           <Text fontType="sub2">사진은 최대 5장까지 가능합니다.</Text>
