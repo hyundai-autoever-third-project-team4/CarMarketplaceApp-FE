@@ -3,6 +3,10 @@ import * as S from "./CarDetailTopInfo.style";
 import ReservationImg from "@/shared/assets/location.svg";
 import { Button } from "@/shared/ui/Button";
 
+interface CarTopInfoProps {
+  name: string;
+}
+
 export function CarDetailTopInfo() {
   return (
     <S.Container>
