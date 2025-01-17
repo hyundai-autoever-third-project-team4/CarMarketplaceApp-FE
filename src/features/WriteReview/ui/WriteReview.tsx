@@ -22,6 +22,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const [starRate, setStarRate] = useState(5);
   const [review, setReview] = useState("");
   const [images, setImages] = useState<string[]>([]);
+  const [sibal, setSibal] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -29,6 +30,8 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     if (window.Android && !window.Android.receiveImage) {
       window.Android.receiveImage = (base64Image: string) => {
         console.log("나 실행됐어", base64Image);
+        setSibal("나 실행됐어 + base64Image");
+        alert(sibal);
         setImages((prev) => {
           if (prev.length >= 5) {
             alert("이미지는 최대 5장까지 업로드 가능합니다.");
@@ -128,6 +131,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
   return (
     <S.Container>
+      {sibal}
       <form onSubmit={handleSubmitAction}>
         <RatingChart rate={starRate} setRating={handleStarRate} />
         <S.TextWrap>
