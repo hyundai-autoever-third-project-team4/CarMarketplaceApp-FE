@@ -29,26 +29,16 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     console.log("Registering receiveImage function");
 
     window.receiveImage = (base64Image: string) => {
-      alert("이미지 수신됨");
       console.log(
         "receiveImage called with base64 string:",
-        base64Image.substring(0, 100)
+        base64Image.substring(0, 10)
       );
-
-      try {
-        setImages((prev) => {
-          console.log("Previous images:", prev);
-          if (prev.length >= 5) {
-            alert("이미지는 최대 5장까지 업로드 가능합니다.");
-            return prev;
-          }
-          const updatedImages = [...prev, base64Image];
-          console.log("Updated images:", updatedImages);
-          return updatedImages;
-        });
-      } catch (error) {
-        console.error("Error in receiveImage:", error);
-      }
+      // if (images.length <= 5) {
+      const newArr = [...images, base64Image];
+      setImages(newArr);
+      // } else {
+      //   alert("이미지를 더 추가할 수 없습니다.");
+      // }
     };
 
     // cleanup
