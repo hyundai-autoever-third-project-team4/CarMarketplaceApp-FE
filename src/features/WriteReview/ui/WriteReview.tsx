@@ -27,20 +27,21 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const [base64, setBase64] = useState<string>("");
 
   useEffect(() => {
-    // 전역 스코프에 함수 등록
-    console.log("Registering receiveImage function");
-
     window.receiveImage = (base64Image: string) => {
-      setBase64(base64Image);
+      console.log("Received Base64:", base64Image.substring(0, 30));
+
+      // Ensure the base64 string starts with the correct prefix
+      const validBase64Image = base64Image.startsWith("data:image/jpeg;base64,")
+        ? base64Image
+        : `data:image/jpeg;base64,${base64Image}`;
+
+      setBase64(validBase64Image);
       setImages((prevImages) => {
-        console.log("Previous images:", prevImages);
         if (prevImages.length >= 5) {
           alert("이미지는 최대 5장까지 업로드 가능합니다.");
           return prevImages;
         }
-        const updatedImages = [...prevImages, base64Image];
-        console.log("Updated images:", updatedImages);
-        return updatedImages;
+        return [...prevImages, validBase64Image];
       });
     };
 
