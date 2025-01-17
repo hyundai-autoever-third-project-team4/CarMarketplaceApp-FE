@@ -25,9 +25,16 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // Android receiveImage 함수 등록
-    if (!window.receiveImage) {
-      window.receiveImage = (base64Image: string) => {
+    // 전역 스코프에 함수 등록
+    console.log("Registering receiveImage function");
+
+    window.receiveImage = (base64Image: string) => {
+      console.log(
+        "receiveImage called with base64 string length:",
+        base64Image.length
+      );
+
+      try {
         alert("이미지 수신됨");
         setImages((prev) => {
           if (prev.length >= 5) {
@@ -36,8 +43,28 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
           }
           return [...prev, base64Image];
         });
-      };
-    }
+      } catch (error) {
+        console.error("Error in receiveImage:", error);
+      }
+    };
+
+    // cleanup
+    return () => {
+      console.log("Cleaning up receiveImage function");
+      window.receiveImage = undefined;
+    };
+  }, []);
+
+  // 함수가 등록되었는지 확인하는 함수 추가
+  useEffect(() => {
+    const checkFunction = () => {
+      console.log("Checking receiveImage function:", !!window.receiveImage);
+    };
+
+    // 주기적으로 함수 존재 여부 체크 (디버깅용)
+    const interval = setInterval(checkFunction, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const handleStarRate = (num: number) => {
