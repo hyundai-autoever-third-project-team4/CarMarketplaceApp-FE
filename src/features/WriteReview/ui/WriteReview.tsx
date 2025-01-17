@@ -98,10 +98,9 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const renderImageGrid = () => {
     const items = [];
     //const totalSlots = Math.min(images.length + 1, 5);
-
+    console.log(images);
     // Add existing images
     for (let i = 0; i < images.length; i++) {
-      console.log(images[i]);
       items.push(
         <S.ImageItem key={i} onClick={() => handleRemoveImage(i)}>
           <img src={images[i]} alt={`Uploaded image ${i + 1}`} />
