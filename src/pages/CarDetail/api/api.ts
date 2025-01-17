@@ -1,5 +1,6 @@
 import { noAuthInstance } from "@/shared/api/axiosInstance";
 import { ResponseBody } from "@/shared/api/type";
+import { CarImage } from "@/widgets/CarDetailImageSlide/ui/CarDetailImageSlide";
 
 export interface CarDetailInfo {
   id: string;
@@ -42,12 +43,6 @@ export interface CarExtraOption {
   price: number;
 }
 
-export interface CarImage {
-  id: number;
-  marketplaceCarId: string;
-  imageUrl: string;
-}
-
 export interface CarOptionInfo {
   id: number;
   marketplaceCarId: string;
@@ -70,7 +65,7 @@ export interface ReviewResponse {
 export const handleCarDetailInfo = async (carId: string) => {
   try {
     const response: ResponseBody<CarDetailInfo> = await noAuthInstance.get(
-      `/car/${carId}/detail`
+      `/cars/${carId}/detail`
     );
     return response.data;
   } catch (error) {
