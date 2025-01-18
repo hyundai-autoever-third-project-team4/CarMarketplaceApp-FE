@@ -20,7 +20,7 @@ declare global {
 }
 
 function base64ToBlob(base64: string, mimeType = "image/jpeg"): Blob {
-  const byteCharacters = atob(base64.split(",")[1]);
+  const byteCharacters = atob(base64.split(",")[1]); // Base64 데이터의 실제 바이너리 데이터 부분
   const byteArrays = [];
   for (let offset = 0; offset < byteCharacters.length; offset += 512) {
     const slice = byteCharacters.slice(offset, offset + 512);
@@ -34,68 +34,55 @@ function base64ToBlob(base64: string, mimeType = "image/jpeg"): Blob {
   return new Blob(byteArrays, { type: mimeType });
 }
 
+function blobToFile(blob: Blob, fileName: string): File {
+  return new File([blob], fileName, { type: blob.type });
+}
+
 export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const [starRate, setStarRate] = useState(5);
   const [review, setReview] = useState("");
-  const [images, setImages] = useState<{ url: string; blob: Blob }[]>([]);
+  const [images, setImages] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [forceUpdate, setForceUpdate] = useState(0);
-  const [number, setNumber] = useState<number>(0);
-
-  useEffect(() => {
-    if (images.length > 0) {
-      console.log("이미지 상태 업데이트됨:");
-      console.log("이미지 개수:", images.length);
-      console.log("첫 번째 이미지 URL:", images[0].url);
-
-      // URL이 유효한지 확인
-      fetch(images[0].url)
-        .then((response) => {
-          console.log("URL 접근 가능:", response.ok);
-        })
-        .catch((error) => {
-          console.error("URL 접근 실패:", error);
-        });
-    }
-  }, [images]);
 
   useEffect(() => {
     window.receiveImage = (base64Image: string) => {
+      console.log("Received Base64:", base64Image.length);
+
       // Ensure the base64 string starts with the correct prefix
       const validBase64Image = base64Image.startsWith("data:image/jpeg;base64,")
         ? base64Image
         : `data:image/jpeg;base64,${base64Image}`;
 
-      console.log("변환된 base64:", validBase64Image.substring(0, 50) + "..."); // 앞부분만 출력
-
       const blob = base64ToBlob(validBase64Image, "image/jpeg");
-      const url = URL.createObjectURL(blob);
-      console.log("생성된 URL:", url);
+      const file = blobToFile(blob, "uploaded-image.jpg");
+
+      // 파일 URL 생성 후 미리보기
+      const fileUrl = URL.createObjectURL(file);
+      console.log("File URL:", fileUrl);
 
       setImages((prevImages) => {
         if (prevImages.length >= 5) {
-          URL.revokeObjectURL(url);
+          alert("이미지는 최대 5장까지 업로드 가능합니다.");
           return prevImages;
         }
-        return [...prevImages, { url, blob }];
-      });
-
-      // 별도로 호출
-      setForceUpdate((prev) => {
-        console.log("forceUpdate 변경:", prev + 1);
-        return prev + 1;
+        return [...prevImages, validBase64Image];
       });
     };
 
+    // cleanup
     return () => {
+      console.log("Cleaning up receiveImage function");
       window.receiveImage = undefined;
     };
   }, []);
 
-  // forceUpdate 변경 감지
   useEffect(() => {
-    console.log("forceUpdate changed:", forceUpdate);
-  }, [forceUpdate]);
+    console.log("Images state updated:", images);
+  }, [images]);
+
+  const handleStarRate = (num: number) => {
+    setStarRate(num);
+  };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -107,49 +94,53 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     }
 
     Array.from(files).forEach((file) => {
-      const url = URL.createObjectURL(file);
-      setImages((prev) => [...prev, { url, blob: file }]);
-    });
-  };
-
-  const handleRemoveImage = (index: number) => {
-    setImages((prev) => {
-      const url = prev[index].url;
-      URL.revokeObjectURL(url);
-      return prev.filter((_, i) => i !== index);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImages((prev) => [...prev, reader.result as string]);
+      };
+      reader.readAsDataURL(file);
     });
   };
 
   const handleUploadClick = () => {
     if (window.Android) {
-      window.Android.openCameraAndGallery();
+      window.Android.openCameraAndGallery(); // Android JavaScript 인터페이스 호출
     } else {
       fileInputRef.current?.click();
     }
   };
 
+  const handleRemoveImage = (index: number) => {
+    setImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
   const handleSubmitAction = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log({
+      starRate,
+      review,
+      images,
+    });
 
-    // Cleanup existing URLs before resetting
-    images.forEach((img) => URL.revokeObjectURL(img.url));
-
-    setImages([]);
-    setReview("");
+    setImages([]); // 이미지 초기화
+    setReview(""); // 리뷰 초기화
     handleSubmit();
   };
 
   const renderImageGrid = () => {
     const items = [];
+    //const totalSlots = Math.min(images.length + 1, 5);
 
+    // Add existing images
     for (let i = 0; i < images.length; i++) {
       items.push(
         <S.ImageItem key={i} onClick={() => handleRemoveImage(i)}>
-          <img src={images[i].url} alt={`Uploaded image ${i + 1}`} />
+          <img src={images[i]} alt={`Uploaded image ${i + 1}`} />
         </S.ImageItem>
       );
     }
 
+    // Add upload box if we haven't reached the limit
     if (images.length < 5) {
       items.push(
         <S.UploadBox key="upload" onClick={handleUploadClick}>
@@ -167,6 +158,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
       );
     }
 
+    // Add empty boxes to maintain grid structure
     while (items.length < 3) {
       items.push(<S.EmptyBox key={`empty-${items.length}`} />);
     }
@@ -175,34 +167,19 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   };
 
   return (
-    <S.Container key={forceUpdate}>
-      <Button
-        text="숫자 업"
-        size="small"
-        buttonClick={() => setNumber((p) => p + 1)}
-      />
-      <Text fontType="title">숫자: {number}</Text>
-      <Text fontType="title">이미지 개수: {images.length}</Text>
-      {images.length > 0 ? (
-        <div>
-          <p>이미지 URL: {images[0].url}</p>
-          <img
-            key={images[0].url} // key 추가
-            src={images[0].url}
-            width={100}
-            height={100}
-            alt="업로드된 이미지"
-            style={{ backgroundColor: theme.colors.lightGray }}
-            onError={(e) => console.error("이미지 로드 실패:", e)}
-            onLoad={() => console.log("이미지 로드 성공")}
-          />
-        </div>
-      ) : (
-        <p>이미지가 없습니다.</p>
-      )}
-
+    <S.Container>
       <form onSubmit={handleSubmitAction}>
-        <RatingChart rate={starRate} setRating={setStarRate} />
+        <img
+          src={images[0]}
+          width={100}
+          height={100}
+          alt={
+            images[0] ? "이미지가 로드되었습니다." : "아직 이미지가 없습니다."
+          }
+          style={{ backgroundColor: theme.colors.lightGray }}
+        />
+
+        <RatingChart rate={starRate} setRating={handleStarRate} />
         <S.TextWrap>
           <Text fontType="sub2">사진은 최대 5장까지 가능합니다.</Text>
         </S.TextWrap>
