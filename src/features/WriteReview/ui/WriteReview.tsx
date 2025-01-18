@@ -153,7 +153,9 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
   return (
     <S.Container>
-      <Text fontType="title">받은 이미지: {images[0].url}</Text>
+      <Text fontType="title">
+        받은 이미지: {images.length > 0 && images[0].url}
+      </Text>
       {images.length > 0 && (
         <>
           자 난 이제 나타났어.
