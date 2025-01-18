@@ -22,7 +22,6 @@ function Images({
       />
       <img
         id="image2"
-        src={currentImage}
         width={100}
         height={100}
         alt={
