@@ -159,11 +159,11 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
   return (
     <S.Container>
-      <Button
+      {/* <Button
         text="이미지를 찍는 코드"
         size="small"
         buttonClick={() => handleUploadClick()}
-      />
+      /> */}
       {/* <div>
         <img
           id="image1"
