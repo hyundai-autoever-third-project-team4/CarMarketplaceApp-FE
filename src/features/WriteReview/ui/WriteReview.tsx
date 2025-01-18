@@ -2,7 +2,7 @@
 import * as S from "./WriteReview.style";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/shared/ui/Button";
-// import PlusIcon from "@/shared/assets/Plus.svg";
+import PlusIcon from "@/shared/assets/Plus.svg";
 // import { Text } from "@/shared/ui/Text";
 // import theme from "@/shared/styles/theme";
 import Images from "./Images";
@@ -38,12 +38,12 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     numberRef.current = number;
   }, [number]);
 
-  const please = (type: string) => {
+  const please = (type: string, base64Image: string) => {
     console.log(type, "실행");
     console.log("지금 이게 실행이 되고 있어.");
     // React 배치 업데이트를 사용하여 상태 업데이트를 보장
     flushSync(() => {
-      setCurrentImage("12313213");
+      setCurrentImage(base64Image);
       setNumber((prev) => prev + 1);
     });
   };
@@ -52,7 +52,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     // 함수를 외부에서 선언하여 참조 안정성 확보
     const handleReceiveImage = async (base64Image: string) => {
       console.log(base64Image);
-      please("안드로이드 함수");
+      please("안드로이드 함수", base64Image);
     };
 
     window.receiveImage = handleReceiveImage;
@@ -195,7 +195,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
         text="모양을 바꾸는 버튼"
         size="small"
         buttonClick={() => {
-          please("일반 함수");
+          please("일반 함수", PlusIcon);
         }}
       />
       <Button
