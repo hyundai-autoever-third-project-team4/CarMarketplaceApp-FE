@@ -73,13 +73,17 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
       console.log("생성된 URL:", url);
 
       setImages((prevImages) => {
-        setForceUpdate((prev) => prev + 1);
-        console.log(forceUpdate);
         if (prevImages.length >= 5) {
           URL.revokeObjectURL(url);
           return prevImages;
         }
         return [...prevImages, { url, blob }];
+      });
+
+      // 별도로 호출
+      setForceUpdate((prev) => {
+        console.log("forceUpdate 변경:", prev + 1);
+        return prev + 1;
       });
     };
 
@@ -87,6 +91,11 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
       window.receiveImage = undefined;
     };
   }, []);
+
+  // forceUpdate 변경 감지
+  useEffect(() => {
+    console.log("forceUpdate changed:", forceUpdate);
+  }, [forceUpdate]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -166,7 +175,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   };
 
   return (
-    <S.Container>
+    <S.Container key={forceUpdate}>
       <Button
         text="숫자 업"
         size="small"
