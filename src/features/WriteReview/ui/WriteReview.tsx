@@ -24,7 +24,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   console.log(typeof handleSubmit);
   // const [starRate, setStarRate] = useState(5);
   // const [review, setReview] = useState("");
-  const [images] = useState<string[]>([]);
+  const [images, setImages] = useState<string[]>([]);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -34,20 +34,17 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   // currentImage가 변경될 때마다 ref 업데이트
   useEffect(() => {
     currentImageRef.current = currentImage;
+    setImages((p) => [...p, currentImage as string]);
   }, [currentImage]);
 
-  const please = (type: string, base64Image: string) => {
-    console.log(type, "실행");
-    console.log("지금 이게 실행이 되고 있어.");
-
+  const please = (base64Image: string) => {
     setCurrentImage(base64Image);
   };
 
   useEffect(() => {
     // 함수를 외부에서 선언하여 참조 안정성 확보
     const handleReceiveImage = async (base64Image: string) => {
-      console.log(base64Image);
-      please("안드로이드 함수", base64Image);
+      please(base64Image);
     };
 
     window.receiveImage = handleReceiveImage;
@@ -85,13 +82,6 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   //   window.receiveImage = undefined;
   // };
   // }, []);
-
-  // 디버깅을 위한 로그
-  useEffect(() => {
-    console.log("=== 상태 변경 감지 ===");
-    console.log("현재 currentImage 값:", currentImage);
-    console.log("currentImageRef 값:", currentImageRef.current);
-  }, [currentImage]);
 
   // useEffect(() => {
   //   console.log("Images state updated:", images);
@@ -188,19 +178,11 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   return (
     <S.Container>
       <Button
-        text="모양을 바꾸는 버튼"
-        size="small"
-        buttonClick={() => {
-          please("일반 함수", PlusIcon);
-        }}
-      />
-      <Button
         text="이미지를 찍는 코드"
         size="small"
         buttonClick={() => handleUploadClick()}
       />
       <div>
-        {currentImage === null ? <>안녕</> : <>이제 바꼈어.</>}
         <img
           id="image1"
           src={images[0]}
