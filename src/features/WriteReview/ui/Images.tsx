@@ -12,6 +12,8 @@ function Images({
   console.log("나 렌더링 됐어.");
   console.log("난 이걸 props 으로 받았어.", images);
   console.log("이건 지금 받은 current 이미지야", currentImage);
+
+  console.log("currentImage !== null: ", currentImage !== null);
   return (
     <div>
       <img
