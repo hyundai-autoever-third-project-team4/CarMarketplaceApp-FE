@@ -29,13 +29,33 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [number, setNumber] = useState(0);
 
+  // 상태 업데이트 함수를 ref로 관리
+  const stateUpdaterRef = useRef({
+    setCurrentImage,
+    setNumber,
+  });
+
+  useEffect(() => {
+    stateUpdaterRef.current = {
+      setCurrentImage,
+      setNumber,
+    };
+  });
+
   useEffect(() => {
     const functionName = "receiveImage";
     (window as any)[functionName] = async (base64Image: string) => {
       console.log(base64Image);
       console.log("지금 이게 실행이 되고 있어.");
-      setCurrentImage("12313213");
-      setNumber((p) => p + 1);
+      // React의 배치 업데이트를 강제로 실행
+      // @ts-ignore
+      if (typeof window.ReactNativeWebView !== "undefined") {
+        // React Native WebView 환경
+        setTimeout(() => {}, 0);
+      } else {
+        // 일반 웹 환경
+        Promise.resolve().then(() => {});
+      }
     };
     return () => {
       window.receiveImage = undefined;
