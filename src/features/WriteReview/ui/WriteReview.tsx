@@ -27,6 +27,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const [images] = useState<string[]>([]);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [number, setNumber] = useState(0);
 
   useEffect(() => {
     const functionName = "receiveImage";
@@ -34,6 +35,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
       console.log(base64Image);
       console.log("지금 이게 실행이 되고 있어.");
       setCurrentImage("12313213");
+      setNumber((p) => p + 1);
     };
     return () => {
       window.receiveImage = undefined;
@@ -165,13 +167,17 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
       <Button
         text="모양을 바꾸는 버튼"
         size="small"
-        buttonClick={() => setCurrentImage("12313213")}
+        buttonClick={() => {
+          setCurrentImage("12313213");
+          setNumber((p) => p + 1);
+        }}
       />
       <Button
         text="이미지를 찍는 코드"
         size="small"
         buttonClick={() => handleUploadClick()}
       />
+      {number}
       <Images images={images} currentImage={currentImage} />
       {/* <form onSubmit={handleSubmitAction}>
         <RatingChart rate={starRate} setRating={handleStarRate} />
