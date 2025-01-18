@@ -153,20 +153,20 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
   return (
     <S.Container>
-      <form onSubmit={handleSubmitAction}>
-        {images.length > 0 && (
-          <>
-            자 난 이제 나타났어.
-            <img
-              src={images[0].url}
-              width={100}
-              height={100}
-              alt="업로드된 이미지"
-              style={{ backgroundColor: theme.colors.lightGray }}
-            />
-          </>
-        )}
+      {images.length > 0 && (
+        <>
+          자 난 이제 나타났어.
+          <img
+            src={images[0].url}
+            width={100}
+            height={100}
+            alt="업로드된 이미지"
+            style={{ backgroundColor: theme.colors.lightGray }}
+          />
+        </>
+      )}
 
+      <form onSubmit={handleSubmitAction}>
         <RatingChart rate={starRate} setRating={setStarRate} />
         <S.TextWrap>
           <Text fontType="sub2">사진은 최대 5장까지 가능합니다.</Text>
