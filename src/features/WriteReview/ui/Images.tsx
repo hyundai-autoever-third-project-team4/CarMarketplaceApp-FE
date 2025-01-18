@@ -13,6 +13,7 @@ function Images({
   return (
     <div>
       <img
+        id="image1"
         src={images[0]}
         width={100}
         height={100}
@@ -20,6 +21,7 @@ function Images({
         style={{ backgroundColor: theme.colors.lightGray }}
       />
       <img
+        id="image2"
         src={currentImage}
         width={100}
         height={100}
