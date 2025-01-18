@@ -11,17 +11,17 @@ import { useNavigate } from "react-router-dom";
 import { handleLoginClick } from "@/shared/api/login";
 import { CustomLoading } from "@/shared/ui/CustomLoading";
 import { useQuery } from "@tanstack/react-query";
-import { handleGetUserInfo, MyInfo } from "@/pages/My/api/api";
+import { handleGetUserInfo, UserInfo } from "@/pages/My/api/api";
 
 export function My() {
   const {
     data: userInfo,
     isFetching,
     isError,
-  } = useQuery<MyInfo>({
+  } = useQuery<UserInfo>({
     queryKey: ["userInfo"], // 쿼리 키
     queryFn: handleGetUserInfo, // API 호출 함수
-    enabled: localStorage.getItem("access_token") !== null,
+    enabled: localStorage.getItem("access_token") !== null, // access_token이 있을 때만 쿼리 실행
   });
 
   const navigate = useNavigate();
@@ -80,12 +80,28 @@ export function My() {
         <S.LoginedContainer>
           <S.MyPageTopSection>
             <S.TextWrap>
-              <Text fontType="title">{userInfo?.name}</Text>
+              <Text fontType="title">{userInfo?.userName}</Text>
               <Text fontType="title" fontColor="gray">
                 고객님
               </Text>
             </S.TextWrap>
-            <NearReserveBox />
+            {userInfo == undefined || userInfo.reservation.length == 0 ? (
+              <NearReserveBox
+                carName={null}
+                mainImage={null}
+                driveCenter={null}
+                reservationDate={null}
+                reservationTime={null}
+              />
+            ) : (
+              <NearReserveBox
+                carName={userInfo.reservation[0].carName}
+                mainImage={userInfo.reservation[0].mainImage}
+                driveCenter={userInfo.reservation[0].driveCenter}
+                reservationDate={userInfo.reservation[0].reservationDate}
+                reservationTime={userInfo.reservation[0].reservationTime}
+              />
+            )}
           </S.MyPageTopSection>
           <S.MyPageBottomSection>
             <S.ButtonWrap onClick={handleClickLike}>
