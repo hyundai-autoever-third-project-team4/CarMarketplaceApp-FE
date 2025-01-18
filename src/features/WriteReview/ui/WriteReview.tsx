@@ -6,7 +6,6 @@ import { Button } from "@/shared/ui/Button";
 // import { Text } from "@/shared/ui/Text";
 // import theme from "@/shared/styles/theme";
 import Images from "./Images";
-import { flushSync } from "react-dom";
 
 interface WriteReviewProps {
   handleSubmit: () => void;
@@ -30,36 +29,13 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [number, setNumber] = useState(0);
 
-  // 상태 업데이트 함수를 ref로 관리
-  const stateUpdaterRef = useRef({
-    setCurrentImage,
-    setNumber,
-  });
-
-  useEffect(() => {
-    stateUpdaterRef.current = {
-      setCurrentImage,
-      setNumber,
-    };
-  });
-
   useEffect(() => {
     const functionName = "receiveImage";
     (window as any)[functionName] = async (base64Image: string) => {
       console.log(base64Image);
       console.log("지금 이게 실행이 되고 있어.");
-      // React의 배치 업데이트를 강제로 실행
-      // @ts-ignore
-
-      // 상태 업데이트 추가
-      stateUpdaterRef.current.setCurrentImage("12313213");
-      stateUpdaterRef.current.setNumber((p) => p + 1);
-
-      // React의 배치 업데이트를 강제로 실행
-      flushSync(() => {
-        stateUpdaterRef.current.setCurrentImage("12313213");
-        stateUpdaterRef.current.setNumber((p) => p + 1);
-      });
+      setCurrentImage("12313213");
+      setNumber((p) => p + 1);
     };
     return () => {
       window.receiveImage = undefined;
