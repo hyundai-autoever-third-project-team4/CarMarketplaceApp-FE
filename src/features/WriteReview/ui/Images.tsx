@@ -1,4 +1,6 @@
 import theme from "@/shared/styles/theme";
+import PlusIcon from "@/shared/assets/Plus.svg";
+import CarIcon from "@/shared/assets/car.svg";
 
 function Images({
   images,
@@ -22,6 +24,7 @@ function Images({
       />
       <img
         id="image2"
+        src={currentImage !== "" ? PlusIcon : CarIcon}
         width={100}
         height={100}
         alt={
