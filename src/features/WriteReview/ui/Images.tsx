@@ -22,16 +22,31 @@ function Images({
         alt={images[0] ? "이미지가 로드되었습니다." : "아직 이미지가 없습니다."}
         style={{ backgroundColor: theme.colors.lightGray }}
       />
-      <img
-        id="image2"
-        src={currentImage !== "" ? PlusIcon : CarIcon}
-        width={100}
-        height={100}
-        alt={
-          currentImage ? "이미지가 로드되었습니다." : "아직 이미지가 없습니다."
-        }
-        style={{ backgroundColor: theme.colors.lightGray }}
-      />
+      {currentImage !== "" ? (
+        <img
+          src={CarIcon}
+          width={100}
+          height={100}
+          alt={
+            currentImage
+              ? "이미지가 로드되었습니다."
+              : "아직 이미지가 없습니다."
+          }
+          style={{ backgroundColor: theme.colors.lightGray }}
+        />
+      ) : (
+        <img
+          src={PlusIcon}
+          width={100}
+          height={100}
+          alt={
+            currentImage
+              ? "이미지가 로드되었습니다."
+              : "아직 이미지가 없습니다."
+          }
+          style={{ backgroundColor: theme.colors.lightGray }}
+        />
+      )}
     </div>
   );
 }
