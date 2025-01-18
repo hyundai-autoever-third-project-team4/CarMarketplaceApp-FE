@@ -43,7 +43,6 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const [review, setReview] = useState("");
   const [images, setImages] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [base64, setBase64] = useState<string>("");
 
   useEffect(() => {
     window.receiveImage = (base64Image: string) => {
@@ -68,8 +67,6 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
         }
         return [...prevImages, fileUrl];
       });
-
-      setBase64(fileUrl);
     };
 
     // cleanup
@@ -80,12 +77,8 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   }, []);
 
   useEffect(() => {
-    console.log(images);
+    console.log("Images state updated:", images);
   }, [images]);
-
-  useEffect(() => {
-    console.log(base64);
-  }, [base64]);
 
   const handleStarRate = (num: number) => {
     setStarRate(num);
@@ -177,12 +170,15 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     <S.Container>
       <form onSubmit={handleSubmitAction}>
         <img
-          src={base64 || ""}
+          src={images[0]}
           width={100}
           height={100}
-          alt={base64 ? "이미지가 로드되었습니다." : "아직 이미지가 없습니다."}
+          alt={
+            images[0] ? "이미지가 로드되었습니다." : "아직 이미지가 없습니다."
+          }
           style={{ backgroundColor: theme.colors.lightGray }}
         />
+
         <RatingChart rate={starRate} setRating={handleStarRate} />
         <S.TextWrap>
           <Text fontType="sub2">사진은 최대 5장까지 가능합니다.</Text>
