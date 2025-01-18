@@ -2,11 +2,11 @@
 import * as S from "./WriteReview.style";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/shared/ui/Button";
-// import PlusIcon from "@/shared/assets/Plus.svg";
+import PlusIcon from "@/shared/assets/Plus.svg";
 // import { Text } from "@/shared/ui/Text";
 // import theme from "@/shared/styles/theme";
 import Images from "./Images";
-import { flushSync } from "react-dom";
+// import { flushSync } from "react-dom";
 
 interface WriteReviewProps {
   handleSubmit: () => void;
@@ -28,31 +28,27 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const [images] = useState<string[]>([]);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [number, setNumber] = useState(0);
 
-  // numberRef를 사용하여 현재 number 값을 추적
-  const numberRef = useRef(number);
+  // currentImageRef를 사용하여 현재 이미지 값을 추적
+  const currentImageRef = useRef(currentImage);
 
-  // number가 변경될 때마다 ref 업데이트
+  // currentImage가 변경될 때마다 ref 업데이트
   useEffect(() => {
-    numberRef.current = number;
-  }, [number]);
+    currentImageRef.current = currentImage;
+  }, [currentImage]);
 
-  const please = (type: string) => {
+  const please = (type: string, base64Image: string) => {
     console.log(type, "실행");
     console.log("지금 이게 실행이 되고 있어.");
-    // React 배치 업데이트를 사용하여 상태 업데이트를 보장
-    flushSync(() => {
-      setCurrentImage("12313213");
-      setNumber((prev) => prev + 1);
-    });
+
+    setCurrentImage(base64Image);
   };
 
   useEffect(() => {
     // 함수를 외부에서 선언하여 참조 안정성 확보
     const handleReceiveImage = async (base64Image: string) => {
       console.log(base64Image);
-      please("안드로이드 함수");
+      please("안드로이드 함수", base64Image);
     };
 
     window.receiveImage = handleReceiveImage;
@@ -91,11 +87,12 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   // };
   // }, []);
 
+  // 디버깅을 위한 로그
   useEffect(() => {
     console.log("=== 상태 변경 감지 ===");
-    console.log("현재 number 값:", number);
-    console.log("numberRef 값:", numberRef.current);
-  }, [currentImage, number]);
+    console.log("현재 currentImage 값:", currentImage);
+    console.log("currentImageRef 값:", currentImageRef.current);
+  }, [currentImage]);
 
   // useEffect(() => {
   //   console.log("Images state updated:", images);
@@ -195,7 +192,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
         text="모양을 바꾸는 버튼"
         size="small"
         buttonClick={() => {
-          please("일반 함수");
+          please("일반 함수", PlusIcon);
         }}
       />
       <Button
@@ -203,7 +200,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
         size="small"
         buttonClick={() => handleUploadClick()}
       />
-      {number}
+
       <Images images={images} currentImage={currentImage} />
       {/* <form onSubmit={handleSubmitAction}>
         <RatingChart rate={starRate} setRating={handleStarRate} />
