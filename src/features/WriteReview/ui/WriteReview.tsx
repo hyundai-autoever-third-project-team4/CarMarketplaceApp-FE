@@ -42,6 +42,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
         : `data:image/jpeg;base64,${base64Image}`;
 
       const imageUrl = await changeImage(validBase64Image);
+      console.log("지금 이게 실행이 되고 있어.");
       setCurrentImage("12313213"); // currentImage 상태 업데이트
 
       setImages((prevImages) => {
