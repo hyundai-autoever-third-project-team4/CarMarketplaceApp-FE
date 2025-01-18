@@ -1,6 +1,6 @@
 import { RatingChart } from "@/shared/ui/RatingChart";
 import * as S from "./WriteReview.style";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/shared/ui/Button";
 import PlusIcon from "@/shared/assets/Plus.svg";
 import { Text } from "@/shared/ui/Text";
@@ -166,11 +166,16 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     return items;
   };
 
+  const returnImage = useMemo(() => {
+    console.log("나는야 내부의 이미지", images[0]);
+    return images[0];
+  }, [images]);
+
   return (
     <S.Container>
       <form onSubmit={handleSubmitAction}>
         <img
-          src={images[0]}
+          src={returnImage}
           width={100}
           height={100}
           alt={
