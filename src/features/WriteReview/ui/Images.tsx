@@ -16,6 +16,7 @@ function Images({
   console.log("currentImage !== null: ", currentImage === null);
   return (
     <div>
+      {currentImage === null ? <>안녕</> : <>이제 바꼈어.</>}
       <img
         id="image1"
         src={images[0]}

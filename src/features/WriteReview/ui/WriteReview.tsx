@@ -47,7 +47,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
       setImages((prevImages) => {
         if (prevImages.length >= 5) {
-          alert("이미지는 최대 5장까지 업로드 가능합니다.");
+          console.log("이미지는 최대 5장까지 업로드 가능합니다.");
           return prevImages;
         }
         return [...prevImages, imageUrl];
@@ -155,6 +155,11 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
   return (
     <S.Container>
+      <Button
+        text="모양을 바꾸는 버튼"
+        size="small"
+        buttonClick={() => setCurrentImage("12313213")}
+      />
       <form onSubmit={handleSubmitAction}>
         <Images images={images} currentImage={currentImage} />
 
