@@ -161,6 +161,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   return (
     <S.Container>
       <form onSubmit={handleSubmitAction}>
+        <img src={currentImage || PlusIcon} />
         <RatingChart rate={starRate} setRating={handleStarRate} />
         <S.TextWrap>
           <Text fontType="sub2">사진은 최대 5장까지 가능합니다.</Text>
