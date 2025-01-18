@@ -30,12 +30,29 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
   // currentImageRef를 사용하여 현재 이미지 값을 추적
   const currentImageRef = useRef(currentImage);
+  const imagesRef = useRef(images);
 
   // currentImage가 변경될 때마다 ref 업데이트
   useEffect(() => {
     currentImageRef.current = currentImage;
-    setImages((p) => [...p, currentImage as string]);
+    console.log(currentImage);
+    if (currentImage) {
+      setImages((prev) => {
+        // 이미지 개수 제한 체크
+        if (prev.length >= 5) {
+          console.log("이미지는 최대 5장까지 업로드 가능합니다.");
+          return prev;
+        }
+        return [...prev, currentImage];
+      });
+    }
   }, [currentImage]);
+
+  // images 변경 추적
+  useEffect(() => {
+    imagesRef.current = images;
+    console.log("현재 이미지 배열:", images);
+  }, [images]);
 
   const please = (base64Image: string) => {
     setCurrentImage(base64Image);
