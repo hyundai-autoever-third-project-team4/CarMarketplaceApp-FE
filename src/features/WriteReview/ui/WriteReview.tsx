@@ -6,6 +6,7 @@ import { Button } from "@/shared/ui/Button";
 // import { Text } from "@/shared/ui/Text";
 // import theme from "@/shared/styles/theme";
 import Images from "./Images";
+import { flushSync } from "react-dom";
 
 interface WriteReviewProps {
   handleSubmit: () => void;
@@ -55,8 +56,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
       stateUpdaterRef.current.setNumber((p) => p + 1);
 
       // React의 배치 업데이트를 강제로 실행
-      requestAnimationFrame(() => {
-        // RAF를 사용하여 브라우저의 다음 페인트 시점에 실행
+      flushSync(() => {
         stateUpdaterRef.current.setCurrentImage("12313213");
         stateUpdaterRef.current.setNumber((p) => p + 1);
       });
