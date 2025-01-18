@@ -6,6 +6,7 @@ import { Button } from "@/shared/ui/Button";
 // import { Text } from "@/shared/ui/Text";
 // import theme from "@/shared/styles/theme";
 import Images from "./Images";
+import { flushSync } from "react-dom";
 
 interface WriteReviewProps {
   handleSubmit: () => void;
@@ -32,15 +33,22 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const please = (type: string) => {
     console.log(type, "실행");
     console.log("지금 이게 실행이 되고 있어.");
-    setCurrentImage("12313213");
-    setNumber((p) => p + 1);
+    // React 배치 업데이트를 사용하여 상태 업데이트를 보장
+    flushSync(() => {
+      setCurrentImage("12313213");
+      setNumber((prev) => prev + 1);
+    });
   };
+
   useEffect(() => {
-    const functionName = "receiveImage";
-    (window as any)[functionName] = async (base64Image: string) => {
+    // 함수를 외부에서 선언하여 참조 안정성 확보
+    const handleReceiveImage = async (base64Image: string) => {
       console.log(base64Image);
       please("안드로이드 함수");
     };
+
+    window.receiveImage = handleReceiveImage;
+
     return () => {
       window.receiveImage = undefined;
     };
@@ -73,6 +81,11 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     //   window.receiveImage = undefined;
     // };
   }, []);
+
+  useEffect(() => {
+    console.log("currentImage changed:", currentImage);
+    console.log("number changed:", number);
+  }, [currentImage, number]);
 
   // useEffect(() => {
   //   console.log("Images state updated:", images);
