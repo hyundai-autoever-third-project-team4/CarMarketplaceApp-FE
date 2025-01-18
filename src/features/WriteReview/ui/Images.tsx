@@ -7,13 +7,13 @@ function Images({
   currentImage,
 }: {
   images: string[];
-  currentImage: string;
+  currentImage: string | null;
 }) {
   console.log("나 렌더링 됐어.");
   console.log("난 이걸 props 으로 받았어.", images);
   console.log("이건 지금 받은 current 이미지야", currentImage);
 
-  console.log("currentImage !== null: ", currentImage !== null);
+  console.log("currentImage !== null: ", currentImage === null);
   return (
     <div>
       <img
@@ -24,7 +24,7 @@ function Images({
         alt={images[0] ? "이미지가 로드되었습니다." : "아직 이미지가 없습니다."}
         style={{ backgroundColor: theme.colors.lightGray }}
       />
-      {currentImage !== "" ? (
+      {currentImage === null ? (
         <img
           src={CarIcon}
           width={100}
