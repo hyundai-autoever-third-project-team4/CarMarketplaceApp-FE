@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/shared/ui/Button";
 import PlusIcon from "@/shared/assets/Plus.svg";
 import { Text } from "@/shared/ui/Text";
-import theme from "@/shared/styles/theme";
+// import theme from "@/shared/styles/theme";
+import Images from "./Images";
 
 interface WriteReviewProps {
   handleSubmit: () => void;
@@ -169,15 +170,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   return (
     <S.Container>
       <form onSubmit={handleSubmitAction}>
-        <img
-          src={images[0]}
-          width={100}
-          height={100}
-          alt={
-            images[0] ? "이미지가 로드되었습니다." : "아직 이미지가 없습니다."
-          }
-          style={{ backgroundColor: theme.colors.lightGray }}
-        />
+        <Images images={images} />
 
         <RatingChart rate={starRate} setRating={handleStarRate} />
         <S.TextWrap>
