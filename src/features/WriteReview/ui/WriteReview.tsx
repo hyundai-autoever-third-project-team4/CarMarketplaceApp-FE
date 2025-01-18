@@ -29,7 +29,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const functionName = "receiveReviewImage";
+    const functionName = "receiveImage";
     (window as any)[functionName] = async (base64Image: string) => {
       console.log(base64Image);
       console.log("지금 이게 실행이 되고 있어.");
