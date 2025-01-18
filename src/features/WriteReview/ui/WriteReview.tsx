@@ -159,34 +159,6 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
   return (
     <S.Container>
-      {/* <Button
-        text="이미지를 찍는 코드"
-        size="small"
-        buttonClick={() => handleUploadClick()}
-      /> */}
-      {/* <div>
-        <img
-          id="image1"
-          src={images[0]}
-          width={100}
-          height={100}
-          alt={
-            images[0] ? "이미지가 로드되었습니다." : "아직 이미지가 없습니다."
-          }
-          style={{ backgroundColor: theme.colors.lightGray }}
-        />
-        <img
-          src={currentImage || PlusIcon}
-          width={100}
-          height={100}
-          alt={
-            currentImage
-              ? "이미지가 로드되었습니다."
-              : "아직 이미지가 없습니다."
-          }
-          style={{ backgroundColor: theme.colors.lightGray }}
-        />
-      </div> */}
       <form onSubmit={handleSubmitAction}>
         <RatingChart rate={starRate} setRating={handleStarRate} />
         <S.TextWrap>
