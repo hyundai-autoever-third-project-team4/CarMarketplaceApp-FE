@@ -29,33 +29,42 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    useEffect(() => {
+      const handleReceiveImage = async (base64Image: string) => {
+        console.log(base64Image);
+        console.log("지금 이게 실행이 되고 있어.");
+        setCurrentImage("12313213");
+      };
+
+      window.receiveImage = handleReceiveImage;
+
+      return () => {
+        window.receiveImage = undefined;
+      };
+    }, []);
     // const changeImage = async (image: string) => {
     //   const data = await fetch(image);
     //   const blob = await data.blob();
     //   const url = URL.createObjectURL(blob);
-
     //   return url;
     // };
-    window.receiveImage = async (base64Image: string) => {
-      console.log(base64Image);
-      // // Ensure the base64 string starts with the correct prefix
-      // const validBase64Image = base64Image.startsWith("data:image/jpeg;base64,")
-      //   ? base64Image
-      //   : `data:image/jpeg;base64,${base64Image}`;
-
-      // const imageUrl = await changeImage(validBase64Image);
-      console.log("지금 이게 실행이 되고 있어.");
-      setCurrentImage("12313213"); // currentImage 상태 업데이트
-
-      // setImages((prevImages) => {
-      //   if (prevImages.length >= 5) {
-      //     console.log("이미지는 최대 5장까지 업로드 가능합니다.");
-      //     return prevImages;
-      //   }
-      //   return [...prevImages, imageUrl];
-      // });
-    };
-
+    // window.receiveImage = async (base64Image: string) => {
+    //   console.log(base64Image);
+    // // Ensure the base64 string starts with the correct prefix
+    // const validBase64Image = base64Image.startsWith("data:image/jpeg;base64,")
+    //   ? base64Image
+    //   : `data:image/jpeg;base64,${base64Image}`;
+    // const imageUrl = await changeImage(validBase64Image);
+    // console.log("지금 이게 실행이 되고 있어.");
+    // setCurrentImage("12313213"); // currentImage 상태 업데이트
+    // setImages((prevImages) => {
+    //   if (prevImages.length >= 5) {
+    //     console.log("이미지는 최대 5장까지 업로드 가능합니다.");
+    //     return prevImages;
+    //   }
+    //   return [...prevImages, imageUrl];
+    // });
+    // };
     // // cleanup
     // return () => {
     //   console.log("Cleaning up receiveImage function");
