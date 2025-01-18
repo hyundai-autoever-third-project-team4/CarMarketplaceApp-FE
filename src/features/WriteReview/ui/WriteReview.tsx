@@ -1,6 +1,6 @@
 // import { RatingChart } from "@/shared/ui/RatingChart";
 import * as S from "./WriteReview.style";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/shared/ui/Button";
 // import PlusIcon from "@/shared/assets/Plus.svg";
 // import { Text } from "@/shared/ui/Text";
