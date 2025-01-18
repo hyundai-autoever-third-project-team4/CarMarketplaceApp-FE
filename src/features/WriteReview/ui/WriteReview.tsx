@@ -58,7 +58,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
       const blob = base64ToBlob(validBase64Image, "image/jpeg");
       const url = URL.createObjectURL(blob);
-
+      console.log(url);
       setImages((prevImages) => {
         if (prevImages.length >= 5) {
           alert("이미지는 최대 5장까지 업로드 가능합니다.");
@@ -153,6 +153,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
   return (
     <S.Container>
+      <Text fontType="title">받은 이미지: {images[0].url}</Text>
       {images.length > 0 && (
         <>
           자 난 이제 나타났어.
