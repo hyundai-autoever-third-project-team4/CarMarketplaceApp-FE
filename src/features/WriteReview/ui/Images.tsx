@@ -1,5 +1,4 @@
 import theme from "@/shared/styles/theme";
-import PlusIcon from "@/shared/assets/Plus.svg";
 import CarIcon from "@/shared/assets/car.svg";
 
 function Images({
@@ -9,47 +8,25 @@ function Images({
   images: string[];
   currentImage: string | null;
 }) {
-  console.log("나 렌더링 됐어.");
-  console.log("난 이걸 props 으로 받았어.", images);
-  console.log("이건 지금 받은 current 이미지야", currentImage);
-
-  console.log("currentImage !== null: ", currentImage === null);
   return (
     <div>
       {currentImage === null ? <>안녕</> : <>이제 바꼈어.</>}
       <img
-        id="image1"
-        src={images[0]}
+        src={CarIcon}
         width={100}
         height={100}
         alt={images[0] ? "이미지가 로드되었습니다." : "아직 이미지가 없습니다."}
         style={{ backgroundColor: theme.colors.lightGray }}
       />
-      {currentImage === null ? (
-        <img
-          src={CarIcon}
-          width={100}
-          height={100}
-          alt={
-            currentImage
-              ? "이미지가 로드되었습니다."
-              : "아직 이미지가 없습니다."
-          }
-          style={{ backgroundColor: theme.colors.lightGray }}
-        />
-      ) : (
-        <img
-          src={PlusIcon}
-          width={100}
-          height={100}
-          alt={
-            currentImage
-              ? "이미지가 로드되었습니다."
-              : "아직 이미지가 없습니다."
-          }
-          style={{ backgroundColor: theme.colors.lightGray }}
-        />
-      )}
+      <img
+        src={currentImage || CarIcon} // currentImage가 null이면 CarIcon을 보여줌
+        width={100}
+        height={100}
+        alt={
+          currentImage ? "이미지가 로드되었습니다." : "아직 이미지가 없습니다."
+        }
+        style={{ backgroundColor: theme.colors.lightGray }}
+      />
     </div>
   );
 }
