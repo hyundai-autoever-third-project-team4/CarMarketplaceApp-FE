@@ -40,6 +40,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const [images, setImages] = useState<{ url: string; blob: Blob }[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [forceUpdate, setForceUpdate] = useState(0);
+  const [number, setNumber] = useState<number>(0);
 
   useEffect(() => {
     if (images.length > 0) {
@@ -166,6 +167,12 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
   return (
     <S.Container>
+      <Button
+        text="숫자 업"
+        size="small"
+        buttonClick={() => setNumber((p) => p + 1)}
+      />
+      <Text fontType="title">숫자: {number}</Text>
       <Text fontType="title">이미지 개수: {images.length}</Text>
       {images.length > 0 ? (
         <div>
