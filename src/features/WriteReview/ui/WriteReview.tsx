@@ -39,14 +39,23 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const [review, setReview] = useState("");
   const [images, setImages] = useState<{ url: string; blob: Blob }[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [forceUpdate, setForceUpdate] = useState(0);
 
-  // Cleanup URLs when component unmounts or images change
   useEffect(() => {
-    const urls = images.map((img) => img.url);
-    console.log(images);
-    return () => {
-      urls.forEach((url) => URL.revokeObjectURL(url));
-    };
+    if (images.length > 0) {
+      console.log("이미지 상태 업데이트됨:");
+      console.log("이미지 개수:", images.length);
+      console.log("첫 번째 이미지 URL:", images[0].url);
+
+      // URL이 유효한지 확인
+      fetch(images[0].url)
+        .then((response) => {
+          console.log("URL 접근 가능:", response.ok);
+        })
+        .catch((error) => {
+          console.error("URL 접근 실패:", error);
+        });
+    }
   }, [images]);
 
   useEffect(() => {
@@ -56,12 +65,16 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
         ? base64Image
         : `data:image/jpeg;base64,${base64Image}`;
 
+      console.log("변환된 base64:", validBase64Image.substring(0, 50) + "..."); // 앞부분만 출력
+
       const blob = base64ToBlob(validBase64Image, "image/jpeg");
       const url = URL.createObjectURL(blob);
-      console.log(url);
+      console.log("생성된 URL:", url);
+
       setImages((prevImages) => {
+        setForceUpdate((prev) => prev + 1);
+        console.log(forceUpdate);
         if (prevImages.length >= 5) {
-          alert("이미지는 최대 5장까지 업로드 가능합니다.");
           URL.revokeObjectURL(url);
           return prevImages;
         }
@@ -153,20 +166,23 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
   return (
     <S.Container>
-      <Text fontType="title">
-        받은 이미지: {images.length > 0 && images[0].url}
-      </Text>
-      {images.length > 0 && (
-        <>
-          자 난 이제 나타났어.
+      <Text fontType="title">이미지 개수: {images.length}</Text>
+      {images.length > 0 ? (
+        <div>
+          <p>이미지 URL: {images[0].url}</p>
           <img
+            key={images[0].url} // key 추가
             src={images[0].url}
             width={100}
             height={100}
             alt="업로드된 이미지"
             style={{ backgroundColor: theme.colors.lightGray }}
+            onError={(e) => console.error("이미지 로드 실패:", e)}
+            onLoad={() => console.log("이미지 로드 성공")}
           />
-        </>
+        </div>
+      ) : (
+        <p>이미지가 없습니다.</p>
       )}
 
       <form onSubmit={handleSubmitAction}>
