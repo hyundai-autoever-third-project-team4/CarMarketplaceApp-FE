@@ -35,7 +35,6 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
       return url;
     };
-
     window.receiveImage = async (base64Image: string) => {
       // Ensure the base64 string starts with the correct prefix
       const validBase64Image = base64Image.startsWith("data:image/jpeg;base64,")
@@ -43,13 +42,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
         : `data:image/jpeg;base64,${base64Image}`;
 
       const imageUrl = await changeImage(validBase64Image);
-
-      setCurrentImage(imageUrl);
-      const img1: HTMLImageElement = document.getElementById(
-        "image2"
-      ) as HTMLImageElement;
-      console.log(img1);
-      img1.src = imageUrl;
+      setCurrentImage(imageUrl); // currentImage 상태 업데이트
 
       setImages((prevImages) => {
         if (prevImages.length >= 5) {
@@ -83,9 +76,10 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
       alert("이미지는 최대 5개까지 업로드 가능합니다.");
       return;
     }
-
+    setCurrentImage("sdasdsd");
     Array.from(files).forEach((file) => {
       const reader = new FileReader();
+
       reader.onloadend = () => {
         setImages((prev) => [...prev, reader.result as string]);
       };
