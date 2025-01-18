@@ -49,13 +49,17 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
       console.log("지금 이게 실행이 되고 있어.");
       // React의 배치 업데이트를 강제로 실행
       // @ts-ignore
-      if (typeof window.ReactNativeWebView !== "undefined") {
-        // React Native WebView 환경
-        setTimeout(() => {}, 0);
-      } else {
-        // 일반 웹 환경
-        Promise.resolve().then(() => {});
-      }
+
+      // 상태 업데이트 추가
+      stateUpdaterRef.current.setCurrentImage("12313213");
+      stateUpdaterRef.current.setNumber((p) => p + 1);
+
+      // React의 배치 업데이트를 강제로 실행
+      requestAnimationFrame(() => {
+        // RAF를 사용하여 브라우저의 다음 페인트 시점에 실행
+        stateUpdaterRef.current.setCurrentImage("12313213");
+        stateUpdaterRef.current.setNumber((p) => p + 1);
+      });
     };
     return () => {
       window.receiveImage = undefined;
