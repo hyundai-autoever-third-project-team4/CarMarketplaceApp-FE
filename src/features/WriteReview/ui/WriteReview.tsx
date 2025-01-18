@@ -19,6 +19,25 @@ declare global {
   }
 }
 
+function base64ToBlob(base64: string, mimeType = "image/jpeg"): Blob {
+  const byteCharacters = atob(base64.split(",")[1]); // Base64 데이터의 실제 바이너리 데이터 부분
+  const byteArrays = [];
+  for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+    const slice = byteCharacters.slice(offset, offset + 512);
+    const byteNumbers = new Array(slice.length);
+    for (let i = 0; i < slice.length; i++) {
+      byteNumbers[i] = slice.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    byteArrays.push(byteArray);
+  }
+  return new Blob(byteArrays, { type: mimeType });
+}
+
+function blobToFile(blob: Blob, fileName: string): File {
+  return new File([blob], fileName, { type: blob.type });
+}
+
 export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const [starRate, setStarRate] = useState(5);
   const [review, setReview] = useState("");
@@ -35,14 +54,22 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
         ? base64Image
         : `data:image/jpeg;base64,${base64Image}`;
 
-      setBase64(validBase64Image);
+      const blob = base64ToBlob(validBase64Image, "image/jpeg");
+      const file = blobToFile(blob, "uploaded-image.jpg");
+
+      // 파일 URL 생성 후 미리보기
+      const fileUrl = URL.createObjectURL(file);
+      console.log("File URL:", fileUrl);
+
       setImages((prevImages) => {
         if (prevImages.length >= 5) {
           alert("이미지는 최대 5장까지 업로드 가능합니다.");
           return prevImages;
         }
-        return [...prevImages, validBase64Image];
+        return [...prevImages, fileUrl];
       });
+
+      setBase64(fileUrl);
     };
 
     // cleanup
@@ -53,11 +80,11 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   }, []);
 
   useEffect(() => {
-    console.log("image update", images);
+    console.log(images);
   }, [images]);
 
   useEffect(() => {
-    console.log("Base64 updated:", base64);
+    console.log(base64);
   }, [base64]);
 
   const handleStarRate = (num: number) => {
