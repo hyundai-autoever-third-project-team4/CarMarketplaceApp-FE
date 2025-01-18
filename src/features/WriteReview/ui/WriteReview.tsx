@@ -43,6 +43,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   // Cleanup URLs when component unmounts or images change
   useEffect(() => {
     const urls = images.map((img) => img.url);
+    console.log(images);
     return () => {
       urls.forEach((url) => URL.revokeObjectURL(url));
     };
