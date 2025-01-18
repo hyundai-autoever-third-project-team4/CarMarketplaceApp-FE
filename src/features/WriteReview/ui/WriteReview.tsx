@@ -45,6 +45,12 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
       const imageUrl = await changeImage(validBase64Image);
 
       setCurrentImage(imageUrl);
+      const img1: HTMLImageElement = document.getElementById(
+        "image2"
+      ) as HTMLImageElement;
+      console.log(img1);
+      img1.src = imageUrl;
+
       setImages((prevImages) => {
         if (prevImages.length >= 5) {
           alert("이미지는 최대 5장까지 업로드 가능합니다.");
@@ -118,6 +124,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
     // Add existing images
     for (let i = 0; i < images.length; i++) {
+      console.log(`난 이미지스임 ${i + 1} 번`, images);
       items.push(
         <S.ImageItem key={i} onClick={() => handleRemoveImage(i)}>
           <img src={images[i]} alt={`Uploaded image ${i + 1}`} />
