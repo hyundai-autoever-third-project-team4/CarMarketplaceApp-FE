@@ -47,7 +47,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
   useEffect(() => {
     window.receiveImage = (base64Image: string) => {
-      console.log("Received Base64:", base64Image.substring(0, 30));
+      console.log("Received Base64:", base64Image.length);
 
       // Ensure the base64 string starts with the correct prefix
       const validBase64Image = base64Image.startsWith("data:image/jpeg;base64,")
