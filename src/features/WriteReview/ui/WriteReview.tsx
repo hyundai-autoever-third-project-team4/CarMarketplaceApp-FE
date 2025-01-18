@@ -30,6 +30,14 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [number, setNumber] = useState(0);
 
+  // numberRef를 사용하여 현재 number 값을 추적
+  const numberRef = useRef(number);
+
+  // number가 변경될 때마다 ref 업데이트
+  useEffect(() => {
+    numberRef.current = number;
+  }, [number]);
+
   const please = (type: string) => {
     console.log(type, "실행");
     console.log("지금 이게 실행이 되고 있어.");
@@ -52,39 +60,41 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     return () => {
       window.receiveImage = undefined;
     };
-    // const changeImage = async (image: string) => {
-    //   const data = await fetch(image);
-    //   const blob = await data.blob();
-    //   const url = URL.createObjectURL(blob);
-    //   return url;
-    // };
-    // window.receiveImage = async (base64Image: string) => {
-    //   console.log(base64Image);
-    // // Ensure the base64 string starts with the correct prefix
-    // const validBase64Image = base64Image.startsWith("data:image/jpeg;base64,")
-    //   ? base64Image
-    //   : `data:image/jpeg;base64,${base64Image}`;
-    // const imageUrl = await changeImage(validBase64Image);
-    // console.log("지금 이게 실행이 되고 있어.");
-    // setCurrentImage("12313213"); // currentImage 상태 업데이트
-    // setImages((prevImages) => {
-    //   if (prevImages.length >= 5) {
-    //     console.log("이미지는 최대 5장까지 업로드 가능합니다.");
-    //     return prevImages;
-    //   }
-    //   return [...prevImages, imageUrl];
-    // });
-    // };
-    // // cleanup
-    // return () => {
-    //   console.log("Cleaning up receiveImage function");
-    //   window.receiveImage = undefined;
-    // };
-  }, []);
+  }, [please]);
+  // const changeImage = async (image: string) => {
+  //   const data = await fetch(image);
+  //   const blob = await data.blob();
+  //   const url = URL.createObjectURL(blob);
+  //   return url;
+  // };
+  // window.receiveImage = async (base64Image: string) => {
+  //   console.log(base64Image);
+  // // Ensure the base64 string starts with the correct prefix
+  // const validBase64Image = base64Image.startsWith("data:image/jpeg;base64,")
+  //   ? base64Image
+  //   : `data:image/jpeg;base64,${base64Image}`;
+  // const imageUrl = await changeImage(validBase64Image);
+  // console.log("지금 이게 실행이 되고 있어.");
+  // setCurrentImage("12313213"); // currentImage 상태 업데이트
+  // setImages((prevImages) => {
+  //   if (prevImages.length >= 5) {
+  //     console.log("이미지는 최대 5장까지 업로드 가능합니다.");
+  //     return prevImages;
+  //   }
+  //   return [...prevImages, imageUrl];
+  // });
+  // };
+  // // cleanup
+  // return () => {
+  //   console.log("Cleaning up receiveImage function");
+  //   window.receiveImage = undefined;
+  // };
+  // }, []);
 
   useEffect(() => {
-    console.log("currentImage changed:", currentImage);
-    console.log("number changed:", number);
+    console.log("=== 상태 변경 감지 ===");
+    console.log("현재 number 값:", number);
+    console.log("numberRef 값:", numberRef.current);
   }, [currentImage, number]);
 
   // useEffect(() => {
