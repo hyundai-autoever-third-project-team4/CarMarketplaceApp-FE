@@ -28,14 +28,13 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const [currentImage, setCurrentImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const receiveImage = useCallback(async (base64Image: string) => {
-    console.log(base64Image);
-    console.log("지금 이게 실행이 되고 있어.");
-    setCurrentImage("12313213");
-  }, []);
-
   useEffect(() => {
-    window.receiveImage = receiveImage;
+    const functionName = "receiveReviewImage";
+    (window as any)[functionName] = async (base64Image: string) => {
+      console.log(base64Image);
+      console.log("지금 이게 실행이 되고 있어.");
+      setCurrentImage("12313213");
+    };
     return () => {
       window.receiveImage = undefined;
     };
@@ -67,7 +66,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     //   console.log("Cleaning up receiveImage function");
     //   window.receiveImage = undefined;
     // };
-  }, [receiveImage]);
+  }, []);
 
   // useEffect(() => {
   //   console.log("Images state updated:", images);
