@@ -29,8 +29,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [number, setNumber] = useState(0);
 
-  const please = (base64Image: string) => {
-    console.log(base64Image);
+  const please = () => {
     console.log("지금 이게 실행이 되고 있어.");
     setCurrentImage("12313213");
     setNumber((p) => p + 1);
@@ -38,7 +37,8 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   useEffect(() => {
     const functionName = "receiveImage";
     (window as any)[functionName] = async (base64Image: string) => {
-      please(base64Image);
+      console.log(base64Image);
+      please();
     };
     return () => {
       window.receiveImage = undefined;
@@ -171,8 +171,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
         text="모양을 바꾸는 버튼"
         size="small"
         buttonClick={() => {
-          setCurrentImage("12313213");
-          setNumber((p) => p + 1);
+          please();
         }}
       />
       <Button
