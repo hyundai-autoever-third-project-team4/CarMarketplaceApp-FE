@@ -30,13 +30,19 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
   const [number, setNumber] = useState(0);
 
   useEffect(() => {
+    // window.receiveImage 함수가 설정되었음을 알리는 이벤트 발생
     const functionName = "receiveImage";
     (window as any)[functionName] = async (base64Image: string) => {
       console.log(base64Image);
       console.log("지금 이게 실행이 되고 있어.");
       setCurrentImage("12313213");
-      setNumber((p) => p + 1);
+      setNumber((prev) => prev + 1);
     };
+
+    // 함수가 설정되었음을 알리는 커스텀 이벤트 발생
+    const event = new Event("receiveImageFunctionReady");
+    window.dispatchEvent(event);
+
     return () => {
       window.receiveImage = undefined;
     };
