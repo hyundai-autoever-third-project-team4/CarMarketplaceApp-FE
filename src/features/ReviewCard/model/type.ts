@@ -4,4 +4,5 @@ export interface ReviewCardProps {
   rating: number;
   reviewContent: string;
   mainImg: string;
+  reviewId: number;
 }

@@ -110,7 +110,7 @@ export function CarDetail() {
                 이 모델을 구매 하신 분들의 리뷰입니다.
               </Text>
             </S.TextLeftMargin>
-            <CarDetailReviewSlide />
+            <CarDetailReviewSlide carId={carId!} />
             <S.BottomArea>
               <S.LikeArea onClick={handleHeartClick}>
                 {isLiked ? (

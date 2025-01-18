@@ -1,4 +1,4 @@
-import { authInstance } from "@/shared/api/axiosInstance";
+import { noAuthInstance } from "@/shared/api/axiosInstance";
 import { ResponseBody } from "@/shared/api/type";
 import { CarImage } from "@/widgets/CarDetailImageSlide/ui/CarDetailImageSlide";
 
@@ -68,7 +68,7 @@ export const handleCarDetailInfo = async (
   setIsLiked: (isLiked: boolean) => void
 ) => {
   try {
-    const response: ResponseBody<CarDetailInfo> = await authInstance.get(
+    const response: ResponseBody<CarDetailInfo> = await noAuthInstance.get(
       `/cars/${carId}/detail`
     );
     setIsLiked(response.data.islike);
