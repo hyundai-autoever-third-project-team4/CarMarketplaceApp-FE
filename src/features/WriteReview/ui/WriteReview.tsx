@@ -53,14 +53,29 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     }
   }, [currentImage]);
 
+  // 디버깅을 위한 로그
+  useEffect(() => {
+    console.log("=== 상태 변경 감지 ===");
+    console.log("현재 currentImage 값:", currentImage);
+    console.log("currentImageRef 값:", currentImageRef.current);
+  }, [currentImage]);
+
+  const please = (type: string, base64Image: string) => {
+    console.log(type, "실행");
+    console.log("지금 이게 실행이 되고 있어.");
+
+    // base64Image가 올바른 형식인지 확인하고 필요시 prefix 추가
+    const validBase64Image = base64Image.startsWith("data:image/")
+      ? base64Image
+      : `data:image/jpeg;base64,${base64Image}`;
+
+    setCurrentImage(validBase64Image);
+  };
+
   useEffect(() => {
     // 함수를 외부에서 선언하여 참조 안정성 확보
     const handleReceiveImage = async (base64Image: string) => {
-      const validBase64Image = base64Image.startsWith("data:image/")
-        ? base64Image
-        : `data:image/jpeg;base64,${base64Image}`;
-
-      setCurrentImage(validBase64Image);
+      please("안드로이드 함수", base64Image);
     };
 
     window.receiveImage = handleReceiveImage;
