@@ -2,29 +2,41 @@ import { Text } from "@/shared/ui/Text";
 import * as S from "./MyPayment.style";
 import NoCarIcon from "@/shared/assets/no_car.svg";
 import { MyPaymentCarCard } from "@/widgets/MyPaymentCarCard";
-import { mockPayCarData } from "@/widgets/MyPaymentCarCard/api/MockData";
 import { StatusType } from "@/widgets/MyPaymentCarCard/model/type";
+import {
+  BuyCarListResponse,
+  handleBuyCarList,
+} from "@/pages/MyPayment/api/api";
+import { useQuery } from "@tanstack/react-query";
 
 export function MyPayment() {
+  const {
+    data: myCarBuy,
+    isFetching,
+    isError,
+  } = useQuery<BuyCarListResponse>({
+    queryKey: ["myCarBuy"],
+    queryFn: () => handleBuyCarList(),
+  });
   return (
     <>
       <S.Container>
         <S.Title>
-          <Text fontType="title">내가 판매한 차량</Text>
+          <Text fontType="title">내가 구매한 차량</Text>
         </S.Title>
-        {mockPayCarData ? (
-          mockPayCarData.map((car) => (
-            <div key={car.id}>
+        {myCarBuy && myCarBuy.userPurchaseCarList.length != 0 ? (
+          myCarBuy.userPurchaseCarList.map((car, index) => (
+            <div key={index}>
               <MyPaymentCarCard
-                id={car.id}
-                name={car.name}
+                id={String(index)}
+                name={car.carName}
                 registrationDate={car.registrationDate}
                 mileage={car.mileage}
                 licensePlate={car.licensePlate}
                 price={car.price!}
                 mainImage={car.mainImage!}
                 isReviewed={car.isReviewed}
-                state={car.state as StatusType}
+                state={car.status as StatusType}
               />
               {car.isReviewed ? <S.MarginBottom /> : <S.ReviewMarginBottom />}
             </div>
