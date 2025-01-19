@@ -28,3 +28,29 @@ export const handleMySellCar = async () => {
     throw error;
   }
 };
+
+// 거절 요청을 보내는 함수
+export const handleReject = async (carId: string) => {
+  try {
+    const response: ResponseBody<string> = await authInstance.delete(
+      `/cars/${carId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Car sell fetch failed:", error);
+    throw error;
+  }
+};
+
+// 판매 승인 요청을 보내는 함수
+export const handleCompleteSale = async (carId: string) => {
+  try {
+    const response: ResponseBody<string> = await authInstance.put(
+      `/car/sale/complete-sale?carId=${carId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Car sell fetch failed:", error);
+    throw error;
+  }
+};
