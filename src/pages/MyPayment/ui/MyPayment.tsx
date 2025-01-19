@@ -8,6 +8,7 @@ import {
   handleBuyCarList,
 } from "@/pages/MyPayment/api/api";
 import { useQuery } from "@tanstack/react-query";
+import { CustomLoading } from "@/shared/ui/CustomLoading";
 
 export function MyPayment() {
   const {
@@ -18,6 +19,15 @@ export function MyPayment() {
     queryKey: ["myCarBuy"],
     queryFn: () => handleBuyCarList(),
   });
+
+  if (isFetching) {
+    return <CustomLoading text={"로딩 중 입니다..."} />; // 로딩 상태 처리
+  }
+
+  if (isError) {
+    return <div>Error loading My Payment.</div>; // 에러 상태 처리
+  }
+
   return (
     <>
       <S.Container>

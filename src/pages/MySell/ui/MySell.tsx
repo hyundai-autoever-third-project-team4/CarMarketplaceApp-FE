@@ -7,17 +7,24 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { DefaultModal } from "@/shared/ui/DefaultModal";
 import { DefaultPopup } from "@/shared/ui/DefaultPopup";
-import { useQuery } from "@tanstack/react-query";
-import { handleMySellCar, MySellCars } from "@/pages/MySell/api/api";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  handleCompleteSale,
+  handleMySellCar,
+  handleReject,
+  MySellCars,
+} from "@/pages/MySell/api/api";
 import { CustomLoading } from "@/shared/ui/CustomLoading";
 
 export function MySell() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient(); // QueryClient 인스턴스 가져오기
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isRejectPopupOpen, setIsRejectPopupOpen] = useState(false);
   const [carPrice, setCarPrice] = useState(0);
   const [carImg, setCarImg] = useState("");
+  const [clickedCarId, setClickedCarId] = useState("");
 
   const {
     data: myCarSell,
@@ -32,8 +39,9 @@ export function MySell() {
     navigate(`/carDetail/${id}`);
   };
 
-  const handleModalOpen = (price: number, img?: string) => {
+  const handleModalOpen = (id: string, price: number, img?: string) => {
     setCarImg(img ? img : "");
+    setClickedCarId(id);
     setCarPrice(price);
     setIsModalOpen(true);
   };
@@ -41,19 +49,31 @@ export function MySell() {
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
-
-  const handlePopupOpen = () => {
-    setIsPopupOpen(true);
-    setIsModalOpen(false);
+  //판매 승인시
+  const handlePopupOpen = async (clickedCarId: string) => {
+    try {
+      await handleCompleteSale(clickedCarId);
+      queryClient.invalidateQueries<any>(["myCarSell"]);
+      setIsPopupOpen(true);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("승인 요청 중 오류 발생 :", error);
+    }
   };
 
   const handlePopupClose = () => {
     setIsPopupOpen(false);
   };
 
-  const handleRejectPopupOpen = () => {
-    setIsRejectPopupOpen(true);
-    setIsModalOpen(false);
+  const handleRejectPopupOpen = async (clickedCarId: string) => {
+    try {
+      await handleReject(clickedCarId); // 거절 요청을 보냄
+      queryClient.invalidateQueries<any>(["myCarSell"]);
+      setIsRejectPopupOpen(true);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("거절 요청 중 오류 발생:", error);
+    }
   };
 
   const handleRejectPopupClose = () => {
@@ -70,13 +90,14 @@ export function MySell() {
             <Text fontType="title">내가 판매한 차량</Text>
           </S.Title>
           {myCarSell.userSellCarList ? (
-            myCarSell.userSellCarList.map((car, index) => (
-              <div key={index}>
+            myCarSell.userSellCarList.map((car) => (
+              <div key={car.id}>
                 {car.status === "PENDING_SALE" ||
                 car.status === "SALE_APPROVED" ? (
                   <SellCarCard
                     onClick={() =>
                       handleModalOpen(
+                        car.id,
                         car.price ? car.price : 0,
                         car.mainImage ? car.mainImage : ""
                       )
@@ -130,16 +151,18 @@ export function MySell() {
             <S.CarImg src={carImg} />
             <S.TextArea>
               <Text fontType="sub2">측정 결과 귀하의 차량의 금액은</Text>
-              <Text fontType="subTitle">{carPrice}만원</Text>
+              <Text fontType="subTitle">{carPrice / 10000}만원</Text>
               <Text fontType="sub2">입니다.</Text>
             </S.TextArea>
             <S.ButtonArea>
-              <S.RejectButton onClick={handleRejectPopupOpen}>
+              <S.RejectButton
+                onClick={() => handleRejectPopupOpen(clickedCarId)}
+              >
                 <Text fontType="sub1" fontColor="red" fontWeight="bold">
                   거부
                 </Text>
               </S.RejectButton>
-              <S.ApproveButton onClick={handlePopupOpen}>
+              <S.ApproveButton onClick={() => handlePopupOpen(clickedCarId)}>
                 <Text fontType="sub1" fontColor="white" fontWeight="bold">
                   승인
                 </Text>
