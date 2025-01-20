@@ -67,9 +67,7 @@ export function Map({
               />
             );
           })}
-          <Marker
-            defaultPosition={new navermaps.LatLng(currentLat, currentLong)}
-          />
+          <Marker position={new navermaps.LatLng(currentLat, currentLong)} />
         </NaverMap>
       </MapDiv>
     </S.MapContainer>
