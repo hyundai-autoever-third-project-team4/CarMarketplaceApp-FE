@@ -15,6 +15,7 @@ export function CarSell() {
   const [isCompletePopupOpen, setIsCompletePopupOpen] = useState(false);
   const [licensePlate, setLicensePlate] = useState("");
   const [ownerName, setOwnerName] = useState("");
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 
   const {
     data: carInfo,
@@ -51,7 +52,11 @@ export function CarSell() {
   }, [isError]); // isError가 변경될 때마다 실행
 
   const handleSellPopupOpen = () => {
-    setIsSellPopupOpen(true);
+    if (!localStorage.getItem("access_token")) {
+      handleLoginPopupOpen();
+    } else {
+      setIsSellPopupOpen(true);
+    }
   };
 
   const handleSellPopupClose = () => {
@@ -81,6 +86,14 @@ export function CarSell() {
 
   const handleCompletePopupClose = () => {
     setIsCompletePopupOpen(false);
+  };
+
+  const handleLoginPopupOpen = () => {
+    setIsLoginPopupOpen(true);
+  };
+
+  const handleLoginPopupClose = () => {
+    setIsLoginPopupOpen(false);
   };
 
   return (
@@ -174,6 +187,11 @@ export function CarSell() {
             금액 확인 후 판매를 결정하실 수 있습니다.
           </>
         }
+      />
+      <DefaultPopup
+        open={isLoginPopupOpen}
+        handleClose={handleLoginPopupClose}
+        content={"로그인 후 가능합니다."}
       />
     </S.Container>
   );
