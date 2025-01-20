@@ -3,15 +3,18 @@ import * as S from "./MyPayment.style";
 import NoCarIcon from "@/shared/assets/no_car.svg";
 import { MyPaymentCarCard } from "@/widgets/MyPaymentCarCard";
 import { StatusType } from "@/widgets/MyPaymentCarCard/model/type";
-// import {
-//   BuyCarListResponse,
-//   handleBuyCarList,
-// } from "@/pages/MyPayment/api/api";
+import {
+  BuyCarListResponse,
+  // BuyCarListResponse,
+  handleBuyCarList,
+} from "@/pages/MyPayment/api/api";
 // import { useQuery } from "@tanstack/react-query";
 // import { CustomLoading } from "@/shared/ui/CustomLoading";
-import { mockPayCarData } from "@/widgets/MyPaymentCarCard/api/MockData";
+// import { mockPayCarData } from "@/widgets/MyPaymentCarCard/api/MockData";
+import { useEffect, useState } from "react";
 
 export function MyPayment() {
+  const [myCarBuy, setMyCarBuy] = useState<BuyCarListResponse | null>(null);
   // const {
   //   data: myCarBuy,
   //   isFetching,
@@ -29,25 +32,38 @@ export function MyPayment() {
   //   return <div>Error loading My Payment.</div>; // 에러 상태 처리
   // }
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await handleBuyCarList(); // 데이터 가져오기
+        setMyCarBuy(data);
+      } catch (error) {
+        console.error("데이터 가져오기 오류:", error);
+      }
+    };
+
+    fetchData();
+  }, []); // 컴포넌트가 마운트될 때 한 번만 실행
+
   return (
     <>
       <S.Container>
         <S.Title>
           <Text fontType="title">내가 구매한 차량</Text>
         </S.Title>
-        {mockPayCarData && mockPayCarData.length != 0 ? (
-          mockPayCarData.map((car, index) => (
+        {myCarBuy && myCarBuy.userPurchaseCarList.length != 0 ? (
+          myCarBuy.userPurchaseCarList.map((car, index) => (
             <div key={index}>
               <MyPaymentCarCard
                 id={String(index)}
-                name={car.name}
+                name={car.carName}
                 registrationDate={car.registrationDate}
                 mileage={car.mileage}
                 licensePlate={car.licensePlate}
                 price={car.price!}
                 mainImage={car.mainImage!}
                 isReviewed={car.isReviewed}
-                state={car.state as StatusType}
+                state={car.status as StatusType}
               />
               {car.isReviewed ? <S.MarginBottom /> : <S.ReviewMarginBottom />}
             </div>
