@@ -71,7 +71,7 @@ export function ReviewModal({ reviewId }: { reviewId: number }) {
               </SwiperSlide>
             ))}
           </S.StyledSwiper>
-          <Text fontType="sub2">내용: {reviewDetail.content}</Text>
+          <Text fontType="sub2"> {reviewDetail.content}</Text>
         </S.Container>
       ) : (
         <>오류 발생</>

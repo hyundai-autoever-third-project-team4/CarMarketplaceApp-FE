@@ -3,6 +3,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { useQuery } from "@tanstack/react-query";
 import { getPopularCars, PopularCarCard, PopularCar } from "@/entities/Car";
 import * as S from "./PopularCarSlide.style";
+import { CustomLoading } from "@/shared/ui/CustomLoading";
 
 export function PopularCarSlide() {
   const {
@@ -15,7 +16,21 @@ export function PopularCarSlide() {
   });
 
   if (isLoading) {
-    return <S.Container>Loading...</S.Container>;
+    return (
+      <S.Container>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <CustomLoading text="인기 차량 정보를 불러오고 있습니다." />
+        </div>
+      </S.Container>
+    );
   }
 
   if (isError || !cars) {
