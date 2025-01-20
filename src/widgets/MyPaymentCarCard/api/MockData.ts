@@ -21,7 +21,7 @@ export const mockPayCarData = [
     licensePlate: "34나 5678",
     price: 1500,
     isReviewed: false,
-    state: "Not available for purchase", // 추가된 속성
+    state: "NOT_AVAILABLE_FOR_PURCHASE", // 추가된 속성
   },
   {
     id: "3",
@@ -45,7 +45,7 @@ export const mockPayCarData = [
     licensePlate: "78라 9012",
     price: 3000,
     isReviewed: true,
-    state: "Not available for purchase", // 추가된 속성
+    state: "NOT_AVAILABLE_FOR_PURCHASE", // 추가된 속성
   },
   {
     id: "5",
