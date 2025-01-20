@@ -25,10 +25,7 @@ export function My() {
   });
 
   const navigate = useNavigate();
-  console.log(
-    "🤍🤍🤍🤍🤍🤍🤍access토큰 : ",
-    localStorage.getItem("access_token")
-  );
+
   const handleClickLike = () => {
     // 찜한 차량 페이지로 이동
     navigate("like");
