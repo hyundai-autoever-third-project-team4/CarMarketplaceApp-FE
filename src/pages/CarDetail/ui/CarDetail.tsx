@@ -52,9 +52,13 @@ export function CarDetail() {
   };
 
   const handlePayClick = () => {
-    navigate(
-      `/tosspayment?price=${carDetailInfo?.price}&name=${carDetailInfo?.carDetails.name}&id=${carDetailInfo?.id}`
-    );
+    if (localStorage.getItem("access_token")) {
+      navigate(
+        `/tosspayment?price=${carDetailInfo?.price}&name=${carDetailInfo?.carDetails.name}&id=${carDetailInfo?.id}`
+      );
+    } else {
+      setIsPopupOpen(true);
+    }
   };
 
   return (
