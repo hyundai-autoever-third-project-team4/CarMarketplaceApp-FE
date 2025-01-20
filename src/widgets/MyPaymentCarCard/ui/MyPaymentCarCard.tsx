@@ -64,7 +64,7 @@ export function MyPaymentCarCard({
         open={isModalOpen}
         handleClose={handleModalClose}
         title={"리뷰 작성하기"}
-        children={<WriteReview handleSubmit={handleSubmit} />}
+        children={<WriteReview carId={id} handleSubmit={handleSubmit} />}
       ></DefaultModal>
       {isPopupOpen && (
         <S.PopupContainer>

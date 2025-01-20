@@ -3,6 +3,7 @@ import { ResponseBody } from "@/shared/api/type";
 
 // 차량 정보 인터페이스
 export interface CarBuy {
+  id: string;
   carName: string;
   licensePlate: string;
   registrationDate: string;
