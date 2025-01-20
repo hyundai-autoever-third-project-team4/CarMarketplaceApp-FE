@@ -13,20 +13,11 @@ export const StyledSwiper = styled(Swiper)`
   margin-bottom: 8px;
 
   .swiper-slide {
-    text-align: center;
-    font-size: 18px;
     background: ${theme.colors.lightGray};
-
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    padding: 16px;
     align-items: center;
-  }
-
-  .swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
 
   .swiper-pagination-bullet {
@@ -42,4 +33,49 @@ export const StyledSwiper = styled(Swiper)`
     background: ${theme.colors.primary2};
     transform: scale(1.2);
   }
+`;
+
+export const TextArea = styled.div`
+  display: flex;
+`;
+
+export const TextWrap = styled.div`
+  display: flex;
+  width: 100%;
+  margin-bottom: 2px;
+`;
+
+export const TextLeftArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 55%;
+`;
+
+export const ContentsText = styled.div`
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5; /* 최대 5줄 표시 */
+  overflow: hidden; /* 넘치는 부분 숨기기 */
+  text-overflow: ellipsis; /* ...으로 표시 */
+`;
+
+export const ImgRightArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 45%;
+  padding: 8px;
+`;
+
+export const CarImg = styled.img`
+  width: 100%;
+  height: auto;
+  aspect-ratio: 110/82;
+`;
+
+export const NoText = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

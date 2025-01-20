@@ -41,7 +41,7 @@ export function NearReservationCard({
         <S.TextWrap>
           <S.IconImg src={TimeImg} />
           <Text fontType="sub2">
-            {reservation_date + " " + reservation_time}
+            {reservation_date + " " + reservation_time.slice(0, 5)}
           </Text>
         </S.TextWrap>
       </S.TextArea>

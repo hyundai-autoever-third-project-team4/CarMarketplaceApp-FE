@@ -3,7 +3,7 @@ name: CI/CD Front Pipeline
 on:
   push:
     branches:
-      - main
+      - dev
 
 # 워크플로우가 저장소의 콘텐츠를 읽을 수 있는 권한을 갖도록 설정
 permissions:
@@ -33,6 +33,8 @@ jobs:
         env:
           VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
           VITE_NAVERMAP_KEY: ${{ secrets.VITE_NAVERMAP_KEY }}
+          VITE_PAYMENT_CLIENT_KEY: ${{ secrets.VITE_PAYMENT_CLIENT_KEY }}
+          VITE_PAYMENT_CUSTOMER_KEY: ${{ secrets.VITE_PAYMENT_CUSTOMER_KEY }}
 
       - name: Clean target directory
         uses: appleboy/ssh-action@v0.1.8

@@ -21,7 +21,7 @@ export function CarCard({
         <div style={{ position: "relative" }}>
           <S.CarImg src={mainImage} onClick={onClick} />
           {state !== undefined ? (
-            state === "Not available for purchase" ? (
+            state === "NOT_AVAILABLE_FOR_PURCHASE" ? (
               <S.StatusBox $isComplete={true}>구매 완료</S.StatusBox>
             ) : (
               <S.StatusBox $isComplete={false}>구매 대기</S.StatusBox>
@@ -32,7 +32,7 @@ export function CarCard({
         </div>
         <S.TextArea onClick={onClick}>
           <Text fontSize={12} fontColor="darkGray" fontWeight="bold">
-            {`${registrationDate} / ${mileage}km`}
+            {`${registrationDate} | ${mileage}km`}
           </Text>
           <Text fontSize={12} fontColor="darkGray" fontWeight="bold">
             {licensePlate}

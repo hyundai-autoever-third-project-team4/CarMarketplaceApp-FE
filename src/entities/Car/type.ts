@@ -29,8 +29,13 @@ export interface Car {
 }
 
 export interface CarOption {
-  optionId: string;
-  isPresent: boolean;
+  id: number; // 옵션 ID
+  isPresent: boolean; // 옵션 존재 여부
+  marketplaceCarId: string; // 마켓플레이스 차량 ID
+  optionDescription: string; // 옵션 설명
+  optionId: number; // 옵션 번호
+  optionImg: string; // 옵션 이미지 URL
+  optionName: string; // 옵션 이름
 }
 
 export interface CarExtraOption {

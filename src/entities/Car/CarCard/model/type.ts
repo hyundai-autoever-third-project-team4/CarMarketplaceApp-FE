@@ -12,14 +12,14 @@ export type CarCardProps = Pick<
   | "id"
 > & { onClick?: () => void; state?: string };
 
-type StatusType = "Pending sale" | "Sale approved" | "Available for purchase";
+type StatusType = "PENDING_SALE" | "SALE_APPROVED" | "AVAILABLE_FOR_PURCHASE";
 
 export type SellCarCardProps = Pick<
   Car,
   "id" | "name" | "registrationDate" | "mileage" | "licensePlate"
 > & {
   price: number | null;
-  state: StatusType;
+  status: StatusType;
   mainImage: string | null;
   onClick?: () => void;
 };

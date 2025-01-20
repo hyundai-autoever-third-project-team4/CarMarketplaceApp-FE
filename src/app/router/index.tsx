@@ -20,6 +20,9 @@ import { ReviewWrite } from "@/pages/ReviewWrite";
 import { Search } from "@/pages/Search";
 import { Chatting } from "@/pages/Chatting";
 import { SignUp } from "@/pages/SignUp";
+import { CheckoutPage } from "@/pages/Checkout";
+import { PaySuccessPage } from "@/pages/PaySuccess";
+import { FailPage } from "@/pages/Fail";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +97,18 @@ const router = createBrowserRouter([
       {
         path: "/reviewWrite",
         element: <ReviewWrite />,
+      },
+      {
+        path: "/tosspayment",
+        element: <CheckoutPage />,
+      },
+      {
+        path: "/success",
+        element: <PaySuccessPage />,
+      },
+      {
+        path: "/fail",
+        element: <FailPage />,
       },
     ],
   },

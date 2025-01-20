@@ -9,8 +9,21 @@ import ReservationImg from "@/shared/assets/reservation_list_icon.svg";
 import ReviewImg from "@/shared/assets/review_list_icon.svg";
 import { useNavigate } from "react-router-dom";
 import { handleLoginClick } from "@/shared/api/login";
+import { CustomLoading } from "@/shared/ui/CustomLoading";
+import { useQuery } from "@tanstack/react-query";
+import { handleGetUserInfo, UserInfo } from "@/pages/My/api/api";
 
 export function My() {
+  const {
+    data: userInfo,
+    isFetching,
+    isError,
+  } = useQuery<UserInfo>({
+    queryKey: ["userInfo"], // 쿼리 키
+    queryFn: handleGetUserInfo, // API 호출 함수
+    enabled: localStorage.getItem("access_token") !== null, // access_token이 있을 때만 쿼리 실행
+  });
+
   const navigate = useNavigate();
 
   const handleClickLike = () => {
@@ -38,10 +51,19 @@ export function My() {
     navigate("review");
   };
 
+  if (isFetching) {
+    return <CustomLoading middle={true} text={"로딩 중 입니다..."} />; // 로딩 상태 처리
+  }
+
+  if (isError) {
+    return <div>Error loading reviews.</div>; // 에러 상태 처리
+  }
+
   return (
     <>
       {/* 일단 !==로 설정 해두고 로그인 된 페이지 제작 중 */}
-      {localStorage.getItem("userId") === null ? (
+
+      {localStorage.getItem("access_token") === null ? (
         <S.Container>
           <S.NotLogin>
             <S.LoginArea>
@@ -58,12 +80,28 @@ export function My() {
         <S.LoginedContainer>
           <S.MyPageTopSection>
             <S.TextWrap>
-              <Text fontType="title">{localStorage.getItem("name")}</Text>
+              <Text fontType="title">{userInfo?.userName}</Text>
               <Text fontType="title" fontColor="gray">
                 고객님
               </Text>
             </S.TextWrap>
-            <NearReserveBox />
+            {userInfo == undefined || userInfo.reservation.length == 0 ? (
+              <NearReserveBox
+                carName={null}
+                mainImage={null}
+                driveCenter={null}
+                reservationDate={null}
+                reservationTime={null}
+              />
+            ) : (
+              <NearReserveBox
+                carName={userInfo.reservation[0].carName}
+                mainImage={userInfo.reservation[0].mainImage}
+                driveCenter={userInfo.reservation[0].driveCenter}
+                reservationDate={userInfo.reservation[0].reservationDate}
+                reservationTime={userInfo.reservation[0].reservationTime}
+              />
+            )}
           </S.MyPageTopSection>
           <S.MyPageBottomSection>
             <S.ButtonWrap onClick={handleClickLike}>

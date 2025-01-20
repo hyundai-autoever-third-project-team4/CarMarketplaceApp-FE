@@ -10,6 +10,7 @@ import { CarCard } from "@/entities/Car";
 import { CustomLoading } from "@/shared/ui/CustomLoading";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { useCallback } from "react";
+import { writeReservaiton } from "@/features/reservationApplication/api/api";
 
 export function Reservation() {
   const {
@@ -30,7 +31,16 @@ export function Reservation() {
   } = useReservation();
 
   const onSubmit = (data: ReservationFormValue) => {
-    console.log(data);
+    if (data.date && data.selectedCar) {
+      const requestBody = {
+        marketplaceCarId: data.selectedCar!.id,
+        reservationDate: data.date.toISOString().split("T")[0],
+        reservationTime: `${data.time}:00`,
+      };
+
+      console.log(requestBody);
+      writeReservaiton(requestBody);
+    }
   };
 
   // 특정 날짜 비활성화

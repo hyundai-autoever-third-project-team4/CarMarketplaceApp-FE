@@ -50,7 +50,7 @@ export function MyPaymentCarCard({
         price={price}
         state={state}
       />
-      {!isReviewed && state === "Not available for purchase" && (
+      {!isReviewed && state === "NOT_AVAILABLE_FOR_PURCHASE" && (
         <>
           <br />
           <Button

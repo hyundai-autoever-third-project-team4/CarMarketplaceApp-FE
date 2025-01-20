@@ -1,9 +1,10 @@
 import { RatingChart } from "@/shared/ui/RatingChart";
 import * as S from "./WriteReview.style";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/shared/ui/Button";
 import PlusIcon from "@/shared/assets/Plus.svg";
 import { Text } from "@/shared/ui/Text";
+// import theme from "@/shared/styles/theme";
 
 interface WriteReviewProps {
   handleSubmit: () => void;
@@ -11,30 +12,63 @@ interface WriteReviewProps {
 
 declare global {
   interface Window {
+    receiveImage?: (base64Image: string) => void;
     Android?: {
       openCameraAndGallery: () => void;
-      receiveImage: (base64Image: string) => void;
     };
   }
 }
 
 export function WriteReview({ handleSubmit }: WriteReviewProps) {
+  console.log(typeof handleSubmit);
   const [starRate, setStarRate] = useState(5);
   const [review, setReview] = useState("");
   const [images, setImages] = useState<string[]>([]);
+  const [currentImage, setCurrentImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  if (window.Android && !window.Android.receiveImage) {
-    window.Android.receiveImage = (base64Image: string) => {
+  // currentImageRef를 사용하여 현재 이미지 값을 추적
+  const currentImageRef = useRef(currentImage);
+  const imagesRef = useRef(images);
+
+  // currentImage가 변경될 때마다 ref 업데이트
+  useEffect(() => {
+    currentImageRef.current = currentImage;
+    console.log(currentImage);
+    if (currentImage) {
       setImages((prev) => {
+        // 이미지 개수 제한 체크
         if (prev.length >= 5) {
-          alert("이미지는 최대 5장까지 업로드 가능합니다.");
+          console.log("이미지는 최대 5장까지 업로드 가능합니다.");
           return prev;
         }
-        return [...prev, base64Image];
+        return [...prev, currentImage];
       });
+    }
+  }, [currentImage]);
+
+  // images 변경 추적
+  useEffect(() => {
+    imagesRef.current = images;
+    console.log("현재 이미지 배열:", images);
+  }, [images]);
+
+  const please = (base64Image: string) => {
+    setCurrentImage(base64Image);
+  };
+
+  useEffect(() => {
+    // 함수를 외부에서 선언하여 참조 안정성 확보
+    const handleReceiveImage = async (base64Image: string) => {
+      please(base64Image);
     };
-  }
+
+    window.receiveImage = handleReceiveImage;
+
+    return () => {
+      window.receiveImage = undefined;
+    };
+  }, [please]);
 
   const handleStarRate = (num: number) => {
     setStarRate(num);
@@ -51,6 +85,7 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
     Array.from(files).forEach((file) => {
       const reader = new FileReader();
+
       reader.onloadend = () => {
         setImages((prev) => [...prev, reader.result as string]);
       };
