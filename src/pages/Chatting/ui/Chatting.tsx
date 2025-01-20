@@ -4,7 +4,7 @@ import SockJS from "sockjs-client";
 import { CompatClient, Stomp } from "@stomp/stompjs";
 
 // WebSocket 서버 URL
-const SOCKET_URL = "https://chajava.store/api/ws/chat";
+const SOCKET_URL = "/api/ws/chat";
 
 export function Chatting() {
   const [client, setClient] = useState<CompatClient | null>(null);
