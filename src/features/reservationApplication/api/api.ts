@@ -7,7 +7,7 @@ interface value {
 }
 
 export const writeReservaiton = async (data: value) => {
-  const response = await authInstance.post(`/car/register`, data);
+  const response = await authInstance.post(`/reservation`, data);
 
   return response.data;
 };
