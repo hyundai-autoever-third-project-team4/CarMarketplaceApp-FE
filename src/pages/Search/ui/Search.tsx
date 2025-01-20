@@ -5,9 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { SearchFormValue } from "@/features/SearchForm";
 import { useForm } from "react-hook-form";
 import { useSearchFormStore } from "@/features/SearchForm";
+import { useState } from "react";
 
 export function Search() {
-  const { searchForm, setSearchForm } = useSearchFormStore();
+  const [param, setParam] = useState<string>("");
+  const { searchForm, setSearchForm, setParams } = useSearchFormStore();
   const { handleSubmit, watch, setValue } = useForm<SearchFormValue>({
     defaultValues: searchForm,
   });
@@ -15,6 +17,7 @@ export function Search() {
 
   const onSubmit = (data: SearchFormValue) => {
     setSearchForm(data);
+    setParams(param);
     navigate("/carList", {
       state: data,
     });
@@ -22,7 +25,11 @@ export function Search() {
 
   return (
     <S.Container>
-      <SearchHeader handleSearchClick={onSubmit} watch={watch} />
+      <SearchHeader
+        handleSearchClick={onSubmit}
+        watch={watch}
+        setParam={setParam}
+      />
       <SearchForm
         handleSubmit={handleSubmit}
         watch={watch}

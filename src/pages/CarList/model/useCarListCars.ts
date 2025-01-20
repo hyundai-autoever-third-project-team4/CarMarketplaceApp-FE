@@ -1,13 +1,14 @@
 import { getCarListCars } from "@/entities/Car/CarListCard";
 import { useSearchFormStore } from "@/features/SearchForm";
+import { MODELS } from "@/features/SearchForm/model/model";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 const CAR_LIST_QUERY_KEY = "carListCars";
 
 export const useCarListCars = (sortOrder: string) => {
-  const { searchForm } = useSearchFormStore();
+  const { searchForm, param } = useSearchFormStore();
 
-  const params = {
+  const params: any = {
     carTypes: searchForm?.carType.join(","),
     colorTypes: searchForm?.colorType.join(","),
     fuelTypes: searchForm?.fuelType.join(","),
@@ -25,6 +26,11 @@ export const useCarListCars = (sortOrder: string) => {
     sortOrder: sortOrder,
     // page: page,
   };
+
+  if (param !== "") {
+    params.licensePlate = param;
+    if (MODELS.some((model) => param === model)) params.models += "," + param;
+  }
 
   const { data, isLoading, isError, fetchNextPage, hasNextPage } =
     useInfiniteQuery({
