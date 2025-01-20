@@ -5,6 +5,7 @@ import { Button } from "@/shared/ui/Button";
 import { noAuthInstance } from "@/shared/api/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { CustomLoading } from "@/shared/ui/CustomLoading";
+import useLoginCheckStore from "@/shared/store/loginStore";
 
 interface LoginDataProps {
   access_token: string;
@@ -15,6 +16,7 @@ interface LoginDataProps {
 
 export function SignUp() {
   const navigate = useNavigate();
+  const { changeLoginCheck } = useLoginCheckStore();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
@@ -105,6 +107,7 @@ export function SignUp() {
 
   useEffect(() => {
     extractAuthorizationCode();
+    changeLoginCheck();
   }, []);
 
   return (
