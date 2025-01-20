@@ -8,6 +8,7 @@ import { CarInfoResponse } from "@/widgets/FindCarInfoCard/api/api";
 import { useQuery } from "@tanstack/react-query";
 import { CustomLoading } from "@/shared/ui/CustomLoading";
 import { authInstance } from "@/shared/api/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 export function CarSell() {
   const [findCar, setFindCar] = useState(false);
@@ -31,7 +32,7 @@ export function CarSell() {
     retry: 1,
     gcTime: 0,
   });
-
+  const navigate = useNavigate();
   const handleFindCarTrue = () => {
     if (!licensePlate || !ownerName) {
       alert("차량 번호판과 소유자 이름을 입력해 주세요.");
@@ -94,6 +95,10 @@ export function CarSell() {
 
   const handleLoginPopupClose = () => {
     setIsLoginPopupOpen(false);
+  };
+
+  const moveToMy = () => {
+    navigate("/my");
   };
 
   return (
@@ -189,9 +194,11 @@ export function CarSell() {
         }
       />
       <DefaultPopup
+        isLoginPopup
         open={isLoginPopupOpen}
         handleClose={handleLoginPopupClose}
         content={"로그인 후 가능합니다."}
+        handleConfirmClick={moveToMy}
       />
     </S.Container>
   );

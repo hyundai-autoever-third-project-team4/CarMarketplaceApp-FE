@@ -4,10 +4,11 @@ import * as S from "./DriveCenterMap.style";
 import { Text } from "@/shared/ui/Text";
 import { DriveCenter } from "@/entities/DriverCenter";
 import { Button } from "@/shared/ui/Button";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useReducer, useState } from "react";
 import { useNavermaps } from "react-naver-maps";
 import { useCurrentDriveCenter } from "../model/useCurrentDriveCenter";
 import { useNavigate } from "react-router-dom";
+import { DefaultPopup } from "@/shared/ui/DefaultPopup";
 
 export function DriveCenterMap() {
   const {
@@ -20,6 +21,7 @@ export function DriveCenterMap() {
   const navermaps = useNavermaps();
   const [map, setMap] = useState<any>(null);
   const [selectedCenter, setSelectedCenter] = useState<number>(deafultId);
+  const [loginPopup, setPopup] = useReducer((p) => !p, false);
   const navigate = useNavigate();
 
   const centerClick = useCallback(
@@ -32,12 +34,20 @@ export function DriveCenterMap() {
   );
 
   const moveToReservation = () => {
-    navigate("/reservation", {
-      state: {
-        id: selectedCenter,
-        type: "driveCenterMap",
-      },
-    });
+    if (localStorage.getItem("access_token")) {
+      navigate("/reservation", {
+        state: {
+          id: selectedCenter,
+          type: "driveCenterMap",
+        },
+      });
+    } else {
+      setPopup();
+    }
+  };
+
+  const moveToMy = () => {
+    navigate("/my");
   };
 
   const selectedCenterName = useMemo(() => {
@@ -89,6 +99,13 @@ export function DriveCenterMap() {
         }}
       >
         <Button size="full" text="시승 예약" buttonClick={moveToReservation} />
+        <DefaultPopup
+          open={loginPopup}
+          isLoginPopup
+          handleClose={setPopup}
+          content={"로그인 후 가능합니다."}
+          handleConfirmClick={moveToMy}
+        />
       </div>
     </>
   );
