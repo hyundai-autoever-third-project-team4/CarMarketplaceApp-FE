@@ -34,11 +34,17 @@ export function Reservation() {
   } = useReservation();
   const navigate = useNavigate();
   const [open, setOpen] = useReducer((p) => !p, false);
+
+  const formatDateToKST = (date: Date): string => {
+    const offsetDate = new Date(date.getTime() + 9 * 60 * 60 * 1000); // UTC+9 시간 추가
+    return offsetDate.toISOString().split("T")[0];
+  };
+
   const onSubmit = (data: ReservationFormValue) => {
     if (data.date && data.selectedCar) {
       const requestBody = {
         marketplaceCarId: data.selectedCar!.id,
-        reservationDate: data.date.toISOString().split("T")[0],
+        reservationDate: formatDateToKST(data.date),
         reservationTime: `${data.time}:00`,
       };
 
@@ -266,7 +272,7 @@ export function Reservation() {
           )}
         </S.Container>
         <DefaultPopup
-          content="결제되었습니다."
+          content="예약되었습니다."
           open={open}
           handleConfirmClick={moveToMain}
           handleClose={setOpen}

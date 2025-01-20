@@ -30,6 +30,7 @@ export const useCurrentDriveCenter = () => {
   );
   const [currentLat, setCurrentLat] = useState<number>(0);
   const [currentLong, setCurrentLong] = useState<number>(0);
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const latitude = position.coords.latitude;
@@ -41,16 +42,8 @@ export const useCurrentDriveCenter = () => {
     });
   }, []);
 
-  const {
-    id: deafultId,
-    latitude: defaultLatitude,
-    longitude: defaultLongtitude,
-  } = nearestCenter;
-
   return {
-    deafultId,
-    defaultLatitude,
-    defaultLongtitude,
+    nearestCenter,
     currentLat,
     currentLong,
   };

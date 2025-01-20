@@ -4,25 +4,32 @@ import * as S from "./DriveCenterMap.style";
 import { Text } from "@/shared/ui/Text";
 import { DriveCenter } from "@/entities/DriverCenter";
 import { Button } from "@/shared/ui/Button";
-import { useCallback, useMemo, useReducer, useState } from "react";
+import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import { useNavermaps } from "react-naver-maps";
 import { useCurrentDriveCenter } from "../model/useCurrentDriveCenter";
 import { useNavigate } from "react-router-dom";
 import { DefaultPopup } from "@/shared/ui/DefaultPopup";
 
 export function DriveCenterMap() {
-  const {
-    deafultId,
-    defaultLatitude,
-    defaultLongtitude,
-    currentLat,
-    currentLong,
-  } = useCurrentDriveCenter();
+  const { nearestCenter, currentLat, currentLong } = useCurrentDriveCenter();
   const navermaps = useNavermaps();
   const [map, setMap] = useState<any>(null);
-  const [selectedCenter, setSelectedCenter] = useState<number>(deafultId);
+  const [selectedCenter, setSelectedCenter] = useState<number>(
+    nearestCenter.id
+  );
   const [loginPopup, setPopup] = useReducer((p) => !p, false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (map && nearestCenter) {
+      const center = new navermaps.LatLng(
+        nearestCenter.latitude,
+        nearestCenter.longitude
+      );
+      map.setCenter(center);
+      setSelectedCenter(nearestCenter.id);
+    }
+  }, [map, nearestCenter.id, navermaps]);
 
   const centerClick = useCallback(
     (id: number, lat: number, long: number) => {
@@ -53,7 +60,7 @@ export function DriveCenterMap() {
   const selectedCenterName = useMemo(() => {
     return DRIVE_CENTERS.filter((center) => center.id === selectedCenter)[0]
       .name;
-  }, [selectedCenter]);
+  }, [selectedCenter, nearestCenter.id]);
 
   return (
     <>
@@ -64,8 +71,8 @@ export function DriveCenterMap() {
           selectedCenterName={selectedCenterName}
           setMap={setMap}
           navermaps={navermaps}
-          defaultLatitude={defaultLatitude}
-          defaultLongtitude={defaultLongtitude}
+          defaultLatitude={nearestCenter.latitude}
+          defaultLongtitude={nearestCenter.longitude}
           currentLat={currentLat}
           currentLong={currentLong}
           setSelectedCenter={setSelectedCenter}
