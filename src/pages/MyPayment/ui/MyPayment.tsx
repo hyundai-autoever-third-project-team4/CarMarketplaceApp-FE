@@ -3,30 +3,31 @@ import * as S from "./MyPayment.style";
 import NoCarIcon from "@/shared/assets/no_car.svg";
 import { MyPaymentCarCard } from "@/widgets/MyPaymentCarCard";
 import { StatusType } from "@/widgets/MyPaymentCarCard/model/type";
-import {
-  BuyCarListResponse,
-  handleBuyCarList,
-} from "@/pages/MyPayment/api/api";
-import { useQuery } from "@tanstack/react-query";
-import { CustomLoading } from "@/shared/ui/CustomLoading";
+// import {
+//   BuyCarListResponse,
+//   handleBuyCarList,
+// } from "@/pages/MyPayment/api/api";
+// import { useQuery } from "@tanstack/react-query";
+// import { CustomLoading } from "@/shared/ui/CustomLoading";
+import { mockPayCarData } from "@/widgets/MyPaymentCarCard/api/MockData";
 
 export function MyPayment() {
-  const {
-    data: myCarBuy,
-    isFetching,
-    isError,
-  } = useQuery<BuyCarListResponse>({
-    queryKey: ["myCarBuy"],
-    queryFn: () => handleBuyCarList(),
-  });
+  // const {
+  //   data: myCarBuy,
+  //   isFetching,
+  //   isError,
+  // } = useQuery<BuyCarListResponse>({
+  //   queryKey: ["myCarBuy"],
+  //   queryFn: () => handleBuyCarList(),
+  // });
 
-  if (isFetching) {
-    return <CustomLoading text={"로딩 중 입니다..."} />; // 로딩 상태 처리
-  }
+  // if (isFetching) {
+  //   return <CustomLoading text={"로딩 중 입니다..."} />; // 로딩 상태 처리
+  // }
 
-  if (isError) {
-    return <div>Error loading My Payment.</div>; // 에러 상태 처리
-  }
+  // if (isError) {
+  //   return <div>Error loading My Payment.</div>; // 에러 상태 처리
+  // }
 
   return (
     <>
@@ -34,19 +35,19 @@ export function MyPayment() {
         <S.Title>
           <Text fontType="title">내가 구매한 차량</Text>
         </S.Title>
-        {myCarBuy && myCarBuy.userPurchaseCarList.length != 0 ? (
-          myCarBuy.userPurchaseCarList.map((car, index) => (
+        {mockPayCarData && mockPayCarData.length != 0 ? (
+          mockPayCarData.map((car, index) => (
             <div key={index}>
               <MyPaymentCarCard
                 id={String(index)}
-                name={car.carName}
+                name={car.name}
                 registrationDate={car.registrationDate}
                 mileage={car.mileage}
                 licensePlate={car.licensePlate}
                 price={car.price!}
                 mainImage={car.mainImage!}
                 isReviewed={car.isReviewed}
-                state={car.status as StatusType}
+                state={car.state as StatusType}
               />
               {car.isReviewed ? <S.MarginBottom /> : <S.ReviewMarginBottom />}
             </div>

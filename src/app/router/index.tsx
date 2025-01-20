@@ -14,9 +14,7 @@ import { MyPayment } from "@/pages/MyPayment";
 import { MyReservation } from "@/pages/MyReservation";
 import { MyReview } from "@/pages/MyReview";
 import { MySell } from "@/pages/MySell";
-import { Payment } from "@/pages/Payment";
 import { Reservation } from "@/pages/Reservation";
-import { ReviewWrite } from "@/pages/ReviewWrite";
 import { Search } from "@/pages/Search";
 import { Chatting } from "@/pages/Chatting";
 import { SignUp } from "@/pages/SignUp";
@@ -45,10 +43,6 @@ const router = createBrowserRouter([
       {
         path: "/carDetail/:carId",
         element: <CarDetail />,
-      },
-      {
-        path: "/payment",
-        element: <Payment />,
       },
       {
         path: "/carSell",
@@ -93,10 +87,6 @@ const router = createBrowserRouter([
       {
         path: "/search",
         element: <Search />,
-      },
-      {
-        path: "/reviewWrite",
-        element: <ReviewWrite />,
       },
       {
         path: "/tosspayment",
