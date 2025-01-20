@@ -44,7 +44,7 @@ export function SignUp() {
       localStorage.setItem("access_token", data.access_token);
       localStorage.setItem("refresh_token", data.refresh_token);
       localStorage.setItem("userId", data.userId);
-      console.log(data.name && data.phone && data.address);
+      console.log("set된 access토큰 : ", localStorage.getItem("access_token"));
       if (data.name && data.phone && data.address) {
         navigate("/");
       } else {
