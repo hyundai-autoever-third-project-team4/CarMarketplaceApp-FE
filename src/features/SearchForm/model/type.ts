@@ -19,6 +19,7 @@ export type Color = (typeof COLORS)[number];
 export type CarOption = (typeof CAR_OPTIONS)[number];
 
 export interface SearchFormValue {
+  param: string;
   carType: CarType[];
   model: Model[];
   prices: Price[];

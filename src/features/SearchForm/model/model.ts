@@ -78,6 +78,7 @@ export const CAR_OPTIONS = [
 ] as const;
 
 export const DEFAULT_VALUE: SearchFormValue = {
+  param: "",
   carType: [],
   model: [],
   prices: [],

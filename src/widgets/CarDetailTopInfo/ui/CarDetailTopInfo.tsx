@@ -9,6 +9,7 @@ export interface CarTopInfoProps {
   mileage: number;
   price: number;
   testDriveCenterName: string;
+  moveToReservation: () => void;
 }
 
 export function CarDetailTopInfo({
@@ -17,6 +18,7 @@ export function CarDetailTopInfo({
   mileage,
   price,
   testDriveCenterName,
+  moveToReservation,
 }: CarTopInfoProps) {
   const formatRegistrationDate = (dateString: string) => {
     const [year, month] = dateString.split("-");
@@ -46,7 +48,11 @@ export function CarDetailTopInfo({
           <S.ReservationImg src={ReservationImg} />
           <Text fontType="sub2">{testDriveCenterName}</Text>
         </S.ReservationLeftWrap>
-        <Button text="시승 예약하기" size="small" />
+        <Button
+          text="시승 예약하기"
+          size="small"
+          buttonClick={moveToReservation}
+        />
       </S.ReservationArea>
       <S.PriceArea>
         <Text fontType="subTitle">{price / 10000}만원</Text>

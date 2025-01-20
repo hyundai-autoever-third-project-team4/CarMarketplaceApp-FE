@@ -17,7 +17,9 @@ export function DefaultPopup({
           <Text fontType="sub1">{content}</Text>
         </S.ContentArea>
         {!isLoginPopup ? (
-          <S.ButtonArea onClick={handleClose}>
+          <S.ButtonArea
+            onClick={handleConfirmClick ? handleConfirmClick : handleClose}
+          >
             <Text fontType="sub1">확인</Text>
           </S.ButtonArea>
         ) : (

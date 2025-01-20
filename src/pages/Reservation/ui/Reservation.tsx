@@ -9,8 +9,10 @@ import { DriveCenterCars } from "@/widgets/DriveCenterCars";
 import { CarCard } from "@/entities/Car";
 import { CustomLoading } from "@/shared/ui/CustomLoading";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-import { useCallback } from "react";
+import { useCallback, useReducer } from "react";
 import { writeReservaiton } from "@/features/reservationApplication/api/api";
+import { useNavigate } from "react-router-dom";
+import { DefaultPopup } from "@/shared/ui/DefaultPopup";
 
 export function Reservation() {
   const {
@@ -28,8 +30,10 @@ export function Reservation() {
     carReservationList,
     reservationLoading,
     reservationError,
+    isDetail,
   } = useReservation();
-
+  const navigate = useNavigate();
+  const [open, setOpen] = useReducer((p) => !p, false);
   const onSubmit = (data: ReservationFormValue) => {
     if (data.date && data.selectedCar) {
       const requestBody = {
@@ -38,9 +42,13 @@ export function Reservation() {
         reservationTime: `${data.time}:00`,
       };
 
-      console.log(requestBody);
-      writeReservaiton(requestBody);
+      writeReservaiton(requestBody).then(() => {
+        setOpen();
+      });
     }
+  };
+  const moveToMain = () => {
+    navigate("/");
   };
 
   // 특정 날짜 비활성화
@@ -97,6 +105,7 @@ export function Reservation() {
                 onChange={(e) => {
                   setValue("driveCenter", Number(e.target.value));
                 }}
+                disabled={isDetail}
                 value={driveCenter}
               >
                 {DRIVE_CENTERS.map((center) => {
@@ -133,6 +142,8 @@ export function Reservation() {
                 onChange={(e) => {
                   setValue("carType", e.target.value);
                 }}
+                disabled={isDetail}
+                value={carType}
               >
                 <option value="전체">전체</option>
                 {MODELS.map((model) => {
@@ -254,6 +265,12 @@ export function Reservation() {
             </S.FormContainer>
           )}
         </S.Container>
+        <DefaultPopup
+          content="결제되었습니다."
+          open={open}
+          handleConfirmClick={moveToMain}
+          handleClose={setOpen}
+        />
 
         <div
           style={{

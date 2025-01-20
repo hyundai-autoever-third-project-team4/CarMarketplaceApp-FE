@@ -16,6 +16,7 @@ import { CustomLoading } from "@/shared/ui/CustomLoading";
 import { authInstance } from "@/shared/api/axiosInstance";
 import { DefaultPopup } from "@/shared/ui/DefaultPopup";
 import { useState } from "react";
+import { DRIVE_CENTERS } from "@/entities/DriverCenter";
 
 export function CarDetail() {
   const { carId } = useParams();
@@ -32,6 +33,30 @@ export function CarDetail() {
     queryFn: () => handleCarDetailInfo(carId!, setIsLiked),
     staleTime: 0,
   });
+
+  const moveToReservation = () => {
+    if (!isFetching && !isError && carDetailInfo) {
+      const selectedCar = {
+        id: carDetailInfo.id,
+        name: carDetailInfo.carDetails.name,
+        mainImage: carDetailInfo.mainImage,
+        mileage: carDetailInfo.carDetails.mileage,
+        price: carDetailInfo.price,
+        registrationDate: carDetailInfo.carDetails.registrationDate,
+        licensePlate: carDetailInfo.carDetails.licensePlate,
+      };
+      navigate("/reservation", {
+        state: {
+          type: "carDetail",
+          id: DRIVE_CENTERS.filter(
+            (center) => center.name === carDetailInfo.testDriveCenterName
+          )[0].id,
+          selectedCar: selectedCar,
+          model: carDetailInfo.carDetails.model,
+        },
+      });
+    }
+  };
 
   const handlePopupClose = () => {
     setIsPopupOpen(false);
@@ -74,6 +99,7 @@ export function CarDetail() {
               mileage={carDetailInfo.carDetails.mileage}
               testDriveCenterName={carDetailInfo.testDriveCenterName}
               price={carDetailInfo.price}
+              moveToReservation={moveToReservation}
             />
             <CarDetailCircleInfo
               fuelType={carDetailInfo.carDetails.fuelType}

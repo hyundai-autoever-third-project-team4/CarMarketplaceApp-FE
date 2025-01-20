@@ -1,6 +1,6 @@
 import { getDriveCenterCars } from "@/entities/DriverCenter/api/api";
 import { DefaultError, useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 import { CarCardProps } from "@/entities/Car";
@@ -36,6 +36,7 @@ export const useReservation = () => {
   const selectedCar = useWatch({ control, name: "selectedCar" });
   const selcetedDate = useWatch({ control, name: "date" });
   const selcetedTime = useWatch({ control, name: "time" });
+  const [isDetail, setIsDeatil] = useState(false);
 
   const { state } = useLocation();
 
@@ -60,10 +61,18 @@ export const useReservation = () => {
     if (state?.type === "driveCenterMap" && state?.id) {
       setValue("driveCenter", state.id);
     }
+    if (state?.type === "carDetail" && state?.id) {
+      setValue("driveCenter", state.id);
+      setValue("carType", state.model);
+      setValue("selectedCar", state.selectedCar);
+      setIsDeatil(true);
+    }
   }, [state]);
 
   useEffect(() => {
-    setValue("selectedCar", null);
+    if (state.type !== "carDetail") {
+      setValue("selectedCar", null);
+    }
     setValue("date", null);
     setValue("time", null);
   }, [carType, driveCenter]);
@@ -83,5 +92,6 @@ export const useReservation = () => {
     carReservationList,
     reservationLoading,
     reservationError,
+    isDetail,
   };
 };
