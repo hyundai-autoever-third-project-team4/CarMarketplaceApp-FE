@@ -55,7 +55,7 @@ export function MyPayment() {
           myCarBuy.userPurchaseCarList.map((car, index) => (
             <div key={index}>
               <MyPaymentCarCard
-                id={String(index)}
+                id={car.id}
                 name={car.carName}
                 registrationDate={car.registrationDate}
                 mileage={car.mileage}

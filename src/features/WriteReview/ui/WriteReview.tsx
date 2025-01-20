@@ -4,9 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/shared/ui/Button";
 import PlusIcon from "@/shared/assets/Plus.svg";
 import { Text } from "@/shared/ui/Text";
+import { writeReview } from "../api/api";
 // import theme from "@/shared/styles/theme";
 
 interface WriteReviewProps {
+  carId: string;
   handleSubmit: () => void;
 }
 
@@ -19,8 +21,7 @@ declare global {
   }
 }
 
-export function WriteReview({ handleSubmit }: WriteReviewProps) {
-  console.log(typeof handleSubmit);
+export function WriteReview({ carId, handleSubmit }: WriteReviewProps) {
   const [starRate, setStarRate] = useState(5);
   const [review, setReview] = useState("");
   const [images, setImages] = useState<string[]>([]);
@@ -105,17 +106,38 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
     setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const handleSubmitAction = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log({
-      starRate,
-      review,
-      images,
+  const handleSubmitAction = () => {
+    const form = new FormData();
+
+    form.append("carId", carId);
+    form.append("starRate", starRate.toString());
+    form.append("content", review);
+
+    images.forEach((image, index) => {
+      const file = base64ToFile(image, `image_${index + 1}.jpg`);
+      console.log(file);
+      form.append("files", file);
     });
 
-    setImages([]); // 이미지 초기화
-    setReview(""); // 리뷰 초기화
-    handleSubmit();
+    writeReview(form)
+      .then(() => {
+        setImages([]); // 이미지 초기화
+        setReview(""); // 리뷰 초기화
+        handleSubmit();
+      })
+      .catch(() => console.log("에러임."));
+  };
+
+  const base64ToFile = (base64: string, fileName: string): File => {
+    const arr = base64.split(",");
+    const mime = arr[0].match(/:(.*?);/)?.[1] || "image/jpeg";
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], fileName, { type: mime });
   };
 
   const renderImageGrid = () => {
@@ -159,21 +181,24 @@ export function WriteReview({ handleSubmit }: WriteReviewProps) {
 
   return (
     <S.Container>
-      <form onSubmit={handleSubmitAction}>
-        <RatingChart rate={starRate} setRating={handleStarRate} />
-        <S.TextWrap>
-          <Text fontType="sub2">사진은 최대 5장까지 가능합니다.</Text>
-        </S.TextWrap>
-        <S.ImageUploadGrid>{renderImageGrid()}</S.ImageUploadGrid>
-        <S.TextArea
-          value={review}
-          onChange={(e) => setReview(e.target.value)}
-          placeholder="차량 리뷰를 남겨주세요 :)"
+      <RatingChart rate={starRate} setRating={handleStarRate} />
+      <S.TextWrap>
+        <Text fontType="sub2">사진은 최대 5장까지 가능합니다.</Text>
+      </S.TextWrap>
+      <S.ImageUploadGrid>{renderImageGrid()}</S.ImageUploadGrid>
+      <S.TextArea
+        value={review}
+        onChange={(e) => setReview(e.target.value)}
+        placeholder="차량 리뷰를 남겨주세요 :)"
+      />
+      <S.ButtonArea>
+        <Button
+          buttonClick={handleSubmitAction}
+          size="full"
+          text="리뷰 작성완료"
+          disable={images.length === 0 || review === ""}
         />
-        <S.ButtonArea>
-          <Button buttonClick={handleSubmit} size="full" text="리뷰 작성완료" />
-        </S.ButtonArea>
-      </form>
+      </S.ButtonArea>
     </S.Container>
   );
 }
