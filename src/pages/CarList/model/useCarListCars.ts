@@ -1,12 +1,14 @@
 import { getCarListCars } from "@/entities/Car/CarListCard";
 import { useSearchFormStore } from "@/features/SearchForm";
 import { MODELS } from "@/features/SearchForm/model/model";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 const CAR_LIST_QUERY_KEY = "carListCars";
 
 export const useCarListCars = (sortOrder: string) => {
   const { searchForm, param } = useSearchFormStore();
+  const queryClient = useQueryClient();
 
   const params: any = {
     carTypes: searchForm?.carType.join(","),
@@ -42,6 +44,23 @@ export const useCarListCars = (sortOrder: string) => {
       },
       initialPageParam: 0,
     });
+
+  const prefetchNextPage = () => {
+    const nextPage = data?.pages.length || 0;
+    if (hasNextPage) {
+      const updatedParams = { ...params, page: nextPage };
+      queryClient.prefetchQuery({
+        queryKey: [CAR_LIST_QUERY_KEY, searchForm, sortOrder, nextPage],
+        queryFn: () => getCarListCars(updatedParams),
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (data) {
+      prefetchNextPage();
+    }
+  }, [data]);
 
   return {
     carList: data?.pages.flat() || [],
