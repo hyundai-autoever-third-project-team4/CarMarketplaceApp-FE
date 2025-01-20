@@ -89,7 +89,7 @@ export function MySell() {
           <S.Title>
             <Text fontType="title">내가 판매한 차량</Text>
           </S.Title>
-          {myCarSell.userSellCarList ? (
+          {myCarSell.userSellCarList && myCarSell.userSellCarList.length > 0 ? (
             myCarSell.userSellCarList.map((car) => (
               <div key={car.id}>
                 {car.status === "PENDING_SALE" ||
