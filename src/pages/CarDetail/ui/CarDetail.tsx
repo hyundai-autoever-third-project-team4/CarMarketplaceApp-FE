@@ -86,6 +86,10 @@ export function CarDetail() {
     }
   };
 
+  const moveToMy = () => {
+    navigate("/my");
+  };
+
   return (
     <>
       {isFetching || isError || !carDetailInfo ? (
@@ -152,7 +156,7 @@ export function CarDetail() {
               <S.ButtonArea>
                 <Button
                   buttonClick={handlePayClick}
-                  disable={carDetailInfo.status !== "AVAILABLE_FOR_PURCHASE"}
+                  // disable={carDetailInfo.status !== "AVAILABLE_FOR_PURCHASE"}
                   text="구매하기"
                   size="full"
                 />
@@ -161,8 +165,10 @@ export function CarDetail() {
           </S.Container>
           <DefaultPopup
             open={isPopupOpen}
+            isLoginPopup
             handleClose={handlePopupClose}
             content={"로그인 후 가능합니다."}
+            handleConfirmClick={moveToMy}
           />
         </>
       )}

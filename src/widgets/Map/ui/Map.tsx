@@ -35,7 +35,7 @@ export function Map({
       <MapDiv
         style={{
           width: "100%",
-          height: "300px",
+          height: "250px",
           border: `1px solid ${theme.colors.primary4}`,
         }}
       >

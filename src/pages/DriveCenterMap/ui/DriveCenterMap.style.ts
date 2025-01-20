@@ -13,6 +13,6 @@ export const MapContainer = styled.div`
 export const DriveCentersContainer = styled.div`
   width: 100%;
   padding: 0 16px;
-  margin-top: 410px;
+  margin-top: 360px;
   margin-bottom: 48px;
 `;
