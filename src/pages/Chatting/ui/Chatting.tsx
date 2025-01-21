@@ -2,39 +2,30 @@ import { useEffect, useRef, useState } from "react";
 import * as S from "./Chatting.style";
 import sendSvg from "@shared/assets/send.svg";
 import admin from "@shared/assets/isAdmin.svg";
+import { useChatting } from "../model/useChatting";
+import { Text } from "@/shared/ui/Text";
+import { CustomLoading } from "@/shared/ui/CustomLoading";
 
 // WebSocket 서버 URL
 const SOCKET_URL = "https://chajava.store/api/ws/chat";
-const ADMIN_ID = 7;
+const ADMIN_ID = 1;
 
-interface Message {
-  senderId: number;
-  content: string;
-  receiverId: number;
-}
+const formatTime = (utcTime: Date) => {
+  const date = new Date(utcTime);
+  const koreanDate = new Date(date.getTime() + 9 * 60 * 60 * 1000);
+  const hours = koreanDate.getHours().toString().padStart(2, "0");
+  const minutes = koreanDate.getMinutes().toString().padStart(2, "0");
+
+  return `${hours}:${minutes}`;
+};
 
 export function Chatting() {
-  const userId = localStorage.getItem("userId");
   const [client, setClient] = useState<any>(null);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      senderId: ADMIN_ID,
-      content: "무엇을 도와드릴까요?",
-      receiverId: Number(userId),
-    },
-    {
-      senderId: ADMIN_ID,
-      content: "무엇을 도와드릴까요?",
-      receiverId: Number(userId),
-    },
-    {
-      senderId: ADMIN_ID,
-      content: "무엇을 도와드릴까요?",
-      receiverId: Number(userId),
-    },
-  ]);
+  const { histories, userId, messages, isLoading, isError, setMessages } =
+    useChatting();
   const [inputValue, setInputValue] = useState("");
   const chatBoxRef = useRef<HTMLDivElement>(null);
+  const readHereRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // WebSocket 연결 설정
@@ -44,6 +35,9 @@ export function Chatting() {
     stompClient.connect({}, () => {
       stompClient.subscribe(`/queue/user-${userId}`, (message: any) => {
         const parsedMessage = JSON.parse(message.body);
+        parsedMessage["createdAt"] = new Date(
+          new Date().getTime() - 9 * 60 * 60 * 1000
+        );
         setMessages((prev) => [...prev, parsedMessage]);
       }),
         (error: any) => {
@@ -70,12 +64,19 @@ export function Chatting() {
     }
   }, [messages]);
 
+  useEffect(() => {
+    if (readHereRef.current) {
+      readHereRef.current.scrollIntoView();
+    }
+  }, [histories]);
+
   const sendMessage = () => {
     if (inputValue !== "") {
       const message = {
         senderId: Number(userId),
         content: inputValue,
         receiverId: ADMIN_ID,
+        createdAt: new Date(new Date().getTime() - 9 * 60 * 60 * 1000),
       };
 
       client.send("/app/chat.send", {}, JSON.stringify(message));
@@ -88,28 +89,69 @@ export function Chatting() {
   return (
     <S.Container>
       <S.ChatBox ref={chatBoxRef}>
+        {isError || !histories ? (
+          <Text fontType="sub1">과거 이력을 불러오는 데 실패했습니다.</Text>
+        ) : isLoading ? (
+          <>
+            <CustomLoading text="과거 이력을 불러오는 중입니다." />
+          </>
+        ) : (
+          histories.chatHistoryDtos.map((msg, index) => {
+            const isAdmin = msg.senderId === ADMIN_ID;
+            return (
+              <S.MessageContainer $isAdmin={isAdmin} key={index}>
+                {isAdmin ? (
+                  <>
+                    <img
+                      src={admin}
+                      width={32}
+                      height={32}
+                      style={{ alignSelf: "flex-start" }}
+                    />
+                    <S.Message $isAdmin={isAdmin}>{msg.content}</S.Message>
+                    <Text fontColor="gray" fontType="sub2">
+                      {formatTime(msg.createdAt)}
+                    </Text>
+                  </>
+                ) : (
+                  <>
+                    <Text fontColor="gray" fontType="sub2">
+                      {formatTime(msg.createdAt)}
+                    </Text>
+                    <S.Message $isAdmin={isAdmin}>{msg.content}</S.Message>
+                  </>
+                )}
+              </S.MessageContainer>
+            );
+          })
+        )}
+        <S.ReadHere ref={readHereRef}>여기까지 읽으셨습니다.</S.ReadHere>
         {messages.map((msg, index) => {
           const isAdmin = msg.senderId === ADMIN_ID;
           return (
-            <>
+            <S.MessageContainer $isAdmin={isAdmin} key={index}>
               {isAdmin ? (
-                <div
-                  key={index}
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "flex-start",
-                  }}
-                >
-                  <img src={admin} width={32} height={32} />
+                <>
+                  <img
+                    src={admin}
+                    width={32}
+                    height={32}
+                    style={{ alignSelf: "flex-start" }}
+                  />
                   <S.Message $isAdmin={isAdmin}>{msg.content}</S.Message>
-                </div>
+                  <Text fontColor="gray" fontType="sub2">
+                    {formatTime(msg.createdAt)}
+                  </Text>
+                </>
               ) : (
-                <S.Message $isAdmin={isAdmin} key={index}>
-                  {msg.content}
-                </S.Message>
+                <>
+                  <Text fontColor="gray" fontType="sub2">
+                    {formatTime(msg.createdAt)}
+                  </Text>
+                  <S.Message $isAdmin={isAdmin}>{msg.content}</S.Message>
+                </>
               )}
-            </>
+            </S.MessageContainer>
           );
         })}
       </S.ChatBox>
