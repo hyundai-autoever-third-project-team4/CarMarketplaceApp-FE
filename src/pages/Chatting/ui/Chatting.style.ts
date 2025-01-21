@@ -22,10 +22,16 @@ export const ChatBox = styled.div`
   gap: 8px;
 `;
 
-export const Message = styled.div<{ $isAdmin: boolean }>`
-  margin-bottom: 4px;
-  align-self: ${({ $isAdmin }) => ($isAdmin ? "flex-start" : "flex-end")};
+export const MessageContainer = styled.div<{ $isAdmin: boolean }>`
+  display: flex;
+  flex-direction: row;
+  justify-content: ${({ $isAdmin }) =>
+    $isAdmin ? "flex-start" : "flex-end"}; /* 메시지를 좌우 정렬 */
+  gap: 8px;
+  align-items: center;
+`;
 
+export const Message = styled.div<{ $isAdmin: boolean }>`
   padding: 0.5rem 1rem;
   background-color: ${({ $isAdmin }) =>
     $isAdmin ? theme.colors.lightGray : theme.colors.primary4};
@@ -35,9 +41,10 @@ export const Message = styled.div<{ $isAdmin: boolean }>`
   color: ${({ $isAdmin }) =>
     $isAdmin ? `${theme.colors.black}` : theme.colors.white};
   max-width: 50%;
-
+  text-align: ${({ $isAdmin }) => ($isAdmin ? "left" : "right")};
   position: relative;
 `;
+
 export const InputContainer = styled.div`
   display: flex;
   padding: 1rem;
@@ -63,4 +70,15 @@ export const SendButton = styled.button<{ $isDisable?: boolean }>`
   font-size: 1rem;
   opacity: ${({ $isDisable }) => ($isDisable ? `0.3` : "1")};
   cursor: pointer;
+`;
+
+export const ReadHere = styled.div`
+  margin: 0 auto;
+  width: 80%;
+  border-radius: 20px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  background-color: ${theme.colors.gray};
+  color: ${theme.colors.white};
 `;
