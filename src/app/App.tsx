@@ -21,13 +21,11 @@ function App() {
 
   useEffect(() => {
     const userId: string | null = localStorage.getItem("userId");
-
+    console.log(localStorage.getItem("userId"));
     if (userId !== null && window.Android2) {
       window.Android2.getToken(Number(userId));
     }
   }, [loginCheck]);
-
-  console.log(localStorage.getItem("userId"));
 
   return (
     <>
