@@ -5,7 +5,7 @@ import * as S from "./App.style";
 import { BottomNavigation } from "@/widgets/BottomNavigation";
 import { useScrollToTop } from "@/shared/hooks/useScrollTop";
 import { useEffect } from "react";
-import useLoginCheckStore from "@/shared/store/loginStore";
+// import useLoginCheckStore from "@/shared/store/loginStore";
 
 declare global {
   interface Window {
@@ -17,15 +17,14 @@ declare global {
 
 function App() {
   useScrollToTop();
-  const { loginCheck } = useLoginCheckStore();
 
   useEffect(() => {
     const userId: string | null = localStorage.getItem("userId");
-    console.log(localStorage.getItem("userId"));
+    console.log(userId);
     if (userId !== null && window.Android2) {
       window.Android2.getToken(Number(userId));
     }
-  }, [loginCheck]);
+  }, [localStorage.getItem("userId")]);
 
   return (
     <>
