@@ -72,7 +72,7 @@ export function SignUp() {
           },
         }
       );
-
+      changeLoginCheck();
       // 서버 응답 처리
       console.log("Profile Update Response:", response.data);
       alert("회원가입이 완료되었습니다!");
@@ -107,7 +107,6 @@ export function SignUp() {
 
   useEffect(() => {
     extractAuthorizationCode();
-    changeLoginCheck();
   }, []);
 
   return (
