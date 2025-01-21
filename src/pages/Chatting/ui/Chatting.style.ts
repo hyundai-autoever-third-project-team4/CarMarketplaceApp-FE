@@ -41,7 +41,8 @@ export const Message = styled.div<{ $isAdmin: boolean }>`
   color: ${({ $isAdmin }) =>
     $isAdmin ? `${theme.colors.black}` : theme.colors.white};
   max-width: 50%;
-  text-align: ${({ $isAdmin }) => ($isAdmin ? "left" : "right")};
+  line-height: 18px;
+  /* text-align: ${({ $isAdmin }) => ($isAdmin ? "left" : "right")}; */
   position: relative;
 `;
 
