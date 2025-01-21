@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import * as S from "./Chatting.style";
 import sendSvg from "@shared/assets/send.svg";
 import admin from "@shared/assets/isAdmin.svg";
@@ -26,6 +26,11 @@ export function Chatting() {
   const [inputValue, setInputValue] = useState("");
   const chatBoxRef = useRef<HTMLDivElement>(null);
   const readHereRef = useRef<HTMLDivElement>(null);
+
+  const isFirst = useMemo(() => {
+    if (histories) return histories.chatHistoryDtos.length === 0;
+    else true;
+  }, [histories]);
 
   useEffect(() => {
     // WebSocket 연결 설정
@@ -125,7 +130,9 @@ export function Chatting() {
             );
           })
         )}
-        <S.ReadHere ref={readHereRef}>여기까지 읽으셨습니다.</S.ReadHere>
+        <S.ReadHere ref={readHereRef}>
+          {isFirst ? <>대화를 시작해주세요.</> : <>여기까지 읽으셨습니다.</>}
+        </S.ReadHere>
         {messages.map((msg, index) => {
           const isAdmin = msg.senderId === ADMIN_ID;
           return (
