@@ -25,38 +25,44 @@ export function WriteReview({ carId, handleSubmit }: WriteReviewProps) {
   const [starRate, setStarRate] = useState(5);
   const [review, setReview] = useState("");
   const [images, setImages] = useState<string[]>([]);
-  const [currentImage, setCurrentImage] = useState<string | null>(null);
+  // const [currentImage, setCurrentImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [number, setNumber] = useState<number>(0);
 
   // currentImageRef를 사용하여 현재 이미지 값을 추적
-  const currentImageRef = useRef(currentImage);
-  const imagesRef = useRef(images);
+  // const currentImageRef = useRef(currentImage);
+  // const imagesRef = useRef(images);
 
-  // currentImage가 변경될 때마다 ref 업데이트
-  useEffect(() => {
-    currentImageRef.current = currentImage;
-    console.log(currentImage);
-    if (currentImage) {
-      setImages((prev) => {
-        // 이미지 개수 제한 체크
-        if (prev.length >= 5) {
-          console.log("이미지는 최대 5장까지 업로드 가능합니다.");
-          return prev;
-        }
-        return [...prev, currentImage];
-      });
-    }
-  }, [currentImage]);
+  // // currentImage가 변경될 때마다 ref 업데이트
+  // useEffect(() => {
+  //   currentImageRef.current = currentImage;
+  //   console.log(currentImage);
+  //   if (currentImage) {
+  //     setImages((prev) => {
+  //       // 이미지 개수 제한 체크
+  //       if (prev.length >= 5) {
+  //         console.log("이미지는 최대 5장까지 업로드 가능합니다.");
+  //         return prev;
+  //       }
+  //       return [...prev, currentImage];
+  //     });
+  //   }
+  // }, [currentImage]);
 
-  // images 변경 추적
-  useEffect(() => {
-    imagesRef.current = images;
-    console.log("현재 이미지 배열:", images);
-  }, [images]);
+  // // images 변경 추적
+  // useEffect(() => {
+  //   imagesRef.current = images;
+  //   console.log("현재 이미지 배열:", images);
+  // }, [images]);
 
   const please = (base64Image: string) => {
-    setCurrentImage(base64Image);
+    console.log(base64Image.substring(0, 1));
+    // setCurrentImage(base64Image);
+    setNumber((p) => p + 1);
   };
+  useEffect(() => {
+    console.log(number);
+  }, [number]);
 
   useEffect(() => {
     // 함수를 외부에서 선언하여 참조 안정성 확보
@@ -181,6 +187,8 @@ export function WriteReview({ carId, handleSubmit }: WriteReviewProps) {
 
   return (
     <S.Container>
+      {number}
+      <button onClick={() => setNumber((p) => p + 1)}></button>
       <RatingChart rate={starRate} setRating={handleStarRate} />
       <S.TextWrap>
         <Text fontType="sub2">사진은 최대 5장까지 가능합니다.</Text>
